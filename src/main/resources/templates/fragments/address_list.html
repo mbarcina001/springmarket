@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="address_list_styles">
+	<style>
+		main .choose-address .address{
+			padding: 1em;
+			border: 1px solid #DCDCDC;
+			width: 100%;
+			cursor: pointer;
+		}
+		
+		main .choose-address .address .selected-address{
+			position: absolute;
+			bottom:1em;
+			right:1.5em;
+			cursor: pointer;
+		}
+		
+		main .choose-address .address .selected-address span i{
+			font-size: 36px;
+			opacity: 0.25;
+			color: #0d8c53;
+		}
+		
+		main .choose-address .address.selected{
+			border:1px solid black;
+		}
+		
+		main .choose-address .address.selected .selected-address span i{
+			opacity: 0.85;
+		}
+	</style>
+</head>
+<body th:fragment="address_list">
+	<div class="choose-address mb-5">
+		<h4>Choose the destination address</h4>
+		<div class="row">
+			<div class="col-12 col-sm-6" th:each="tempAddress: ${user.addressList}">
+				<div th:id="${tempAddress.id}" class="address hvr-grow">
+					<p class="mb-0" th:text="${tempAddress.name}"></p>
+					<p class="mb-0" th:text="${tempAddress.phone}"></p>
+					<p class="mb-0" th:text="${tempAddress.address}"></p>
+					<p class="mb-0" th:text="${tempAddress.city} + ', ' + ${tempAddress.province}"></p>
+					<p class="mb-0" th:text="${tempAddress.zipcode}"></p>
+					<p class="mb-0" th:text="${tempAddress.country}"></p>
+					
+					<div class="selected-address">
+						<span><i class="far fa-check-circle"></i></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="text-right mt-4">
+			<button class="btn" onclick="window.location.href = 'saveAddress'">Add Destination Address</button>
+		</div>
+	</div>
+</body>
+</html>

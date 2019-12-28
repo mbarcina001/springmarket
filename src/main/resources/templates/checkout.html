@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<th:block th:include="fragments/head :: head"></th:block>
+		<th:block th:include="fragments/header :: header_styles"></th:block>
+		<th:block th:include="fragments/footer :: footer_styles"></th:block>
+		<th:block th:include="fragments/checkout_product_rows :: checkout_product_rows_styles"></th:block>
+		<th:block th:include="fragments/address_list :: address_list_styles"></th:block>
+		<th:block th:include="fragments/credit_card_list :: credit_card_list_styles"></th:block>
+	</head>
+	
+	<body>
+		<th:block th:include="fragments/header :: header"></th:block>
+	
+		<main class="wrap">
+		
+			<th:block th:include="fragments/checkout_product_rows :: checkout_product_rows"></th:block>
+			<th:block th:include="fragments/address_list :: address_list"></th:block>
+			<th:block th:include="fragments/credit_card_list :: credit_card_list"></th:block>
+			<th:block th:include="fragments/delivery_method_list :: delivery_method_list"></th:block>	
+			
+			<form id="confirmDeliveryForm" action="#" th:action="@{confirmDelivery}" method="POST">
+				<input id="selectedAddressId" th:name="selectedAddressId" type="hidden" />
+				<input id="selectedCreditCardId" th:name="selectedCreditCardId" type="hidden" />
+				<input id="selectedDeliveryMethodId" th:name="selectedDeliveryMethodId" type="hidden" />
+			</form>		
+		
+			<div class="text-right mt-4">
+				<button id="confirmBtn" class="btn" >Confirm</button>
+			</div>
+		</main>
+	
+		<th:block th:include="fragments/footer :: footer"></th:block>
+		<th:block th:include="fragments/scripts :: scripts"></th:block>
+	
+		<script>
+			$(document).ready(function () {
+				$(".address").click(function(){
+					$(".address.selected").removeClass("selected");
+					$(this).addClass("selected");
+					$("#selectedAddressId").val($(this).attr("id"));
+				});
+			
+				$(".account").click(function(){
+					$(".account.selected").removeClass("selected");
+					$(this).addClass("selected");
+					$("#selectedCreditCardId").val($(this).attr("id"));
+				});
+				
+				$(".deliveryMethod").click(function(){
+					$("#selectedDeliveryMethodId").val($(this).attr("id"));					
+				});
+				
+				$("#confirmBtn").click(function(){
+					if($("#selectedAddressId").val() != "" && $("#selectedCreditCardId").val() != "" && $("#selectedDeliveryMethodId").val() != ""){
+						$("#confirmDeliveryForm").submit();
+					}else{
+						// TODO: Add error toast
+						console.log("ERROR");
+					}
+				});
+			});
+		</script>
+	</body>
+</html>

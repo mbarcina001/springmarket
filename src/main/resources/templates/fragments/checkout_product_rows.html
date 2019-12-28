@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="checkout_product_rows_styles">
+	<style>
+		main #product-list-rows .product-list .product{
+			margin: 0;
+			padding-top: 0.5em;
+		    padding-bottom: 0.5em;
+		    border: 1px solid #DCDCDC;
+		}
+		
+		main #product-list-rows .product-list .product:not(:first-child){
+			border-top: 0;
+		}
+		
+		
+		main #product-list-rows .product-list .product .product-image{
+			width: 9em;
+			text-align: center;
+		}
+		
+		main #product-list-rows .product-list .product .product-image img{
+			max-height: 7.5em;
+		}
+		
+		main #product-list-rows .product-list .product .product-details{
+			max-width: calc(100% - 10em);
+		}
+		
+		main #product-list-rows .product-list .product .product-details .product-name{
+			font-size: 16px;
+		}
+	</style>
+</head>
+<body th:fragment="checkout_product_rows">
+	<div id="product-list-rows">
+		<div class="product-list">
+			<div class="product row" th:each="tempProduct: ${products}">
+				<div class="product-image">
+				 	<img th:src="@{${'../images/products/' + tempProduct.product.imageName}}" />
+				</div>
+				
+				<div class="product-details">
+					<p class="product-name mb-2" th:text="${#strings.abbreviate(tempProduct.product.name,50)}"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

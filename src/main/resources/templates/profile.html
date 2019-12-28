@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<th:block th:include="fragments/head :: head"></th:block>
+		<th:block th:include="fragments/header :: header_styles"></th:block>
+		<th:block th:include="fragments/footer :: footer_styles"></th:block>
+		<th:block th:include="fragments/address_list :: address_list_styles"></th:block>
+		<th:block th:include="fragments/credit_card_list :: credit_card_list_styles"></th:block>
+		
+		<style>			
+			main .btn{
+				width:14em;
+				border: 1px solid black;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<th:block th:include="fragments/header :: header"></th:block>
+	
+		<main class="wrap">
+			<th:block th:include="fragments/edit_profile :: edit_profile"></th:block>
+			<th:block th:include="fragments/address_list :: address_list"></th:block>
+			<th:block th:include="fragments/credit_card_list :: credit_card_list"></th:block>
+			
+			<div class="text-right mt-4">
+				<button class="btn">Proceed</button>
+			</div>
+		</main>
+	
+		<th:block th:include="fragments/footer :: footer"></th:block>
+		<th:block th:include="fragments/scripts :: scripts"></th:block>
+	
+		<script>
+		$(document).ready(function () {
+			$(".address").click(function(){
+				$(".address.selected").removeClass("selected");
+				$(this).addClass("selected");
+			});
+		
+			$(".account").click(function(){
+				$(".account.selected").removeClass("selected");
+				$(this).addClass("selected");
+			});
+		});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="credit_card_list_styles">
+	<style>		
+		main .choose-billing-account .account-list .account .selected-account{
+			position: absolute;
+			bottom:1em;
+			right:1.5em;
+			cursor: pointer;
+		}
+		
+		main .choose-billing-account .account-list .account .selected-account span i{
+			font-size: 36px;
+			opacity: 0.25;
+			color: #0d8c53;
+		}
+		
+		main .choose-billing-account .account-list .account.selected{
+			border:1px solid black;
+		}
+		
+		main .choose-billing-account .account-list .account.selected .selected-account span i{
+			opacity: 0.85;
+		}
+		
+		main .choose-billing-account .account-list .account{
+			border: 1px solid #DCDCDC;
+			padding:1em;
+			position: relative;
+			margin: 0px;
+			margin-bottom:1em;
+			width:100%;
+		}
+	</style>
+</head>
+<body th:fragment="credit_card_list">
+	<div class="choose-billing-account mb-5">
+		<h4>Choose your billing account</h4>
+		<div class="account-list">
+			<div th:id="${tempCreditCard.id}" class="account hvr-grow" th:each="tempCreditCard: ${user.cardList}">
+				<p class="mb-0" th:text="${tempCreditCard.holder}">Card Name</p>
+				<p class="mb-0" th:text="${tempCreditCard.number}">Card Number</p>
+				<p class="mb-0" th:text="${#numbers.formatDecimal(tempCreditCard.expirationDateMonth,2,0)} + ' / ' + ${tempCreditCard.expirationDateYear}"></p>
+				<p class="mb-0" th:text="${tempCreditCard.cvc}">CVC</p>
+				
+				<div class="selected-account">
+					<span><i class="far fa-check-circle"></i></span>
+				</div>
+			</div>
+		</div>
+		
+		<div class="text-right mt-4">
+			<button class="btn" onclick="window.location.href = 'saveCreditCard'">Add Billing Account</button>
+		</div>
+	</div>
+</body>
+</html>

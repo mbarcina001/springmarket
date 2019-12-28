@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<th:block th:include="fragments/head :: head"></th:block>
+		<th:block th:include="fragments/header :: header_styles"></th:block>
+		<th:block th:include="fragments/footer :: footer_styles"></th:block>
+		<th:block th:include="fragments/product_rows :: product_rows_styles"></th:block>
+	</head>
+	<body>
+	
+		<th:block th:include="fragments/header :: header"></th:block>
+		
+		<main class="wrap">
+			
+			<th:block th:include="fragments/product_rows :: product_rows"></th:block>
+		
+			<div class="page-buttons text-right">
+				<a class="btn" href="/checkout">Proceed to checkout</a>
+			</div>
+			
+		</main>
+		
+		<th:block th:include="fragments/footer :: footer"></th:block>
+		<th:block th:include="fragments/scripts :: scripts"></th:block>
+	</body>
+</html>

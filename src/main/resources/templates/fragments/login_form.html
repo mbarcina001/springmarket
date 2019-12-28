@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+<body th:fragment="login_form">
+	<div id="login-form">
+		<form action="#" th:action="@{/login}" th:object="${user}" method="POST">
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text"><i class="far fa-envelope"></i></span>
+				</div>
+				<input type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="email" th:field="*{email}">
+			</div>
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text"><i class="fas fa-key"></i></span>
+				</div>
+				<input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password" th:field="*{password}">
+			</div>
+			
+			<button type="submit" class="btn btn-primary">Login</button>
+		</form>
+		
+		<div align="center" th:if="${param.error}">
+			<p style="font-size: 20; color: #FF1C19;">Email or Password invalid, please verify</p>
+		</div>
+			
+		<div id="register-link">
+			<p class="mb-0">Don't have an account?</p>
+			<a href="#" onclick="showRegisterForm()">Register</a>
+		</div>
+	</div>
+</body>
+</html>

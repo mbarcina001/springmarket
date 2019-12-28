@@ -1,0 +1,19 @@
+.wrap{
+	max-width: 1280px;
+	margin-left: auto !important;
+	margin-right: auto !important;
+	padding-left:1em;
+	padding-right:1em;
+}
+
+.wrap.wrap-small{
+	max-width: 900px;
+}
+
+.hidden{
+	display: none !important;
+}
+
+main{
+	min-height: calc(100vh - 17em);
+}

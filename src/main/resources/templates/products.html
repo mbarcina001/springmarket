@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<th:block th:include="fragments/head :: head"></th:block>
+		<th:block th:include="fragments/header :: header_styles"></th:block>
+		<th:block th:include="fragments/footer :: footer_styles"></th:block>
+		<th:block th:include="fragments/product_cols :: product_cols_styles"></th:block>
+		<th:block th:include="fragments/product_rows :: product_rows_styles"></th:block>
+	</head>
+	<body>
+	
+		<th:block th:include="fragments/header :: header"></th:block>
+		
+		<main class="wrap">
+		
+			<form id="productsInCartForm" action="#" th:action="@{/user/checkout}" method="POST">
+				<input id="deliveryId" th:name="deliveryId" type="hidden" />
+			</form>
+			
+			<th:block th:include="fragments/product_cols :: product_cols"></th:block>
+			<th:block th:include="fragments/product_rows :: product_rows"></th:block>
+		
+			<div class="page-buttons text-right">
+				<button class="btn" onClick="checkout()">Proceed to checkout</button>
+			</div>
+			
+		</main>
+		
+		<th:block th:include="fragments/footer :: footer"></th:block>
+		<th:block th:include="fragments/scripts :: scripts"></th:block>
+	
+		<script>
+			var productsInCart;
+			
+			class CartProduct {
+			  constructor(id, price, quantity) {
+			    this.id = id;
+			    this.price = price;
+			    this.quantity = quantity;
+			  }
+			}
+			
+			$(document).ready(function () {
+				displayProductsSizeAccordingly();
+				productsInCart = [];
+			});
+			
+			$( window ).resize(function() {
+				displayProductsSizeAccordingly();
+			});
+			
+			function displayProductsSizeAccordingly(){
+				console.log($( window ).width());
+				
+				if($( window ).width()>600){
+					if($("#product-list-cols").hasClass("hidden")){
+						$("#product-list-cols").removeClass("hidden");
+					}
+					
+					if(!$("#product-list-rows").hasClass("hidden")){
+						$("#product-list-rows").addClass("hidden");
+					}
+				}else{
+					if(!$("#product-list-cols").hasClass("hidden")){
+						$("#product-list-cols").addClass("hidden");
+					}
+					
+					if($("#product-list-rows").hasClass("hidden")){
+						$("#product-list-rows").removeClass("hidden");
+					}
+				}
+			}
+			
+			function addToCart(element, id, price){
+				$(element).addClass("hidden");
+				$(element).parent().children(".quantity").removeClass("hidden");
+				$(element).parent().children(".quantity").children("input").val(1);
+				modifyProductList(1, id, price);
+			}
+			
+			function removeElement(element, id, price){
+				var new_quantity = parseInt($(element).parent().parent().children("input").val(), 10) - 1
+				$(element).parent().parent().children("input").val(new_quantity);
+				
+				if(new_quantity==0){
+					if($(element).parent().parent().parent().children(".add-to-cart").hasClass("hidden")){
+						$(element).parent().parent().parent().children(".add-to-cart").removeClass("hidden");
+					}
+					
+					if(!$(element).parent().parent().parent().children(".quantity").hasClass("hidden")){
+						$(element).parent().parent().parent().children(".quantity").addClass("hidden");
+					}
+				}
+				
+				modifyProductList(new_quantity, id, price);
+			}
+			
+			function addElement(element, id, price){
+				var new_quantity = parseInt($(element).parent().parent().children("input").val(), 10) + 1
+				$(element).parent().parent().children("input").val(new_quantity);
+				
+				modifyProductList(new_quantity, id, price)
+			}
+			
+			function onInputChange(element, id, price){
+				var new_quantity = parseInt($(element).val(), 10);
+
+				if(new_quantity==0){
+					if($(element).parent().parent().children(".add-to-cart").hasClass("hidden")){
+						$(element).parent().parent().children(".add-to-cart").removeClass("hidden");
+					}
+					
+					if(!$(element).parent().parent().children(".quantity").hasClass("hidden")){
+						$(element).parent().parent().children(".quantity").addClass("hidden");
+					}
+				}
+				
+				modifyProductList(new_quantity, id, price)
+			}
+			
+			function modifyProductList(quantity, id, price){				
+				console.log(quantity);
+				console.log(id);
+				console.log(price);
+				
+				var found = false;
+				
+				for(var i=0; i<productsInCart.length; i++){
+					if(productsInCart[i].id === id){
+						found = true
+						
+						if(quantity>0){
+							productsInCart[i].quantity = quantity; 
+							productsInCart[i].price = price;
+						}else{
+							productsInCart.splice(i, 1)
+							break;
+						}
+					}
+				}
+				
+				if(!found){
+					productsInCart.push(new CartProduct(id, price, quantity));
+				}
+			}
+			
+			function checkout(){				
+				$.ajax({ 
+					url: '/user/createDelivery',    
+				    type:"POST", 
+				    contentType: "application/json; charset=utf-8",
+				    data: JSON.stringify(productsInCart), //Stringified Json Object
+				    async: false,    //Cross-domain requests and dataType: "jsonp" requests do not support synchronous operation
+				    cache: false,    //This will force requested pages not to be cached by the browser          
+				    processData:false, //To avoid making query String instead of JSON
+				    success: function(){
+				        window.location.href = "/user/checkout";
+			    	}
+				});
+			}
+		</script>
+	</body>
+</html>

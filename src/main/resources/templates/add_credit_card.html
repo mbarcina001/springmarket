@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<th:block th:include="fragments/head :: head"></th:block>
+		<th:block th:include="fragments/header :: header_styles"></th:block>
+		<th:block th:include="fragments/footer :: footer_styles"></th:block>
+	</head>
+	<body>
+		<th:block th:include="fragments/header :: header"></th:block>
+		
+		<main class="wrap wrap-small">
+			<h1>Add new Account</h1>
+			
+			<form id="add_credit_card_form" action="#" th:action="@{/saveCreditCard}" th:object="${creditCard}" method="post">
+				<div class="row">
+					<div class="form-group col-12 col-sm-6">
+						<label for="holder">Cardholder's Name</label>
+						<input type="text" class="form-control" id="holder" placeholder="Enter holder name" th:field="*{holder}">
+					</div>
+					
+					<div class="form-group col-12 col-sm-6">
+						<label for="number">Card Number</label>
+						<input type="text" class="form-control" id="number" placeholder="Enter number" th:field="*{number}">
+					</div>
+					
+					<div class="form-group col-12 col-sm-6">
+						<label>Expiration Date</label>
+						<div class="d-flex">
+						<input type="text" class="form-control small-input" placeholder="mm" th:field="*{expirationDateMonth}" />
+						<span class="p-2"> / </span>
+						<input type="text" class="form-control small-input" placeholder="yyyy" th:field="*{expirationDateYear}" />
+						</div>
+					</div>
+					
+					<div class="form-group col-12 col-sm-6">
+						<label for="name">CVC</label>
+						<input type="text" class="form-control" id="cvc" placeholder="Enter cvc" th:field="*{cvc}">
+					</div>
+				</div>
+			</form>
+				
+			<div class="text-right">
+				<button class="btn btn-secondary" onclick="window.location.href = '/user/'">Go back</button>
+				<button type="submit" class="btn btn-primary" onclick="document.querySelector('add_credit_card_form').submit()">Add Credit Card</button>
+			</div>
+		</main>
+				
+		<th:block th:include="fragments/footer :: footer"></th:block>
+		<th:block th:include="fragments/scripts :: scripts"></th:block>
+	</body>
+</html>

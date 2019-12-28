@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header_styles">
+	<style>
+		header{
+			display: flex !important;
+			align-items: flex-end;
+			justify-content: space-between;
+			margin-left:auto;
+			margin-right:auto;	
+			margin-bottom:0.5em;
+			height: 6em;
+		}
+		
+		header #logo{
+			cursor: pointer;
+		}
+		
+		header #logo img{
+			width: 5.5em;
+		}
+		
+		header #search-bar{
+			margin-left:2em;
+			margin-right:2em;
+			flex-grow:2;
+		}
+		
+		header #search-bar .input-group{
+			max-width:100%;	
+		}
+		
+		header #icons{
+			display:flex;
+			margin-bottom: 1em;
+		}
+		
+		header #icons .icon{
+			display:flex;
+			padding:0.5em;
+			border-radius:10px;
+			align-items:center;
+			cursor: pointer;
+			color: #295495;
+		}
+		
+		header #icons .icon:not(:last-child){
+			margin-right:2em;	
+		}
+		
+		header #icons .icon i{
+			margin-right:0.25em;	
+		}
+		
+		header #icons #search-icon{
+			display: none;
+		}
+		
+		@media(max-width:670px){
+			header #search-bar{
+				display: none;
+			}
+			
+			header #search-bar-mobile{
+				position: absolute;
+				width: calc(100% - 2em);
+			}
+			
+			header #icons #search-icon{
+				display: block;
+			}
+		}
+		
+		@media(max-width:450px){
+			header #icons .icon:not(:last-child){
+				margin-right:1em;	
+			}
+		}
+		
+		@media(max-width:400px){
+			
+			
+			header #icons .icon:not(:last-child){
+				margin-right:0.5em;	
+			}
+		}
+	</style>
+</head>
+<body th:fragment="header">
+	<header class="wrap">
+		<div id="logo" onclick="window.location.href = '/products/'">
+			<img src="../static/images/store-1919713_640.png" th:src="@{/images/store-1919713_640.png}">
+		</div>
+		
+		<div id="search-bar">
+			<div class="input-group mt-4 mb-3">
+				<input type="text" class="form-control" aria-label="Search" placeholder="Search"/>
+				<div class="input-group-append" onclick="search(this)">
+					<span class="input-group-text">
+					<i class="fas fa-search"></i>
+				</span>
+				</div>
+			</div>
+		</div>
+		
+		<div id="search-bar-mobile" class="hidden">
+			<div class="input-group mt-4 mb-3">
+				<div class="input-group-prepend" onclick="closeMobileSearchBar()">
+				  <span class="input-group-text"><i class="fas fa-chevron-left"></i></span>
+				</div>
+				<input type="text" class="form-control" aria-label="Search" placeholder="Search"/>
+				<div class="input-group-append" onclick="search(this)">
+					<span class="input-group-text">
+					<i class="fas fa-search"></i>
+				</span>
+				</div>
+			</div>
+		</div>
+		
+		<div id="icons">
+			<div id="search-icon" class="icon" onclick="openMobileSearchBar()">
+				<i class="fas fa-search"></i>
+				<span>Search</span>
+			</div>
+			<div id="user-icon" class="icon" onclick="window.location.href = '/user/'">
+				<i class="fas fa-user"></i>
+				<span>Account</span>
+			</div>
+			<div id="cart-icon" class="icon" onclick="window.location.href = '/user/cart'">
+				<i class="fas fa-shopping-cart"></i>
+				<span>Cart</span>
+			</div>
+		</div>
+	</header>
+	
+	<script>
+		function openMobileSearchBar(){
+			if($("#search-bar-mobile").hasClass("hidden")){
+				$("#search-bar-mobile").removeClass("hidden");
+			}
+			
+			if(!$("#logo").hasClass("hidden")){
+				$("#logo").addClass("hidden")
+			}
+		}
+		
+		function closeMobileSearchBar(){
+			if(!$("#search-bar-mobile").hasClass("hidden")){
+				$("#search-bar-mobile").addClass("hidden");
+			}
+			
+			if($("#logo").hasClass("hidden")){
+				$("#logo").removeClass("hidden")
+			}
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+</head>
+<body th:fragment="scripts">
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	
+	<script>
+		function search(element){
+			console.log($(element).parent().children("input").val());
+		}
+	</script>
+</body>
+
+
+</html>

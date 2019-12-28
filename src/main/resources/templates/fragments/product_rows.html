@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="product_rows_styles">
+	<style>
+		main #product-list-rows .product-list .product{
+			margin: 0;
+			padding-top: 0.5em;
+		    padding-bottom: 0.5em;
+		    border: 1px solid #DCDCDC;
+		}
+		
+		main #product-list-rows .product-list .product:not(:first-child){
+			border-top: 0;
+		}
+		
+		
+		main #product-list-rows .product-list .product .product-image{
+			width: 9em;
+			text-align: center;
+		}
+		
+		main #product-list-rows .product-list .product .product-image img{
+			max-height: 7.5em;
+		}
+		
+		main #product-list-rows .product-list .product .product-details{
+			max-width: calc(100% - 10em);
+		}
+		
+		main #product-list-rows .product-list .product .product-details .product-name{
+			font-size: 16px;
+		}
+
+		main #product-list-rows .product-list .product .product-details .product-price{
+			font-size: 20px;
+			font-weight: 700;
+		}
+		
+		main #product-list-rows .product-list .product .product-buy .quantity{
+			display: flex;
+			align-items: center;
+			margin: auto;
+			height: 100%;
+		}
+		
+		main #product-list-rows .product-list .product .product-buy .quantity span{
+			cursor: pointer;
+		}
+		
+		main #product-list-rows .product-list .product .product-buy .quantity span i{
+			font-size: 20px;
+		}
+		
+		main #product-list-rows .product-list .product .product-buy .quantity input{
+		    max-width: 3em;
+			text-align: center;
+			margin-left: 0.5em;
+			margin-right: 0.5em;
+		}
+	</style>
+</head>
+<body th:fragment="product_rows">
+	<div id="product-list-rows">
+		<div class="product-list">
+			<div class="product row" th:each="tempProduct: ${products}">
+				<div class="product-image">
+				 	<img th:src="@{${'../images/products/' + tempProduct.imageName}}" />
+				</div>
+				
+				<div class="product-details">
+					<p class="product-name mb-2" th:text="${#strings.abbreviate(tempProduct.name,50)}"></p>
+					<p class="product-price" th:text="${#numbers.formatDecimal(tempProduct.price, 0, 'COMMA', 2, 'POINT') + '€'}"></p>
+				
+				
+					<div class="product-buy">
+						<div class="add-to-cart" th:onclick="'javascript:addToCart(this, \'' + ${tempProduct.id} +'\', \'' + ${tempProduct.price} +'\');'">
+							<p class="mb-0">Add to cart</p>
+						</div>
+						<div class="quantity hidden">
+							<span><i class="fas fa-minus-circle" th:onclick="'javascript:removeElement(this, \'' + ${tempProduct.id} +'\', \'' + ${tempProduct.price} +'\');'"></i></span>
+							<input type="text" value="1" th:onchange="'javascript:onInputChange(this, \'' + ${tempProduct.id} +'\', \'' + ${tempProduct.price} +'\');'"/>
+							<span><i class="fas fa-plus-circle" th:onclick="'javascript:addElement(this, \'' + ${tempProduct.id} +'\', \'' + ${tempProduct.price} +'\');'"></i></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
