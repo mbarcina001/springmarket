@@ -22,6 +22,9 @@ public class DeliveryMethod {
 	@Column(name="price")
 	private Double price;
 	
+	@Column(name="estimated_days")
+	private int estimatedDays;
+	
 	public DeliveryMethod(){ }
 
 	public int getId() {
@@ -48,9 +51,18 @@ public class DeliveryMethod {
 		this.price = price;
 	}
 
+	public int getEstimatedDays() {
+		return estimatedDays;
+	}
+
+	public void setEstimatedDays(int estimatedDays) {
+		this.estimatedDays = estimatedDays;
+	}
+
 	@Override
 	public String toString() {
-		return "DeliveryMethod [id=" + id + ", name=" + name + ", price=" + price + "]";
+		return "DeliveryMethod [id=" + id + ", name=" + name + ", price=" + price + ", estimatedDays=" + estimatedDays
+				+ "]";
 	}
 
 }

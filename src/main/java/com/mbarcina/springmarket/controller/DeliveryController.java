@@ -70,7 +70,7 @@ public class DeliveryController {
 		
 		Calendar c = Calendar.getInstance();
 		c.setTime(new Date());
-		c.add(Calendar.DATE, 3);
+		c.add(Calendar.DATE, newDelivery.getDeliveryMethod().getEstimatedDays());
 		newDelivery.setEstimatedDeliveryDate(c.getTime());
 		
 		// add new delivery to user
