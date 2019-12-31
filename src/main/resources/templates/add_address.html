@@ -11,7 +11,7 @@
 		<main class="wrap wrap-small">
 			<h1>Add new Address</h1>
 			
-			<form id="add_credit_card_form" action="#" th:action="@{/user/saveAddress}" th:object="${address}" method="post">
+			<form id="add_address_form" action="#" th:action="@{/user/saveAddress}" th:object="${address}" method="post">
 				<div class="row">
 					<div class="form-group col-12 col-sm-6">
 						<label for="name">Name</label>
@@ -52,7 +52,7 @@
 				
 			<div class="text-right">
 				<button class="btn btn-secondary" onclick="window.location.href = '/user/'">Go back</button>
-				<button type="submit" class="btn btn-primary" onclick="document.querySelector('add_credit_card_form').submit()">Add Address</button>
+				<button type="submit" class="btn btn-primary" onclick="document.querySelector('#add_address_form').submit()">Add Address</button>
 			</div>
 			
 		</main>
