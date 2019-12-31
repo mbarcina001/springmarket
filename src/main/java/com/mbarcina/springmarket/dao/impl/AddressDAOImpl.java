@@ -22,6 +22,20 @@ public class AddressDAOImpl implements IAddressDAO {
 	}
 
 	@Transactional
+	public void updateAddress(Address pAddress) {
+		entityManager.createQuery("UPDATE Address SET name=?1, phone=?2, country=?3, city=?4, province=?5, address=?6, zipcode=?7 WHERE address_id = ?8")
+	      .setParameter(1, pAddress.getName())
+	      .setParameter(2, pAddress.getPhone())
+	      .setParameter(3, pAddress.getCountry())
+	      .setParameter(4, pAddress.getCity())
+	      .setParameter(5, pAddress.getProvince())
+	      .setParameter(6, pAddress.getAddress())
+	      .setParameter(7, pAddress.getZipcode())
+	      .setParameter(8, pAddress.getId())
+	      .executeUpdate();
+	}
+
+	@Transactional
 	public void deleteAddress(int pAddressId) {
 		// Create a query
 		entityManager.createQuery("DELETE FROM address where id=" + pAddressId);

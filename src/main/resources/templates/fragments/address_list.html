@@ -34,9 +34,14 @@
 <body th:fragment="address_list">
 	<div class="choose-address mb-5 mt-5">
 		<h4>Choose the destination address</h4>
+		
+		<form id="addressForm" action="#" method="GET">
+			<input type="hidden" id="selectedAddressId" th:name="selectedAddressId"/>
+		</form>
+		
 		<div class="row">
 			<div class="col-12 col-sm-6" th:each="tempAddress: ${user.addressList}">
-				<div th:id="${tempAddress.id}" class="address hvr-grow">
+				<div th:id="${tempAddress.id}" class="address hvr-grow" th:onclick="'javascript:selectAddress(\'' + ${tempAddress.id} +'\');'">
 					<p class="mb-0" th:text="${tempAddress.name}"></p>
 					<p class="mb-0" th:text="${tempAddress.phone}"></p>
 					<p class="mb-0" th:text="${tempAddress.address}"></p>
@@ -53,7 +58,41 @@
 	
 		<div class="text-right mt-4">
 			<button class="btn btn-primary" onclick="window.location.href = 'saveAddress'">Add Destination Address</button>
+			<button th:if="${canEdit}" class="btn btn-primary" onclick="editAddress()">Edit Selected Address</button>
+			<button th:if="${canEdit}" class="btn btn-danger" onclick="deleteAddress()">Delete Selected Address</button>
 		</div>
 	</div>
+	
+	<script>
+	
+		function selectAddress(pId){
+			$("#selectedAddressId").val(pId);
+			console.log($("#selectedAddressId").val());
+		}
+		
+		function editAddress(){
+			console.log("editAddress");
+			if(selectedAddressId==null){
+				// TODO: Add toast
+			}else{
+				var action = /*[[@{/user/editAddress}]]*/ '/user/editAddress';
+				$("#addressForm").attr("action", action);
+				$("#addressForm").submit();
+			}
+		}
+		
+		function deleteAddress(){
+			console.log("deleteAddress");
+			if(selectedAddressId==null){
+				// TODO: Add toast
+			}else{
+				// TODO: Show modal
+
+				var action = /*[[@{/user/deleteAddress}]]*/ '/user/deleteAddress';
+				$("#addressForm").attr("action", action);
+				$("#addressForm").submit();
+			}
+		}
+	</script>
 </body>
 </html>

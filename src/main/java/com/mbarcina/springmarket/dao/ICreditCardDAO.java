@@ -7,5 +7,6 @@ public interface ICreditCardDAO {
 	public void saveCreditCard(CreditCard pCreditCard);
 	public void deleteCreditCard(int pCreditCardId);
 	public CreditCard getCreditCardById(Integer pCreditCardId);
+	public void updateCreditCard(CreditCard pCreditCard);
 
 }

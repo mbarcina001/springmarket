@@ -19,6 +19,11 @@ public class AddressServiceImpl implements IAddressService {
 	}
 
 	@Override
+	public void updateAddress(Address pAddress) {
+		addressDAO.updateAddress(pAddress);
+	}
+
+	@Override
 	public void deleteAddress(int pAddressId) {
 		addressDAO.deleteAddress(pAddressId);
 	}

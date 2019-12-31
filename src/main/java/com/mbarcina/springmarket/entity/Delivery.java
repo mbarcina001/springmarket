@@ -145,7 +145,7 @@ public class Delivery{
 		return "Delivery [id=" + id + ", deliveryOrderDate=" + deliveryOrderDate + ", estimatedDeliveryDate="
 				+ estimatedDeliveryDate + ", productList=" + productList + ", sendAddress=" + sendAddress
 				+ ", billingAccount=" + billingAccount + ", deliveryMethod=" + deliveryMethod + ", deliveryUser="
-				+ deliveryUser + ", productTotalCost=" + productTotalCost + ", deliveryTotalCost=" + deliveryTotalCost
+				+ deliveryUser.getId() + ", productTotalCost=" + productTotalCost + ", deliveryTotalCost=" + deliveryTotalCost
 				+ "]";
 	}
 

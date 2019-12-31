@@ -9,10 +9,12 @@
 		<th:block th:include="fragments/header :: header"></th:block>
 		
 		<main class="wrap wrap-small">
-			<h1>Add new Address</h1>
+			<h1 th:text="${isEditing} ? 'Edit existing Address' : 'Add new Address'"></h1>
 			
-			<form id="add_address_form" action="#" th:action="@{/user/saveAddress}" th:object="${address}" method="post">
+			<form id="add_address_form" action="#" th:action="${isEditing} ? @{/user/editAddress} : @{/user/saveAddress}" th:object="${address}" method="post">
 				<div class="row">
+					<input type="hidden" class="form-control" id="id" th:field="*{id}">
+					
 					<div class="form-group col-12 col-sm-6">
 						<label for="name">Name</label>
 						<input type="text" class="form-control" id="name" placeholder="Enter name" th:field="*{name}">
@@ -52,7 +54,7 @@
 				
 			<div class="text-right">
 				<button class="btn btn-secondary" onclick="window.location.href = '/user/'">Go back</button>
-				<button type="submit" class="btn btn-primary" onclick="document.querySelector('#add_address_form').submit()">Add Address</button>
+				<button type="submit" class="btn btn-primary" onclick="document.querySelector('#add_address_form').submit()" th:text="${isEditing} ? 'Edit Address' : 'Add Address'"></button>
 			</div>
 			
 		</main>

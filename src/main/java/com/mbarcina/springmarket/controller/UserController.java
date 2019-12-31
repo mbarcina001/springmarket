@@ -6,10 +6,10 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mbarcina.springmarket.entity.Address;
@@ -46,6 +46,8 @@ public class UserController {
 		User user = Utils.getUtils().getLoggedUser(userService);
 		modelAndView.addObject("user", user);
 		
+		modelAndView.addObject("canEdit", true);
+		
 		modelAndView.setViewName("profile");
 		
 		return modelAndView;
@@ -72,6 +74,7 @@ public class UserController {
 		Address address = new Address();
 		address.setCountry("ES");
 		modelAndView.addObject("address", address);
+		modelAndView.addObject("isEditing", false);
 		modelAndView.setViewName("add_address");
 		
 		return modelAndView;
@@ -84,6 +87,7 @@ public class UserController {
 		
 		if (bindingResult.hasErrors()) {
 			modelAndView.addObject("address", pAddress);
+			modelAndView.addObject("isEditing", false);
 			modelAndView.setViewName("add_address");
         } else {
         	User user = Utils.getUtils().getLoggedUser(userService);
@@ -97,24 +101,54 @@ public class UserController {
 		return modelAndView;
 	}
 	
+	
 	@RequestMapping(value= {"/editAddress"}, method=RequestMethod.GET)
-	public ModelAndView getAddressEditionForm(Model pModel) {
+	public ModelAndView getAddressEditionForm(
+		@RequestParam(value = "selectedAddressId", required = false) Integer selectedAddressId
+	) {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		Address address = new Address();
-		address.setCountry("ES");
-		modelAndView.addObject("address", address);
-		modelAndView.setViewName("add_address");
+		Address address = addressService.getAddressById(selectedAddressId);
+		User user = Utils.getUtils().getLoggedUser(userService);
+		
+		if(!user.getAddressList().contains(address)) {
+			// Requested address doesn't belong to user
+			// TODO: Show error message
+		}else {
+			modelAndView.addObject("address", address);
+			modelAndView.addObject("isEditing", true);
+			modelAndView.setViewName("add_address");
+		}
+				
+		return modelAndView;
+	}
+	
+	@RequestMapping(value= {"/editAddress"}, method=RequestMethod.POST)
+	public ModelAndView editAddress(@Valid Address pAddress, BindingResult bindingResult) {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		if (bindingResult.hasErrors()) {
+			modelAndView.addObject("address", pAddress);
+			modelAndView.addObject("isEditing", true);
+			modelAndView.setViewName("add_address");
+        } else {
+        	addressService.updateAddress(pAddress);
+    	    
+        	modelAndView = new ModelAndView("redirect:/user/");
+        }
 		
 		return modelAndView;
 	}
 	
-	
 	@RequestMapping(value= {"/deleteAddress"}, method=RequestMethod.POST)
-	public String deleteAddress(Model pModel) {
-		// TODO
-		return "";
+	public ModelAndView deleteAddress(
+		@RequestParam(value = "selectedAddressId", required = false) Integer selectedAddressId
+	) {
+		addressService.deleteAddress(selectedAddressId);
+		ModelAndView modelAndView = new ModelAndView("redirect:/user/");
+		return modelAndView;
 	}
+	
 	
 	@RequestMapping(value= {"/saveCreditCard"}, method=RequestMethod.GET)
 	public ModelAndView getCreditCardForm() {		
@@ -126,8 +160,8 @@ public class UserController {
 		
 		return modelAndView;
 	}
-
 	
+
 	@RequestMapping(value= {"/saveCreditCard"}, method=RequestMethod.POST)
 	public ModelAndView saveCreditCard(@Valid CreditCard pCreditCard, BindingResult bindingResult) {
 		
@@ -148,20 +182,53 @@ public class UserController {
 		return modelAndView;
 	}
 	
+	
 	@RequestMapping(value= {"/editCreditCard"}, method=RequestMethod.GET)
-	public ModelAndView getCreditCardEditionForm(Model pModel) {
+	public ModelAndView getCreditCardEditionForm(
+		@RequestParam(value = "selectedCreditCardId", required = false) Integer selectedCreditCardId
+	) {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		CreditCard creditCard = new CreditCard();
-		modelAndView.addObject("creditCard", creditCard);
-		modelAndView.setViewName("add_credit_card");
+		CreditCard creditCard = creditCardService.getCreditCardById(selectedCreditCardId);
+		User user = Utils.getUtils().getLoggedUser(userService);
+		
+		if(!user.getCardList().contains(creditCard)) {
+			// Requested address doesn't belong to user
+			// TODO: Show error message
+		}else {
+			modelAndView.addObject("creditCard", creditCard);
+			modelAndView.addObject("isEditing", true);
+			modelAndView.setViewName("add_credit_card");
+		}
 		
 		return modelAndView;
 	}
 	
+	@RequestMapping(value= {"/editCreditCard"}, method=RequestMethod.POST)
+	public ModelAndView editCreditCard(@Valid CreditCard pCreditCard, BindingResult bindingResult) {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		if (bindingResult.hasErrors()) {
+			modelAndView.addObject("creditCard", pCreditCard);
+			modelAndView.addObject("isEditing", true);
+			modelAndView.setViewName("add_credit_card");
+        } else {
+    	    creditCardService.updateCreditCard(pCreditCard);
+        	modelAndView = new ModelAndView("redirect:/user/");
+        }
+		
+		return modelAndView;
+	}
+	
+	
 	@RequestMapping(value= {"/deleteCreditCard"}, method=RequestMethod.POST)
-	public String deleteCreditCard(Model pModel) {
-		// TODO
-		return "";
+	public ModelAndView deleteCreditCard(
+		@RequestParam(value = "selectedCreditCardId", required = false) Integer selectedCreditCardId		
+	) {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		creditCardService.deleteCreditCard(selectedCreditCardId);
+		modelAndView = new ModelAndView("redirect:/user/");
+		return modelAndView;
 	}
 }
