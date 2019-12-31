@@ -13,7 +13,7 @@
 		
 		<main class="wrap">
 		
-			<form id="productsInCartForm" action="#" th:action="@{/user/checkout}" method="POST">
+			<form id="productsInCartForm">
 				<input id="deliveryId" th:name="deliveryId" type="hidden" />
 			</form>
 			
@@ -146,7 +146,7 @@
 			
 			function checkout(){				
 				$.ajax({ 
-					url: '/user/createDelivery',    
+					url: '/delivery/createDelivery',    
 				    type:"POST", 
 				    contentType: "application/json; charset=utf-8",
 				    data: JSON.stringify(productsInCart), //Stringified Json Object
@@ -154,7 +154,7 @@
 				    cache: false,    //This will force requested pages not to be cached by the browser          
 				    processData:false, //To avoid making query String instead of JSON
 				    success: function(){
-				        window.location.href = "/user/checkout";
+				        window.location.href = "/delivery/checkout";
 			    	}
 				});
 			}

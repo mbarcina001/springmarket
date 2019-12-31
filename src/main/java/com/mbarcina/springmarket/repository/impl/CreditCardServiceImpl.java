@@ -14,15 +14,10 @@ public class CreditCardServiceImpl implements ICreditCardService {
 	private ICreditCardDAO creditCardDAO;
 
 	@Override
-	public void saveCreditCard(CreditCard pCreditCard, int pCustomerId) {
-		creditCardDAO.saveCreditCard(pCreditCard, pCustomerId);
+	public void saveCreditCard(CreditCard pCreditCard) {
+		creditCardDAO.saveCreditCard(pCreditCard);
 	}
-
-	@Override
-	public void updateCreditCard(CreditCard pCreditCard) {
-		creditCardDAO.updateCreditCard(pCreditCard);
-	}
-
+	
 	@Override
 	public void deleteCreditCard(int pCreditCardId) {
 		creditCardDAO.deleteCreditCard(pCreditCardId);

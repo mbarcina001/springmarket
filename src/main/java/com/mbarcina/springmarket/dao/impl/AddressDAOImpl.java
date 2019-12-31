@@ -17,25 +17,8 @@ public class AddressDAOImpl implements IAddressDAO {
 	private EntityManager entityManager;
 
 	@Transactional
-	public void saveAddress(Address pAddress, int pCustomerId) {
-		// Create a query
-		entityManager.createQuery("INSERT INTO address (name, phone, country, city, province, address, zipcode, customer_id) VALUES (?,?,?,?,?,?,?,?)")
-	      .setParameter(1, pAddress.getName())
-	      .setParameter(2, pAddress.getPhone())
-	      .setParameter(3, pAddress.getCountry())
-	      .setParameter(4, pAddress.getCity())
-	      .setParameter(5, pAddress.getProvince())
-	      .setParameter(6, pAddress.getAddress())
-	      .setParameter(7, pAddress.getZipcode())
-	      .setParameter(8, pCustomerId)
-	      .executeUpdate();
-	}
-
-	@Transactional
-	public void updateAddress(Address pAddress) {
-		// Create a query
-		// TypedQuery<Product> theQuery = entityManager.createQuery("from Product", Product.class);
-
+	public void saveAddress(Address pAddress) {
+		entityManager.persist(pAddress);
 	}
 
 	@Transactional

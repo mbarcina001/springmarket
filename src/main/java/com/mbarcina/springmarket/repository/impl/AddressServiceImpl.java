@@ -14,13 +14,8 @@ public class AddressServiceImpl implements IAddressService {
 	private IAddressDAO addressDAO;
 
 	@Override
-	public void saveAddress(Address pAddress, int pCustomerId) {
-		addressDAO.saveAddress(pAddress, pCustomerId);
-	}
-
-	@Override
-	public void updateAddress(Address pAddress) {
-		addressDAO.updateAddress(pAddress);
+	public void saveAddress(Address pAddress) {
+		addressDAO.saveAddress(pAddress);
 	}
 
 	@Override

@@ -17,21 +17,8 @@ public class CreditCardDAOImpl implements ICreditCardDAO {
 	private EntityManager entityManager;
 
 	@Transactional
-	public void saveCreditCard(CreditCard pCreditCard, int pCustomerId) {
-		entityManager.createQuery("INSERT INTO credit_card (holder, number, expiration_date_month, expiration_date_year, cvc, customer_id) VALUES (?,?,?,?,?,?)")
-	      .setParameter(1, pCreditCard.getHolder())
-	      .setParameter(2, pCreditCard.getNumber())
-	      .setParameter(3, pCreditCard.getExpirationDateMonth())
-	      .setParameter(4, pCreditCard.getExpirationDateYear())
-	      .setParameter(5, pCreditCard.getCvc())
-	      .setParameter(6, pCustomerId);
-
-	}
-
-	@Transactional
-	public void updateCreditCard(CreditCard pCreditCard) {
-		// TODO Auto-generated method stub
-
+	public void saveCreditCard(CreditCard pCreditCard) {
+		entityManager.persist(pCreditCard);
 	}
 
 	@Transactional
