@@ -39,6 +39,7 @@ CREATE TABLE Delivery_Method(
 delivery_method_id int AUTO_INCREMENT,
 name varchar(50),
 price DOUBLE,
+estimated_days int,
 PRIMARY KEY(delivery_method_id)
 );
 
@@ -169,9 +170,9 @@ INSERT INTO Address(name, phone, country, city, province, address, zipcode, user
 INSERT INTO Address(name, phone, country, city, province, address, zipcode, user_id) VALUES('Sarah Silverman', '+1-555-8920-176', 'Spain', 'Villarcayo', 'Burgos', 'Calvo Sotelo 8', '09550', 6);
 INSERT INTO Address(name, phone, country, city, province, address, zipcode, user_id) VALUES('Phoebe Waller-Bridge', '+1-555-8920-176', 'Spain', 'Cádiz', 'Cádiz', 'Guadalquivir 15 1A', '11012', 7);
 
-INSERT INTO Delivery_Method(name, price) VALUES('Normal', 3.00);
-INSERT INTO Delivery_Method(name, price) VALUES('Premium', 4.50);
-INSERT INTO Delivery_Method(name, price) VALUES('Premium Deluxe', 7.50);
+INSERT INTO Delivery_Method(name, price, estimated_days) VALUES('Normal', 3.00, 4);
+INSERT INTO Delivery_Method(name, price, estimated_days) VALUES('Premium', 4.50, 2);
+INSERT INTO Delivery_Method(name, price, estimated_days) VALUES('Premium Deluxe', 7.50, 1);
 
 INSERT INTO Delivery(delivery_order_date, estimated_delivery_date, user_id, delivery_method_id, address_id, credit_card_id, product_total_cost, delivery_total_cost) VALUES('2019-10-10 14:05:43', '2019-11-01', 1, 1, 1, 1, 27.64, 30.64);
 INSERT INTO Delivery(delivery_order_date, estimated_delivery_date, user_id, delivery_method_id, address_id, credit_card_id, product_total_cost, delivery_total_cost) VALUES('2019-09-27 18:01:22', '2019-10-01', 1, 2, 1, 2, 11.28, 15.78);

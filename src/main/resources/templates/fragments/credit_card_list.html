@@ -34,7 +34,7 @@
 	</style>
 </head>
 <body th:fragment="credit_card_list">
-	<div class="choose-billing-account mb-5">
+	<div class="choose-billing-account mb-5 mt-5">
 		<h4>Choose your billing account</h4>
 		<div class="account-list">
 			<div th:id="${tempCreditCard.id}" class="account hvr-grow" th:each="tempCreditCard: ${user.cardList}">
@@ -50,7 +50,7 @@
 		</div>
 		
 		<div class="text-right mt-4">
-			<button class="btn" onclick="window.location.href = 'saveCreditCard'">Add Billing Account</button>
+			<button class="btn btn-primary" onclick="window.location.href = 'saveCreditCard'">Add Billing Account</button>
 		</div>
 	</div>
 </body>
