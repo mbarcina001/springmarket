@@ -92,8 +92,7 @@ public class UserController {
         } else {
         	User user = Utils.getUtils().getLoggedUser(userService);
     	    user.addAddress(pAddress);
-    	    
-    	    addressService.saveAddress(pAddress);
+    	    userService.updateUser(user);
     	    
         	modelAndView = new ModelAndView("redirect:/user/");
         }
@@ -140,13 +139,35 @@ public class UserController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value= {"/deleteAddress"}, method=RequestMethod.POST)
+	@RequestMapping(value= {"/deleteAddress"}, method=RequestMethod.GET)
 	public ModelAndView deleteAddress(
 		@RequestParam(value = "selectedAddressId", required = false) Integer selectedAddressId
 	) {
-		addressService.deleteAddress(selectedAddressId);
-		ModelAndView modelAndView = new ModelAndView("redirect:/user/");
+		ModelAndView modelAndView = new ModelAndView();
+		
+		Address address = addressService.getAddressById(selectedAddressId);
+		User user = Utils.getUtils().getLoggedUser(userService);
+		int index = user.getAddressList().indexOf(address);
+		
+		if(index == -1) {
+			// Requested address doesn't belong to user
+			// TODO: Show error message
+		}else {
+			user.getAddressList().remove(index);
+			userService.updateUser(user);
+
+    	    try {
+    	    	addressService.deleteAddress(selectedAddressId);
+    	    }catch(Exception e) {
+    	    	// Might get an exception if a delivery has been sent to this address
+    	    	e.printStackTrace();
+    	    }
+    	    
+			modelAndView = new ModelAndView("redirect:/user/");
+		}
+		
 		return modelAndView;
+		
 	}
 	
 	
@@ -173,8 +194,7 @@ public class UserController {
         } else {
         	User user = Utils.getUtils().getLoggedUser(userService);
     	    user.addCreditCard(pCreditCard);
-    	    
-    	    creditCardService.saveCreditCard(pCreditCard);
+    	    userService.updateUser(user);
     	    
         	modelAndView = new ModelAndView("redirect:/user/");
         }
@@ -213,7 +233,8 @@ public class UserController {
 			modelAndView.addObject("isEditing", true);
 			modelAndView.setViewName("add_credit_card");
         } else {
-    	    creditCardService.updateCreditCard(pCreditCard);
+        	creditCardService.updateCreditCard(pCreditCard);
+        	
         	modelAndView = new ModelAndView("redirect:/user/");
         }
 		
@@ -221,14 +242,33 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping(value= {"/deleteCreditCard"}, method=RequestMethod.POST)
+	@RequestMapping(value= {"/deleteCreditCard"}, method=RequestMethod.GET)
 	public ModelAndView deleteCreditCard(
 		@RequestParam(value = "selectedCreditCardId", required = false) Integer selectedCreditCardId		
-	) {
+	) {		
 		ModelAndView modelAndView = new ModelAndView();
 		
-		creditCardService.deleteCreditCard(selectedCreditCardId);
-		modelAndView = new ModelAndView("redirect:/user/");
+		CreditCard creditCard = creditCardService.getCreditCardById(selectedCreditCardId);
+		User user = Utils.getUtils().getLoggedUser(userService);
+		int index = user.getCardList().indexOf(creditCard);
+		
+		if(index == -1) {
+			// Requested address doesn't belong to user
+			// TODO: Show error message
+		}else {
+			user.getCardList().remove(index);
+			user.deleteCreditCard(creditCard);
+    	    userService.updateUser(user);
+    	    try {
+    	    	creditCardService.deleteCreditCard(selectedCreditCardId);	
+    	    }catch(Exception e) {
+    	    	// Might get an exception if a delivery has been paid using this credit card
+    	    	e.printStackTrace();
+    	    }
+    	    
+			modelAndView = new ModelAndView("redirect:/user/");
+		}
+		
 		return modelAndView;
 	}
 }

@@ -6,6 +6,6 @@ public interface IUserService {
 	
 	public User findUserById(int pId);
 	public User findUserByEmail(String pEmail);
-	public void saveUser(User pUser);
-
+	public void createUser(User pUser);
+	public void updateUser(User pUser);
 }

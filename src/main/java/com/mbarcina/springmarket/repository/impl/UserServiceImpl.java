@@ -35,10 +35,14 @@ public class UserServiceImpl implements IUserService {
 		return userDAO.findUserByEmail(pEmail);
 	}
 	
-	public void saveUser(User pUser) {
+	public void createUser(User pUser) {
 		pUser.setPassword(bCryptPasswordEncoder.encode(pUser.getPassword()));
         Role userRole = roleService.findByRole("CUSTOMER");
         pUser.setRoles(new ArrayList<Role>(Arrays.asList(userRole)));
+		userDAO.saveUser(pUser);
+	}
+	
+	public void updateUser(User pUser) {
 		userDAO.saveUser(pUser);
 	}
 

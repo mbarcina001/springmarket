@@ -50,8 +50,10 @@ public class User{
 	@JoinColumn(name="user_id")
 	private List<CreditCard> cardList;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@ManyToMany()
+    @JoinTable(name = "user_role", 
+    			joinColumns = @JoinColumn(name = "user_id"), 
+    			inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
 
 	public User(){  }
@@ -137,9 +139,15 @@ public class User{
 	}
 	
 	public void addDelivery(Delivery pDelivery) {
-		System.out.println("addDelivery");
-		System.out.println(pDelivery);
 		this.deliveryList.add(pDelivery);
+	}
+	
+	public void deleteAddress(Address pAddress) {
+		this.addressList.remove(pAddress);
+	}
+	
+	public void deleteCreditCard(CreditCard pCreditCard) {
+		this.cardList.remove(pCreditCard);
 	}
 
 	@Override

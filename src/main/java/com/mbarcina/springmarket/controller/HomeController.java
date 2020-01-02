@@ -38,7 +38,7 @@ public class HomeController {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("home");
         } else {
-            userService.saveUser(user);
+            userService.createUser(user);
             modelAndView.addObject("successMessage", "User has been registered successfully");
             modelAndView.addObject("user", new User());
             modelAndView.setViewName("registration_ok");

@@ -37,8 +37,7 @@ public class AddressDAOImpl implements IAddressDAO {
 
 	@Transactional
 	public void deleteAddress(int pAddressId) {
-		// Create a query
-		entityManager.createQuery("DELETE FROM address where id=" + pAddressId);
+		entityManager.createQuery("DELETE FROM Address where id=" + pAddressId).executeUpdate();
 	}
 
 	@Override

@@ -35,7 +35,7 @@ public class CreditCardDAOImpl implements ICreditCardDAO {
 
 	@Transactional
 	public void deleteCreditCard(int pCreditCardId) {
-		entityManager.createQuery("DELETE FROM credit_card where id=" + pCreditCardId);
+		entityManager.createQuery("DELETE FROM CreditCard where id=" + pCreditCardId).executeUpdate();
 	}
 	
 	@Override
