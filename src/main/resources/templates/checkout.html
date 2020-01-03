@@ -26,12 +26,18 @@
 			</form>		
 		
 			<div class="text-right mt-4">
+				<button id="backBtn" class="btn btn-secondary" onclick="window.location.href = '/products/'">Go back</button>
 				<button id="confirmBtn" class="btn btn-success" >Confirm</button>
 			</div>
 		</main>
 	
 		<th:block th:include="fragments/footer :: footer"></th:block>
 		<th:block th:include="fragments/scripts :: scripts"></th:block>
+		
+		<script 
+			src="../static/js/products.js"
+			th:src="@{/js/products.js}">
+		</script>
 	
 		<script>
 			$(document).ready(function () {

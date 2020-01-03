@@ -126,33 +126,11 @@
 				<i class="fas fa-user"></i>
 				<span>Account</span>
 			</div>
-			<div id="cart-icon" class="icon" onclick="window.location.href = '/user/cart'">
+			<div id="cart-icon" class="icon" onclick="viewCart()">
 				<i class="fas fa-shopping-cart"></i>
 				<span>Cart</span>
 			</div>
 		</div>
 	</header>
-	
-	<script>
-		function openMobileSearchBar(){
-			if($("#search-bar-mobile").hasClass("hidden")){
-				$("#search-bar-mobile").removeClass("hidden");
-			}
-			
-			if(!$("#logo").hasClass("hidden")){
-				$("#logo").addClass("hidden")
-			}
-		}
-		
-		function closeMobileSearchBar(){
-			if(!$("#search-bar-mobile").hasClass("hidden")){
-				$("#search-bar-mobile").addClass("hidden");
-			}
-			
-			if($("#logo").hasClass("hidden")){
-				$("#logo").removeClass("hidden")
-			}
-		}
-	</script>
 </body>
 </html>

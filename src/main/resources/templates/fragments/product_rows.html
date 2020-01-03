@@ -62,7 +62,7 @@
 <body th:fragment="product_rows">
 	<div id="product-list-rows">
 		<div class="product-list">
-			<div class="product row" th:each="tempProduct: ${products}">
+			<div th:id="'product' + ${tempProduct.id}" class="product row" th:each="tempProduct: ${products}">
 				<div class="product-image">
 				 	<img th:src="@{${'../images/products/' + tempProduct.imageName}}" />
 				</div>

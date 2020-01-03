@@ -1,7 +1,6 @@
 package com.mbarcina.springmarket.controller;
 
-import java.util.List;
-
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mbarcina.springmarket.entity.Address;
 import com.mbarcina.springmarket.entity.CreditCard;
-import com.mbarcina.springmarket.entity.Product;
+import com.mbarcina.springmarket.entity.Delivery;
 import com.mbarcina.springmarket.entity.User;
 import com.mbarcina.springmarket.repository.IAddressService;
 import com.mbarcina.springmarket.repository.ICreditCardService;
-import com.mbarcina.springmarket.repository.IProductService;
 import com.mbarcina.springmarket.repository.IUserService;
 import com.mbarcina.springmarket.utils.Utils;
 
@@ -28,9 +26,6 @@ public class UserController {
 	
 	@Autowired
 	private IUserService userService;
-	
-	@Autowired
-	private IProductService productService; 
 	
 	@Autowired
 	private IAddressService addressService; 
@@ -46,7 +41,7 @@ public class UserController {
 		User user = Utils.getUtils().getLoggedUser(userService);
 		modelAndView.addObject("user", user);
 		
-		modelAndView.addObject("canEdit", true);
+		modelAndView.addObject("canEditUserDetails", true);
 		
 		modelAndView.setViewName("profile");
 		
@@ -55,14 +50,13 @@ public class UserController {
 	}
 	
 	@RequestMapping(value= {"/cart"}, method=RequestMethod.GET)
-	public ModelAndView showCart() {
+	public ModelAndView showCart(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		// get products from the service
-		List<Product> theProducts = productService.getProductList();
-		modelAndView.addObject("products", theProducts);
-		
-		modelAndView.setViewName("products");
+		Delivery newDelivery = (Delivery) session.getAttribute("delivery");
+		modelAndView.addObject("products", newDelivery.getProductList());
+		modelAndView.addObject("canEditCart", true);
+		modelAndView.setViewName("cart");
 		
 		return modelAndView;
 	}

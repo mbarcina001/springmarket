@@ -6,13 +6,8 @@
 </head>
 <body th:fragment="scripts">
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	
-	<script>
-		function search(element){
-			console.log($(element).parent().children("input").val());
-		}
-	</script>
+	<script 
+		src="../static/js/global.js"
+		th:src="@{/js/global.js}"></script>
 </body>
-
-
 </html>

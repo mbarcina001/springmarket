@@ -96,8 +96,9 @@ public class DeliveryController {
 		
 		List<DeliveryMethod> deliveryMethodList = deliveryMethodService.getDeliveryMethodList();
 		modelAndView.addObject("deliveryMethodList", deliveryMethodList);
-		
-		modelAndView.addObject("canEdit", false);
+
+		modelAndView.addObject("canEditUserDetails", false);
+		modelAndView.addObject("canEditCart", false);
 		
 		modelAndView.setViewName("checkout");
 		

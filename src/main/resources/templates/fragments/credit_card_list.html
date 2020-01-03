@@ -58,8 +58,8 @@
 		
 		<div class="text-right mt-4">
 			<button class="btn btn-primary" onclick="window.location.href = 'saveCreditCard'">Add Billing Account</button>
-			<button th:if="${canEdit}" class="btn btn-primary" onclick="editCreditCard()">Edit Selected Account</button>
-			<button th:if="${canEdit}" class="btn btn-danger" onclick="deleteCreditCard()">Delete Selected Account</button>
+			<button th:if="${canEditUserDetails}" class="btn btn-primary" onclick="editCreditCard()">Edit Selected Account</button>
+			<button th:if="${canEditUserDetails}" class="btn btn-danger" onclick="deleteCreditCard()">Delete Selected Account</button>
 		</div>
 	</div>
 	

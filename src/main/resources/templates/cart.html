@@ -4,23 +4,34 @@
 		<th:block th:include="fragments/head :: head"></th:block>
 		<th:block th:include="fragments/header :: header_styles"></th:block>
 		<th:block th:include="fragments/footer :: footer_styles"></th:block>
-		<th:block th:include="fragments/product_rows :: product_rows_styles"></th:block>
+		<th:block th:include="fragments/checkout_product_rows :: checkout_product_rows_styles"></th:block>
 	</head>
-	<body>
 	
+	<body>
 		<th:block th:include="fragments/header :: header"></th:block>
-		
+	
 		<main class="wrap">
-			
-			<th:block th:include="fragments/product_rows :: product_rows"></th:block>
 		
-			<div class="page-buttons text-right">
-				<a class="btn" href="/checkout">Proceed to checkout</a>
+			<th:block th:include="fragments/checkout_product_rows :: checkout_product_rows"></th:block>	
+		
+			<div class="text-right mt-4">
+				<button id="backBtn" class="btn btn-secondary" onclick="window.location.href = '/products/'">Go back</button>
+				<button id="confirmBtn" class="btn btn-success" onclick="saveCartProducts('/delivery/checkout')">Proceed to Checkout</button>
 			</div>
-			
 		</main>
-		
+	
 		<th:block th:include="fragments/footer :: footer"></th:block>
 		<th:block th:include="fragments/scripts :: scripts"></th:block>
+		
+		<script 
+			src="../static/js/products.js"
+			th:src="@{/js/products.js}">
+		</script>
+		
+		<script>
+		$(document).ready(function () {
+			loadProductsFromCart();
+		});
+		</script>
 	</body>
 </html>
