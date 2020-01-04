@@ -21,7 +21,7 @@
 			<th:block th:include="fragments/product_rows :: product_rows"></th:block>
 		
 			<div class="page-buttons text-right">
-				<button class="btn btn-success" onclick="checkout()">Proceed to checkout</button>
+				<button class="btn btn-success" onclick="createDelivery('/delivery/checkout')">Proceed to checkout</button>
 			</div>
 			
 		</main>
@@ -44,9 +44,7 @@
 				displayProductsSizeAccordingly();
 			});
 			
-			function displayProductsSizeAccordingly(){
-				console.log($( window ).width());
-				
+			function displayProductsSizeAccordingly(){				
 				if($( window ).width()>600){
 					if($("#product-list-cols").hasClass("hidden")){
 						$("#product-list-cols").removeClass("hidden");

@@ -13,5 +13,11 @@
 		</main>
 	
 		<th:block th:include="fragments/scripts :: scripts"></th:block>
+		
+		<script>
+			$(document).ready(function () {
+				localStorage.setItem("productsInCart", JSON.stringify([]));
+			});
+		</script>
 	</body>
 </html>

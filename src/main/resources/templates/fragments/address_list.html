@@ -57,7 +57,7 @@
 		</div>
 	
 		<div class="text-right mt-4">
-			<button class="btn btn-primary" onclick="window.location.href = 'saveAddress'">Add Destination Address</button>
+			<button class="btn btn-primary" onclick="window.location.href = '/user/saveAddress'">Add Destination Address</button>
 			<button th:if="${canEditUserDetails}" class="btn btn-primary" onclick="editAddress()">Edit Selected Address</button>
 			<button th:if="${canEditUserDetails}" class="btn btn-danger" onclick="deleteAddress()">Delete Selected Address</button>
 		</div>
@@ -67,11 +67,9 @@
 	
 		function selectAddress(pId){
 			$("#selectedAddressId").val(pId);
-			console.log($("#selectedAddressId").val());
 		}
 		
 		function editAddress(){
-			console.log("editAddress");
 			if(selectedAddressId==null){
 				// TODO: Add toast
 			}else{
@@ -82,7 +80,6 @@
 		}
 		
 		function deleteAddress(){
-			console.log("deleteAddress");
 			if(selectedAddressId==null){
 				// TODO: Add toast
 			}else{

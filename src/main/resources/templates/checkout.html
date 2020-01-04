@@ -44,21 +44,23 @@
 				$(".address").click(function(){
 					$(".address.selected").removeClass("selected");
 					$(this).addClass("selected");
-					$("#selectedAddressId").val($(this).attr("id"));
+					$("#confirmDeliveryForm #selectedAddressId").val($(this).attr("id"));
 				});
 			
 				$(".account").click(function(){
 					$(".account.selected").removeClass("selected");
 					$(this).addClass("selected");
-					$("#selectedCreditCardId").val($(this).attr("id"));
+					$("#confirmDeliveryForm #selectedCreditCardId").val($(this).attr("id"));
 				});
 				
 				$(".deliveryMethod").click(function(){
-					$("#selectedDeliveryMethodId").val($(this).attr("id"));					
+					$("#confirmDeliveryForm #selectedDeliveryMethodId").val($(this).attr("id"));					
 				});
 				
 				$("#confirmBtn").click(function(){
-					if($("#selectedAddressId").val() != "" && $("#selectedCreditCardId").val() != "" && $("#selectedDeliveryMethodId").val() != ""){
+					if($("#confirmDeliveryForm #selectedAddressId").val() != "" && 
+					$("#confirmDeliveryForm #selectedCreditCardId").val() != "" && 
+					$("#confirmDeliveryForm #selectedDeliveryMethodId").val() != ""){
 						$("#confirmDeliveryForm").submit();
 					}else{
 						// TODO: Add error toast
