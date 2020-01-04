@@ -1,5 +1,7 @@
 package com.mbarcina.springmarket.entity;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -31,7 +33,7 @@ public class Product{
 	private String name;
 	
 	@Column(name="price")
-	private double price;
+	private BigDecimal price;
 	
 	@Column(name="image_name")
 	private String imageName;
@@ -58,11 +60,11 @@ public class Product{
 		this.name = name;
 	}
 
-	public double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 

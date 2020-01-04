@@ -1,6 +1,7 @@
 package com.mbarcina.springmarket.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -30,11 +31,11 @@ public class ProductDelivery  implements Serializable {
 	private int quantity;
 	
 	@Column(name="price")
-	private double price;
+	private BigDecimal price;
 	
 	public ProductDelivery() { }
 	
-	public ProductDelivery(Product pProduct, Delivery pDelivery, double pPrice, int pQuantity) {
+	public ProductDelivery(Product pProduct, Delivery pDelivery, BigDecimal pPrice, int pQuantity) {
 		this.product = pProduct;
 		this.delivery = pDelivery;
 		this.price = pPrice;	
@@ -65,11 +66,11 @@ public class ProductDelivery  implements Serializable {
 		this.quantity = quantity;
 	}
 
-	public double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 	

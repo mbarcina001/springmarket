@@ -1,5 +1,6 @@
 package com.mbarcina.springmarket.entity;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -51,28 +52,28 @@ public class Delivery{
 	private User deliveryUser;
 	
 	@Column(name="product_total_cost")
-	private double productTotalCost;
+	private BigDecimal productTotalCost;
 
 	@Column(name="delivery_total_cost")
-	private double deliveryTotalCost;
+	private BigDecimal deliveryTotalCost;
 
 	public Delivery() {
 		this.productList = new ArrayList<ProductDelivery>();
 	}
 	
-	public double getProductTotalCost() {
+	public BigDecimal getProductTotalCost() {
 		return productTotalCost;
 	}
 
-	public void setProductTotalCost(double productTotalCost) {
+	public void setProductTotalCost(BigDecimal productTotalCost) {
 		this.productTotalCost = productTotalCost;
 	}
 
-	public double getDeliveryTotalCost() {
+	public BigDecimal getDeliveryTotalCost() {
 		return deliveryTotalCost;
 	}
 
-	public void setDeliveryTotalCost(double deliveryTotalCost) {
+	public void setDeliveryTotalCost(BigDecimal deliveryTotalCost) {
 		this.deliveryTotalCost = deliveryTotalCost;
 	}
 	

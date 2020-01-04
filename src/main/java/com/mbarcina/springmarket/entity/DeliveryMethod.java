@@ -1,5 +1,7 @@
 package com.mbarcina.springmarket.entity;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +22,7 @@ public class DeliveryMethod {
 	private String name;
 
 	@Column(name="price")
-	private Double price;
+	private BigDecimal price;
 	
 	@Column(name="estimated_days")
 	private int estimatedDays;
@@ -43,11 +45,11 @@ public class DeliveryMethod {
 		this.name = name;
 	}
 
-	public Double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 

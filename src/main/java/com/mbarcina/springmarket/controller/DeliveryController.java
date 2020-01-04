@@ -1,7 +1,8 @@
 package com.mbarcina.springmarket.controller;
 
-import java.util.Date;
+import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -64,7 +65,7 @@ public class DeliveryController {
 		newDelivery.setSendAddress(this.addressService.getAddressById(selectedAddressId));
 		newDelivery.setBillingAccount(this.creditCardService.getCreditCardById(selectedAddressId));
 		newDelivery.setDeliveryMethod(this.deliveryMethodService.getDeliveryMethodById(selectedDeliveryMethodId));
-		double totalCost = ((newDelivery.getProductTotalCost() + newDelivery.getDeliveryMethod().getPrice())*100)/100;
+		BigDecimal totalCost = newDelivery.getProductTotalCost().add(newDelivery.getDeliveryMethod().getPrice());
 		newDelivery.setDeliveryTotalCost(totalCost);
 		newDelivery.setDeliveryOrderDate(new Date(System.currentTimeMillis()));
 		
@@ -109,15 +110,18 @@ public class DeliveryController {
 	public @ResponseBody void createDelivery(HttpSession session, @RequestBody CartProduct[] productsShort) {
 		Delivery newDelivery = new Delivery();
 		
-		double totalCost = 0;
+		BigDecimal totalCost = new BigDecimal(0);
 		
 		for(CartProduct product:productsShort) {
 			ProductDelivery auxProduct = new ProductDelivery(productService.getProduct(product.getId()), newDelivery ,product.getPrice(), product.getQuantity());
 			newDelivery.addProduct(auxProduct);
-			totalCost += product.getPrice() * product.getQuantity();
+			BigDecimal auxQuantity = new BigDecimal(product.getQuantity());
+			totalCost = totalCost.add(
+				product.getPrice().multiply(auxQuantity)
+			);
 		}
 		
-		newDelivery.setProductTotalCost((totalCost*100)/100);
+		newDelivery.setProductTotalCost(totalCost);
 		
 		session.setAttribute("delivery", newDelivery);
 	}
