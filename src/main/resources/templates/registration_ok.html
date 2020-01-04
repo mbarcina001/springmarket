@@ -2,15 +2,41 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<th:block th:include="fragments/head :: head"></th:block>
-	</head>
-	
-	<body>
-	
-		<main class="wrap">
-			<h2>Registration completed</h2>
+		
+		<style>
+			.main{
+				position: relative;
+				height:100vh;
+			}
 			
-			<a href="/">Click here to login</a>
-		</main>
+			.content{
+				margin:auto;
+				width:900px;
+				text-align:center;
+				padding: 5em 2em;
+				background-color:lightblue;
+				margin: 0;
+				position: absolute;
+				top: 35%;
+				left: 50%;
+				-ms-transform: translate(-50%, -50%);
+				transform: translate(-50%, -50%);
+			}
+	
+			.content h2{
+				margin-bottom:2em;
+			}
+		</style>
+	</head>	
+	
+	<body>		
+		<div class="main">
+			<div class="content">
+				<h2>Registration completed</h2>
+		
+				<a href="/">Click here to login</a>
+			</div>
+		</div>
 	
 		<th:block th:include="fragments/scripts :: scripts"></th:block>
 	</body>
