@@ -70,8 +70,8 @@
 		}
 		
 		function editAddress(){
-			if(selectedAddressId==null){
-				// TODO: Add toast
+			if($("#selectedAddressId").val() === ""){
+				toastr.error('No address selected!', 'Can\'t edit address');
 			}else{
 				var action = /*[[@{/user/editAddress}]]*/ '/user/editAddress';
 				$("#addressForm").attr("action", action);
@@ -80,8 +80,8 @@
 		}
 		
 		function deleteAddress(){
-			if(selectedAddressId==null){
-				// TODO: Add toast
+			if($("#selectedAddressId").val() === ""){
+				toastr.error('No address selected!', 'Can\'t delete address');
 			}else{
 				// TODO: Show modal
 

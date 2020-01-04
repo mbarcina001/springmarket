@@ -97,7 +97,7 @@ function modifyProductList(quantity, id, price){
 
 function createDelivery(urlSuccess){
 	if(productsInCart.length==0){
-		toastr.error('The cart is empty!', 'Can\'t proceed')
+		toastr.error('The cart is empty!', 'Can\'t proceed');
 	}else{
 		$.ajax({ 
 			url: '/delivery/createDelivery',    

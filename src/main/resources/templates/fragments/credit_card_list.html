@@ -70,8 +70,8 @@
 		}
 		
 		function editCreditCard(){
-			if(selectedCreditCardId==null){
-				// TODO: Add toast
+			if($("#selectedCreditCardId").val() === ""){
+				toastr.error('No credit card selected!', 'Can\'t edit credit card');
 			}else{
 				var action = /*[[@{/user/editCreditCard}]]*/ '/user/editCreditCard';
 				$("#creditCardForm").attr("action", action);
@@ -80,11 +80,9 @@
 		}
 		
 		function deleteCreditCard(){
-			if(selectedCreditCardId==null){
-				// TODO: Add toast
+			if($("#selectedCreditCardId").val() === ""){
+				toastr.error('No credit card selected!', 'Can\'t delete credit card');
 			}else{
-				// TODO: Show modal
-
 				var action = /*[[@{/user/deleteCreditCard}]]*/ '/user/deleteCreditCard';
 				$("#creditCardForm").attr("action", action);
 				$("#creditCardForm").submit();

@@ -53,13 +53,14 @@
 				});
 				
 				$("#confirmBtn").click(function(){
-					if($("#confirmDeliveryForm #selectedAddressId").val() != "" && 
-					$("#confirmDeliveryForm #selectedCreditCardId").val() != "" && 
-					$("#confirmDeliveryForm #selectedDeliveryMethodId").val() != ""){
-						$("#confirmDeliveryForm").submit();
+					if($("#confirmDeliveryForm #selectedAddressId").val() === ""	){
+						toastr.error('No address selected!', 'Can\'t proceed');
+					}else if($("#confirmDeliveryForm #selectedCreditCardId").val() === ""){
+						toastr.error('No cerdit card selected!', 'Can\'t proceed');
+					}else if($("#confirmDeliveryForm #selectedDeliveryMethodId").val() === ""){
+						toastr.error('No delivery method selected!', 'Can\'t proceed');
 					}else{
-						// TODO: Add error toast
-						console.log("ERROR");
+						$("#confirmDeliveryForm").submit();
 					}
 				});
 			});
