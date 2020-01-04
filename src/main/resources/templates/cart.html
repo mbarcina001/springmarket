@@ -23,11 +23,6 @@
 		<th:block th:include="fragments/footer :: footer"></th:block>
 		<th:block th:include="fragments/scripts :: scripts"></th:block>
 		
-		<script 
-			src="../static/js/products.js"
-			th:src="@{/js/products.js}">
-		</script>
-		
 		<script>
 		$(document).ready(function () {
 			loadProductsFromCart();

@@ -7,7 +7,16 @@
 <body th:fragment="scripts">
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script 
+		src="toastr.min.js"
+		th:src="@{/js/toastr.min.js}">
+	</script>
+	<script 
+		src="../static/js/products.js"
+		th:src="@{/js/products.js}">
+	</script>
+	<script 
 		src="../static/js/global.js"
-		th:src="@{/js/global.js}"></script>
+		th:src="@{/js/global.js}">
+	</script>
 </body>
 </html>

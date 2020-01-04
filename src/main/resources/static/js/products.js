@@ -95,18 +95,21 @@ function modifyProductList(quantity, id, price){
 	localStorage.setItem("productsInCart", JSON.stringify(productsInCart));
 }
 
-// TODO: REFACTOR
-function createDelivery(urlSuccess){				
-	$.ajax({ 
-		url: '/delivery/createDelivery',    
-	    type:"POST", 
-	    contentType: "application/json; charset=utf-8",
-	    data: JSON.stringify(productsInCart), //Stringified Json Object
-	    async: false,    //Cross-domain requests and dataType: "jsonp" requests do not support synchronous operation
-	    cache: false,    //This will force requested pages not to be cached by the browser          
-	    processData:false, //To avoid making query String instead of JSON
-	    success: function(){
-	        window.location.href = urlSuccess;
-    	}
-	});
+function createDelivery(urlSuccess){
+	if(productsInCart.length==0){
+		toastr.error('The cart is empty!', 'Can\'t proceed')
+	}else{
+		$.ajax({ 
+			url: '/delivery/createDelivery',    
+		    type:"POST", 
+		    contentType: "application/json; charset=utf-8",
+		    data: JSON.stringify(productsInCart), //Stringified Json Object
+		    async: false,    //Cross-domain requests and dataType: "jsonp" requests do not support synchronous operation
+		    cache: false,    //This will force requested pages not to be cached by the browser          
+		    processData:false, //To avoid making query String instead of JSON
+		    success: function(){
+		        window.location.href = urlSuccess;
+	    	}
+		});
+	}
 }
