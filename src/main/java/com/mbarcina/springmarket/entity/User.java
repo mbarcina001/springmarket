@@ -1,5 +1,6 @@
 package com.mbarcina.springmarket.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,8 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -50,11 +49,8 @@ public class User{
 	@JoinColumn(name="user_id")
 	private List<CreditCard> cardList;
 	
-	@ManyToMany()
-    @JoinTable(name = "user_role", 
-    			joinColumns = @JoinColumn(name = "user_id"), 
-    			inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles;
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	private List<UserRole> roles = new ArrayList<>();
 
 	public User(){  }
 
@@ -114,11 +110,11 @@ public class User{
 		this.cardList = cardList;
 	}
 
-	public List<Role> getRoles() {
+	public List<UserRole> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<Role> roles) {
+	public void setRoles(List<UserRole> roles) {
 		this.roles = roles;
 	}
 
@@ -132,6 +128,10 @@ public class User{
 	
 	public void addAddress(Address pAddress) {
 		this.addressList.add(pAddress);
+	}
+	
+	public void addRole(UserRole pRole) {
+		this.roles.add(pRole);
 	}
 	
 	public void addCreditCard(CreditCard pCreditCard) {

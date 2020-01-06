@@ -1,7 +1,6 @@
 package com.mbarcina.springmarket.repository.impl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.mbarcina.springmarket.dao.IUserDAO;
 import com.mbarcina.springmarket.entity.Role;
 import com.mbarcina.springmarket.entity.User;
+import com.mbarcina.springmarket.entity.UserRole;
 import com.mbarcina.springmarket.repository.IRoleService;
 import com.mbarcina.springmarket.repository.IUserService;
 
@@ -36,9 +36,19 @@ public class UserServiceImpl implements IUserService {
 	}
 	
 	public void createUser(User pUser) {
+		// Enabled by default
+		pUser.setEnabled(1);
+		
+		// Password encrypted
 		pUser.setPassword(bCryptPasswordEncoder.encode(pUser.getPassword()));
-        Role userRole = roleService.findByRole("CUSTOMER");
-        pUser.setRoles(new ArrayList<Role>(Arrays.asList(userRole)));
+		
+		// Add Customer Role by default
+        Role role = roleService.findByRole("CUSTOMER");
+        pUser.setRoles(new ArrayList<UserRole>());
+        UserRole userRole = new UserRole(pUser, role);
+        pUser.addRole(userRole);
+        
+        // Save user
 		userDAO.saveUser(pUser);
 	}
 	

@@ -20,10 +20,10 @@ PRIMARY KEY (role_id)
 );
 
 CREATE TABLE User_Role(
-user_id INT NOT NULL,
-role_id INT NOT NULL,
-FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE CASCADE ON UPDATE CASCADE,
-FOREIGN KEY (role_id) REFERENCES Role (role_id) ON DELETE CASCADE ON UPDATE CASCADE
+user_user_id INT NOT NULL,
+role_role_id INT NOT NULL,
+FOREIGN KEY (user_user_id) REFERENCES User (user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (role_role_id) REFERENCES Role (role_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Product(
@@ -110,13 +110,13 @@ INSERT INTO User(email, password, name, enabled) VALUES('waller-bridge@gmail.com
 
 INSERT INTO Role(role) VALUES('CUSTOMER');
 
-INSERT INTO User_Role(user_id, role_id) VALUES(1,1);
-INSERT INTO User_Role(user_id, role_id) VALUES(2,1);
-INSERT INTO User_Role(user_id, role_id) VALUES(3,1);
-INSERT INTO User_Role(user_id, role_id) VALUES(4,1);
-INSERT INTO User_Role(user_id, role_id) VALUES(5,1);
-INSERT INTO User_Role(user_id, role_id) VALUES(6,1);
-INSERT INTO User_Role(user_id, role_id) VALUES(7,1);
+INSERT INTO User_Role(user_user_id, role_role_id) VALUES(1,1);
+INSERT INTO User_Role(user_user_id, role_role_id) VALUES(2,1);
+INSERT INTO User_Role(user_user_id, role_role_id) VALUES(3,1);
+INSERT INTO User_Role(user_user_id, role_role_id) VALUES(4,1);
+INSERT INTO User_Role(user_user_id, role_role_id) VALUES(5,1);
+INSERT INTO User_Role(user_user_id, role_role_id) VALUES(6,1);
+INSERT INTO User_Role(user_user_id, role_role_id) VALUES(7,1);
 
 INSERT INTO Product(name, price, availability, image_name) VALUES('Kellogg\'s Breakfast Cereal Variety Fun Packs 8.56 oz', 2.98, 'available', 'fun-pak.jpeg');
 INSERT INTO Product(name, price, availability, image_name) VALUES('Honey Nut Cheerios Gluten Free Breakfast Cereal, 19.5 oz', 3.64, 'available', 'cheerios.jpeg');

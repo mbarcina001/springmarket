@@ -8,6 +8,12 @@
 		<form action="#" th:action="@{/register}" th:object="${user}" method="POST">
 			<div class="input-group">
 				<div class="input-group-prepend">
+					<span class="input-group-text"><i class="far fa-user"></i></span>
+				</div>
+				<input type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="name" th:field="*{name}">
+			</div>
+			<div class="input-group">
+				<div class="input-group-prepend">
 					<span class="input-group-text"><i class="far fa-envelope"></i></span>
 				</div>
 				<input type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="email" th:field="*{email}">
