@@ -39,6 +39,8 @@ public class UserController {
 		
 		// add the customer to the model
 		User user = Utils.getUtils().getLoggedUser(userService);
+		modelAndView.addObject("email", user.getEmail());
+		modelAndView.addObject("name", user.getName());
 		modelAndView.addObject("user", user);
 		
 		modelAndView.addObject("canEditUserDetails", true);
@@ -262,6 +264,45 @@ public class UserController {
     	    
 			modelAndView = new ModelAndView("redirect:/user/");
 		}
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value= {"/changePassword"}, method=RequestMethod.GET)
+	public ModelAndView getChangePassword() {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		modelAndView.setViewName("change_password");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value= {"/changePassword"}, method=RequestMethod.POST)
+	public ModelAndView postChangePassword(
+			@RequestParam(value = "oldPassword", required = false) String oldPassword,
+			@RequestParam(value = "newPassword", required = false) String newPassword,
+			@RequestParam(value = "repeatNewPassword", required = false) String repeatNewPassword
+	) {
+		System.out.println("oldPassword: " + oldPassword);
+		System.out.println("newPassword: " + newPassword);
+		System.out.println("repeatNewPassword: " + repeatNewPassword);
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("change_password");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value= {"/updateProfile"}, method=RequestMethod.POST)
+	public ModelAndView updateProfile(
+			@RequestParam(value = "email", required = false) String email,
+			@RequestParam(value = "name", required = false) String name
+	) {
+		System.out.println("email: " + email);
+		System.out.println("name: " + name);
+		
+		ModelAndView modelAndView = new ModelAndView();
+		
+		modelAndView.setViewName("change_password");
 		
 		return modelAndView;
 	}

@@ -5,7 +5,7 @@
 <body th:fragment="edit_profile">
 	<h1>Edit Profile</h1>
 	
-	<form action="#" th:action="@{/editUser}" th:object="${user}" method="post">
+	<form id="updateProfileForm" action="#" th:action="@{/updateUser}" method="post">
 		<div class="form-group">
 			<label for="email">Email</label>
 			<input type="text" class="form-control" id="email" placeholder="Enter email" th:field="*{email}">
@@ -18,8 +18,16 @@
 	</form>
 	
 	<div class="text-right mt-4">
-		<button class="btn btn-primary">Update password</button>
-		<button class="btn btn-primary">Update profile</button>
+		<button id="changePasswordBtn" class="btn btn-primary" onclick="window.location.href = 'changePassword/'">Change Password</button>
+		<button id="updateProfileBtn" class="btn btn-primary" onclick="updateProfile()">Update Profile</button>
 	</div>
+	
+	<script>
+	
+	function updateProfile(){
+		$("#updateProfileForm").submit();
+	}
+	
+	</script>
 </body>
 </html>
