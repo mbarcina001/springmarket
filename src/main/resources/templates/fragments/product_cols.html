@@ -54,19 +54,27 @@
 			font-weight: 700;
 		}
 
-		main #product-list-cols .product-list .product .product-buy{
+		main #product-list-cols .product-list .product .product-buy,
+		main #product-list-cols .product-list .product .product-not-available{
 			border-top:1px solid #DCDCDC;
 			height: 4em;
 			text-align: center;
 		}
 		
-		main #product-list-cols .product-list .product .product-buy .add-to-cart{
+		main #product-list-cols .product-list .product .product-buy .add-to-cart,
+		main #product-list-cols .product-list .product .product-not-available div{
 			width: 100%;
 			height: 100%;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
 			cursor: pointer;
+		}
+		
+		main #product-list-cols .product-list .product .product-not-available p{
+			color: red;
+			margin-bottom: 0;
+    		font-weight: 700;
 		}
 		
 		main #product-list-cols .product-list .product .product-buy .quantity{
@@ -123,7 +131,7 @@
 						<p class="product-price" th:text="${#numbers.formatDecimal(tempProduct.price, 0, 'COMMA', 2, 'POINT') + '€'}"></p>
 					</div>
 					
-					<div class="product-buy">
+					<div th:if="${tempProduct.availability == T(com.mbarcina.springmarket.classes.Availability).available}" class="product-buy">
 						<div class="add-to-cart" th:onclick="'javascript:addToCart(this, \'' + ${tempProduct.id} +'\', \'' + ${tempProduct.price} +'\');'">
 							<p class="mb-0">Add to cart</p>
 						</div>
@@ -131,6 +139,12 @@
 							<span><i class="fas fa-minus-circle" th:onclick="'javascript:removeElement(this, \'' + ${tempProduct.id} +'\', \'' + ${tempProduct.price} +'\');'"></i></span>
 							<input type="text" value="1" th:onchange="'javascript:onInputChange(this, \'' + ${tempProduct.id} +'\', \'' + ${tempProduct.price} +'\');'"/>
 							<span><i class="fas fa-plus-circle" th:onclick="'javascript:addElement(this, \'' + ${tempProduct.id} +'\', \'' + ${tempProduct.price} +'\');'"></i></span>
+						</div>
+					</div>
+					
+					<div th:if="${tempProduct.availability == T(com.mbarcina.springmarket.classes.Availability).not_available}" class="product-not-available">
+						<div>
+							<p>Not available</p>
 						</div>
 					</div>
 				</div>

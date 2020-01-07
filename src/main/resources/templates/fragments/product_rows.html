@@ -36,6 +36,10 @@
 			font-weight: 700;
 		}
 		
+		main #product-list-rows .product-list .product .product-details #addToCartBtn{
+		    padding: 0;
+		}
+		
 		main #product-list-rows .product-list .product .product-buy .quantity{
 			display: flex;
 			align-items: center;
@@ -57,10 +61,16 @@
 			margin-left: 0.5em;
 			margin-right: 0.5em;
 		}
+		
+		main #product-list-rows .product-list .product .not-available{
+			color: red;
+			margin-bottom: 0;
+    		font-weight: 700;
+		}
 	</style>
 </head>
 <body th:fragment="product_rows">
-	<div id="product-list-rows">
+	<div id="product-list-rows" class="mb-4">
 		<div class="product-list">
 			<div th:id="'product' + ${tempProduct.id}" class="product row" th:each="tempProduct: ${products}">
 				<div class="product-image">
@@ -72,14 +82,20 @@
 					<p class="product-price" th:text="${#numbers.formatDecimal(tempProduct.price, 0, 'COMMA', 2, 'POINT') + '€'}"></p>
 				
 				
-					<div class="product-buy">
+					<div th:if="${tempProduct.availability == T(com.mbarcina.springmarket.classes.Availability).available}" class="product-buy">
 						<div class="add-to-cart" th:onclick="'javascript:addToCart(this, \'' + ${tempProduct.id} +'\', \'' + ${tempProduct.price} +'\');'">
-							<p class="mb-0">Add to cart</p>
+							<button id="addToCartBtn" class="btn btn-link">Add to cart</button>
 						</div>
 						<div class="quantity hidden">
 							<span><i class="fas fa-minus-circle" th:onclick="'javascript:removeElement(this, \'' + ${tempProduct.id} +'\', \'' + ${tempProduct.price} +'\');'"></i></span>
 							<input type="text" value="1" th:onchange="'javascript:onInputChange(this, \'' + ${tempProduct.id} +'\', \'' + ${tempProduct.price} +'\');'"/>
 							<span><i class="fas fa-plus-circle" th:onclick="'javascript:addElement(this, \'' + ${tempProduct.id} +'\', \'' + ${tempProduct.price} +'\');'"></i></span>
+						</div>
+					</div>
+					
+					<div th:if="${tempProduct.availability == T(com.mbarcina.springmarket.classes.Availability).not_available}" class="product-not-available">
+						<div>
+							<p class="not-available">Not available</p>
 						</div>
 					</div>
 				</div>
