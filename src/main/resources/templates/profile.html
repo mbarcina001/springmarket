@@ -12,6 +12,12 @@
 				width:14em;
 				border: 1px solid black;
 			}
+			
+			main .logged-in{
+				border: 1px solid black;
+			    border-radius: 20px;
+			    padding: 1.5em;
+			}
 		</style>
 	</head>
 	
@@ -19,6 +25,10 @@
 		<th:block th:include="fragments/header :: header"></th:block>
 	
 		<main class="wrap">
+			<div class="logged-in d-flex justify-content-between align-items-center mt-5 mb-5">
+				<p class="mb-0">Logged in as: <span class="username" th:text="${name}"></span></p>
+				<button class="btn btn-danger" onclick="logout()">Logout</button>
+			</div>
 			<th:block th:include="fragments/edit_profile :: edit_profile"></th:block>
 			<th:block th:include="fragments/address_list :: address_list"></th:block>
 			<th:block th:include="fragments/credit_card_list :: credit_card_list"></th:block>
@@ -44,6 +54,15 @@
 				$(this).addClass("selected");
 			});
 		});
+		
+		function logout(){
+			$.ajax({ 
+				url: '/logout',
+			    success: function(){
+			        window.location.href = '/login';
+		    	}
+			});
+		}
 		</script>
 	</body>
 </html>

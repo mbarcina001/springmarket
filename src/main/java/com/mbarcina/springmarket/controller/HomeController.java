@@ -1,5 +1,6 @@
 package com.mbarcina.springmarket.controller;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mbarcina.springmarket.entity.User;
@@ -44,5 +46,10 @@ public class HomeController {
             modelAndView.setViewName("registration_ok");
         }
         return modelAndView;
+	}
+	
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public @ResponseBody void logout(HttpSession session) {
+		System.out.println("Logout");
 	}
 }
