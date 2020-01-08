@@ -41,10 +41,14 @@ public class UserController {
 		User user = Utils.getUtils().getLoggedUser(userService);
 		modelAndView.addObject("email", user.getEmail());
 		modelAndView.addObject("name", user.getName());
+		
+		// ofuscate credit card numbers and cvc
+		for(int i=0; i<user.getCardList().size(); i++) {
+			user.getCardList().set(i, this.ofuscateCreditCard(user.getCardList().get(i)));
+		}
+		
 		modelAndView.addObject("user", user);
-		
 		modelAndView.addObject("canEditUserDetails", true);
-		
 		modelAndView.setViewName("profile");
 		
 		return modelAndView;
@@ -173,6 +177,7 @@ public class UserController {
 		
 		CreditCard creditCard = new CreditCard();
 		modelAndView.addObject("creditCard", creditCard);
+		modelAndView.addObject("isEditing", false);
 		modelAndView.setViewName("add_credit_card");
 		
 		return modelAndView;
@@ -185,7 +190,7 @@ public class UserController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		if (bindingResult.hasErrors()) {
-			modelAndView.addObject("address", pCreditCard);
+			modelAndView.addObject("creditCard", pCreditCard);
 			modelAndView.setViewName("add_credit_card");
         } else {
         	User user = Utils.getUtils().getLoggedUser(userService);
@@ -212,7 +217,7 @@ public class UserController {
 			// Requested address doesn't belong to user
 			// TODO: Show error message
 		}else {
-			modelAndView.addObject("creditCard", creditCard);
+			modelAndView.addObject("creditCard", this.ofuscateCreditCard(creditCard));
 			modelAndView.addObject("isEditing", true);
 			modelAndView.setViewName("add_credit_card");
 		}
@@ -229,7 +234,12 @@ public class UserController {
 			modelAndView.addObject("isEditing", true);
 			modelAndView.setViewName("add_credit_card");
         } else {
-        	creditCardService.updateCreditCard(pCreditCard);
+        	CreditCard updatedCreditCard = creditCardService.getCreditCardById(pCreditCard.getId());
+        	updatedCreditCard.setExpirationDateMonth(pCreditCard.getExpirationDateMonth());
+        	updatedCreditCard.setExpirationDateYear(pCreditCard.getExpirationDateYear());
+        	updatedCreditCard.setHolder(pCreditCard.getHolder());
+        	
+        	creditCardService.updateCreditCard(updatedCreditCard);
         	
         	modelAndView = new ModelAndView("redirect:/user/");
         }
@@ -305,5 +315,19 @@ public class UserController {
 		modelAndView.setViewName("change_password");
 		
 		return modelAndView;
+	}
+	
+	private CreditCard ofuscateCreditCard(CreditCard pCreditCard) {
+		pCreditCard.setNumber(
+			"Ends with " + pCreditCard.getNumber().substring(
+				pCreditCard.getNumber().length()-4, 
+				pCreditCard.getNumber().length()
+			)
+		);
+		pCreditCard.setCvc("000");
+		
+		System.out.println(pCreditCard);
+		
+		return pCreditCard;
 	}
 }

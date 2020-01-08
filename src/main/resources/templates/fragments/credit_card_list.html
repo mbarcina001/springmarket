@@ -47,7 +47,6 @@
 					<p class="mb-0" th:text="${tempCreditCard.holder}">Card Name</p>
 					<p class="mb-0" th:text="${tempCreditCard.number}">Card Number</p>
 					<p class="mb-0" th:text="${#numbers.formatDecimal(tempCreditCard.expirationDateMonth,2,0)} + ' / ' + ${tempCreditCard.expirationDateYear}"></p>
-					<p class="mb-0" th:text="${tempCreditCard.cvc}">CVC</p>
 					
 					<div class="selected-account">
 						<span><i class="far fa-check-circle"></i></span>
