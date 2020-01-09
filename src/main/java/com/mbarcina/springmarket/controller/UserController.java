@@ -39,13 +39,13 @@ public class UserController {
 		
 		// add the customer to the model
 		User user = Utils.getUtils().getLoggedUser(userService);
-		modelAndView.addObject("email", user.getEmail());
-		modelAndView.addObject("name", user.getName());
 		
 		// ofuscate credit card numbers and cvc
 		for(int i=0; i<user.getCardList().size(); i++) {
 			user.getCardList().set(i, this.ofuscateCreditCard(user.getCardList().get(i)));
 		}
+		
+		user.setPassword("****");
 		
 		modelAndView.addObject("user", user);
 		modelAndView.addObject("canEditUserDetails", true);
@@ -64,6 +64,87 @@ public class UserController {
 		modelAndView.addObject("canEditCart", true);
 		modelAndView.setViewName("cart");
 		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value= {"/updateProfile"}, method=RequestMethod.POST)
+	public ModelAndView updateProfile(@Valid User pUser, BindingResult bindingResult) {
+		
+		ModelAndView modelAndView = new ModelAndView();
+		
+		User user = Utils.getUtils().getLoggedUser(userService);
+		
+		if (bindingResult.hasErrors()) {
+			// TODO: Reject
+		}else {
+			user.setName(pUser.getName());
+			user.setEmail(pUser.getEmail());
+			userService.updateUser(pUser);
+		}
+		
+		// ofuscate credit card numbers and cvc
+		for(int i=0; i<user.getCardList().size(); i++) {
+			user.getCardList().set(i, this.ofuscateCreditCard(user.getCardList().get(i)));
+		}
+		
+		modelAndView.addObject("user", user);
+		modelAndView.addObject("canEditUserDetails", true);
+
+		modelAndView.setViewName("profile");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value= {"/changePassword"}, method=RequestMethod.GET)
+	public ModelAndView getChangePassword() {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		modelAndView.setViewName("change_password");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value= {"/changePassword"}, method=RequestMethod.POST)
+	public ModelAndView postChangePassword(
+			@RequestParam(value = "oldPassword", required = false) String oldPassword,
+			@RequestParam(value = "newPassword", required = false) String newPassword,
+			@RequestParam(value = "repeatNewPassword", required = false) String repeatNewPassword
+	) {
+		System.out.println("oldPassword: " + oldPassword);
+		System.out.println("newPassword: " + newPassword);
+		System.out.println("repeatNewPassword: " + repeatNewPassword);
+		
+		ModelAndView modelAndView = new ModelAndView();
+		
+		User user = Utils.getUtils().getLoggedUser(userService);
+		
+		System.out.println(user.getPassword());
+		
+		if(userService.isPasswordEquals(user, oldPassword)) {
+			System.out.println("Old password OK");
+		}
+		
+		if(newPassword.equals(repeatNewPassword)) {
+			System.out.println("New password OK");
+		}
+		
+		if(!(userService.isPasswordEquals(user, oldPassword) && newPassword.equals(repeatNewPassword))){
+			System.out.println("MEEEC!!");
+			// TODO: Show error
+		}else {
+			user.setPassword(userService.getPasswordEncoded(newPassword));
+			userService.updateUser(user);
+		}
+		
+		// ofuscate credit card numbers and cvc
+		for(int i=0; i<user.getCardList().size(); i++) {
+			user.getCardList().set(i, this.ofuscateCreditCard(user.getCardList().get(i)));
+		}
+		
+		modelAndView.addObject("user", user);
+		modelAndView.addObject("canEditUserDetails", true);
+			
+		modelAndView.setViewName("profile");
 		return modelAndView;
 	}
 	
@@ -274,45 +355,6 @@ public class UserController {
     	    
 			modelAndView = new ModelAndView("redirect:/user/");
 		}
-		
-		return modelAndView;
-	}
-	
-	@RequestMapping(value= {"/changePassword"}, method=RequestMethod.GET)
-	public ModelAndView getChangePassword() {
-		ModelAndView modelAndView = new ModelAndView();
-		
-		modelAndView.setViewName("change_password");
-		
-		return modelAndView;
-	}
-	
-	@RequestMapping(value= {"/changePassword"}, method=RequestMethod.POST)
-	public ModelAndView postChangePassword(
-			@RequestParam(value = "oldPassword", required = false) String oldPassword,
-			@RequestParam(value = "newPassword", required = false) String newPassword,
-			@RequestParam(value = "repeatNewPassword", required = false) String repeatNewPassword
-	) {
-		System.out.println("oldPassword: " + oldPassword);
-		System.out.println("newPassword: " + newPassword);
-		System.out.println("repeatNewPassword: " + repeatNewPassword);
-		
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("change_password");
-		return modelAndView;
-	}
-	
-	@RequestMapping(value= {"/updateProfile"}, method=RequestMethod.POST)
-	public ModelAndView updateProfile(
-			@RequestParam(value = "email", required = false) String email,
-			@RequestParam(value = "name", required = false) String name
-	) {
-		System.out.println("email: " + email);
-		System.out.println("name: " + name);
-		
-		ModelAndView modelAndView = new ModelAndView();
-		
-		modelAndView.setViewName("change_password");
 		
 		return modelAndView;
 	}

@@ -55,5 +55,13 @@ public class UserServiceImpl implements IUserService {
 	public void updateUser(User pUser) {
 		userDAO.saveUser(pUser);
 	}
+	
+	public boolean isPasswordEquals(User pUser, String pPasword) {
+		return bCryptPasswordEncoder.matches(pPasword, pUser.getPassword());
+	}
+	
+	public String getPasswordEncoded(String pPlainPassword) {
+		return bCryptPasswordEncoder.encode(pPlainPassword);
+	}
 
 }

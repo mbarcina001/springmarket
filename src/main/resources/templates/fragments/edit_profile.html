@@ -5,7 +5,9 @@
 <body th:fragment="edit_profile">
 	<h1>Edit Profile</h1>
 	
-	<form id="updateProfileForm" action="#" th:action="@{/updateUser}" method="post">
+	<form id="updateProfileForm" action="#" th:action="@{updateProfile}" th:object="${user}" method="post">
+		<input type="hidden" class="form-control" id="password" placeholder="Enter password" th:field="*{password}">
+		
 		<div class="form-group">
 			<label for="email">Email</label>
 			<input type="text" class="form-control" id="email" placeholder="Enter email" th:field="*{email}">
