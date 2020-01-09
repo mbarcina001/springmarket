@@ -30,7 +30,7 @@ CREATE TABLE Product(
 product_id INT AUTO_INCREMENT,
 name VARCHAR(100),
 price DOUBLE,
-availability ENUM('available', 'not-available'),
+availability ENUM('available', 'not_available'),
 image_name VARCHAR(50),
 PRIMARY KEY (product_id)
 );
@@ -107,8 +107,10 @@ INSERT INTO User(email, password, name, enabled) VALUES('ajeselnik001@gmail.com'
 INSERT INTO User(email, password, name, enabled) VALUES('cliff@wutang.com', '$2y$12$d3CNIuElN0arAnGKmLlJmuT8jrlA8EvUxBCZcX3Xi5HESFgBldhim', 'Clifford Smith', 1);
 INSERT INTO User(email, password, name, enabled) VALUES('ss001@gmail.com', '$2y$12$3JhCFZS2uTtM1mPHRnXjROrFHpeTG.O7N07LWuz0Sa3jvpsowhYEK', 'Sarah Silverman', 1);
 INSERT INTO User(email, password, name, enabled) VALUES('waller-bridge@gmail.com', '$2y$12$KTTgkFIbMflrXrUHzvee2.w1nWWsuFIPoDmab34mTBxrYRSHVMAGK', 'Phoebe Waller-Bridge', 1);
+INSERT INTO User(email, password, name, enabled) VALUES('admin@springmarket.com', '$2y$12$QZKRFpGNOSAD3FzNQefKt.S2FMgO8d3h/GKvivl8R/JERwyf1YxpO', 'Admin', 1);
 
 INSERT INTO Role(role) VALUES('CUSTOMER');
+INSERT INTO Role(role) VALUES('ADMIN');
 
 INSERT INTO User_Role(user_user_id, role_role_id) VALUES(1,1);
 INSERT INTO User_Role(user_user_id, role_role_id) VALUES(2,1);
@@ -117,6 +119,7 @@ INSERT INTO User_Role(user_user_id, role_role_id) VALUES(4,1);
 INSERT INTO User_Role(user_user_id, role_role_id) VALUES(5,1);
 INSERT INTO User_Role(user_user_id, role_role_id) VALUES(6,1);
 INSERT INTO User_Role(user_user_id, role_role_id) VALUES(7,1);
+INSERT INTO User_Role(user_user_id, role_role_id) VALUES(8,2);
 
 INSERT INTO Product(name, price, availability, image_name) VALUES('Kellogg\'s Breakfast Cereal Variety Fun Packs 8.56 oz', 2.98, 'available', 'fun-pak.jpeg');
 INSERT INTO Product(name, price, availability, image_name) VALUES('Honey Nut Cheerios Gluten Free Breakfast Cereal, 19.5 oz', 3.64, 'available', 'cheerios.jpeg');
