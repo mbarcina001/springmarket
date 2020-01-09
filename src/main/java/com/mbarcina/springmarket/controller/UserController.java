@@ -349,7 +349,7 @@ public class UserController {
 		pUser.setPassword("****");
 
 		modelAndView.addObject("name", pUser.getName());
-		modelAndView.addObject("isAdmin", true);
+		modelAndView.addObject("isAdmin", userService.isUserAdmin(pUser));
 		modelAndView.addObject("user", pUser);
 		modelAndView.addObject("canEditUserDetails", true);
 		modelAndView.setViewName("profile");

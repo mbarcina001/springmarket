@@ -12,6 +12,7 @@ import com.mbarcina.springmarket.entity.User;
 import com.mbarcina.springmarket.entity.UserRole;
 import com.mbarcina.springmarket.repository.IRoleService;
 import com.mbarcina.springmarket.repository.IUserService;
+import com.mbarcina.springmarket.utils.Constants;
 
 @Repository
 public class UserServiceImpl implements IUserService {
@@ -54,6 +55,20 @@ public class UserServiceImpl implements IUserService {
 	
 	public void updateUser(User pUser) {
 		userDAO.saveUser(pUser);
+	}
+	
+	public boolean isUserAdmin(User pUser) {
+		boolean rdo = false;
+		
+		for(int i=0; i<pUser.getRoles().size(); i++) {
+			if(pUser.getRoles().get(i).getRole().getRole().equals(Constants.ADMIN_ROLE)) {
+				rdo = true;
+			}
+		}
+		
+		System.out.println("isUserAdmin: " + rdo);
+		
+		return rdo;
 	}
 	
 	public boolean isPasswordEquals(User pUser, String pPasword) {
