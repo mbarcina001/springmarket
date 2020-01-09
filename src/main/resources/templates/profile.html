@@ -25,9 +25,14 @@
 		<th:block th:include="fragments/header :: header"></th:block>
 	
 		<main class="wrap">
-			<div class="logged-in d-flex justify-content-between align-items-center mt-5 mb-5">
-				<p class="mb-0">Logged in as: <span class="username" th:text="${name}"></span></p>
-				<button class="btn btn-danger" onclick="logout()">Logout</button>
+			<div class="logged-in mt-5 mb-5">
+				<div class="d-flex justify-content-between align-items-center">
+					<p class="mb-0">Logged in as: <span class="username" th:text="${name}"></span></p>
+					<div class="d-flex flex-column">
+						<button class="btn btn-danger" onclick="logout()">Logout</button>
+						<button th:if="isAdmin" class="btn btn-primary mt-2" onclick="window.location.href = '/admin/'">Admin menu</button>
+					</div>
+				</div>
 			</div>
 			<th:block th:include="fragments/edit_profile :: edit_profile"></th:block>
 			<th:block th:include="fragments/address_list :: address_list"></th:block>

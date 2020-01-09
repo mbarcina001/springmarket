@@ -35,24 +35,7 @@ public class UserController {
 	
 	@RequestMapping(value= {"/"}, method=RequestMethod.GET)
 	public ModelAndView getUserProfile() {
-		ModelAndView modelAndView = new ModelAndView();
-		
-		// add the customer to the model
-		User user = Utils.getUtils().getLoggedUser(userService);
-		
-		// ofuscate credit card numbers and cvc
-		for(int i=0; i<user.getCardList().size(); i++) {
-			user.getCardList().set(i, this.ofuscateCreditCard(user.getCardList().get(i)));
-		}
-		
-		user.setPassword("****");
-		
-		modelAndView.addObject("user", user);
-		modelAndView.addObject("canEditUserDetails", true);
-		modelAndView.setViewName("profile");
-		
-		return modelAndView;
-		
+		return getProfileModelAndView(null);		
 	}
 	
 	@RequestMapping(value= {"/cart"}, method=RequestMethod.GET)
@@ -70,8 +53,6 @@ public class UserController {
 	@RequestMapping(value= {"/updateProfile"}, method=RequestMethod.POST)
 	public ModelAndView updateProfile(@Valid User pUser, BindingResult bindingResult) {
 		
-		ModelAndView modelAndView = new ModelAndView();
-		
 		User user = Utils.getUtils().getLoggedUser(userService);
 		
 		if (bindingResult.hasErrors()) {
@@ -82,17 +63,7 @@ public class UserController {
 			userService.updateUser(pUser);
 		}
 		
-		// ofuscate credit card numbers and cvc
-		for(int i=0; i<user.getCardList().size(); i++) {
-			user.getCardList().set(i, this.ofuscateCreditCard(user.getCardList().get(i)));
-		}
-		
-		modelAndView.addObject("user", user);
-		modelAndView.addObject("canEditUserDetails", true);
-
-		modelAndView.setViewName("profile");
-		
-		return modelAndView;
+		return getProfileModelAndView(user);
 	}
 	
 	@RequestMapping(value= {"/changePassword"}, method=RequestMethod.GET)
@@ -114,8 +85,6 @@ public class UserController {
 		System.out.println("newPassword: " + newPassword);
 		System.out.println("repeatNewPassword: " + repeatNewPassword);
 		
-		ModelAndView modelAndView = new ModelAndView();
-		
 		User user = Utils.getUtils().getLoggedUser(userService);
 		
 		System.out.println(user.getPassword());
@@ -136,16 +105,7 @@ public class UserController {
 			userService.updateUser(user);
 		}
 		
-		// ofuscate credit card numbers and cvc
-		for(int i=0; i<user.getCardList().size(); i++) {
-			user.getCardList().set(i, this.ofuscateCreditCard(user.getCardList().get(i)));
-		}
-		
-		modelAndView.addObject("user", user);
-		modelAndView.addObject("canEditUserDetails", true);
-			
-		modelAndView.setViewName("profile");
-		return modelAndView;
+		return getProfileModelAndView(user);
 	}
 	
 	@RequestMapping(value= {"/saveAddress"}, method=RequestMethod.GET)
@@ -371,5 +331,28 @@ public class UserController {
 		System.out.println(pCreditCard);
 		
 		return pCreditCard;
+	}
+	
+	private ModelAndView getProfileModelAndView(User pUser) {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		if(pUser==null) {
+			pUser = Utils.getUtils().getLoggedUser(userService);	
+		}
+		
+		// ofuscate credit card numbers and cvc
+		for(int i=0; i<pUser.getCardList().size(); i++) {
+			pUser.getCardList().set(i, this.ofuscateCreditCard(pUser.getCardList().get(i)));
+		}
+		
+		pUser.setPassword("****");
+
+		modelAndView.addObject("name", pUser.getName());
+		modelAndView.addObject("isAdmin", true);
+		modelAndView.addObject("user", pUser);
+		modelAndView.addObject("canEditUserDetails", true);
+		modelAndView.setViewName("profile");
+		
+		return modelAndView;
 	}
 }
