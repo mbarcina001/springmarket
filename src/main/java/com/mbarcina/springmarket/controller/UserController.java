@@ -60,7 +60,8 @@ public class UserController {
 		}else {
 			user.setName(pUser.getName());
 			user.setEmail(pUser.getEmail());
-			userService.updateUser(pUser);
+			userService.updateUser(user);
+			Utils.getUtils().setLoggedUser(user);
 		}
 		
 		return getProfileModelAndView(user);
