@@ -127,7 +127,7 @@ public class UserController {
 	public ModelAndView saveAddress(@Valid Address pAddress, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		if (bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors()) {			
 			modelAndView.addObject("address", pAddress);
 			modelAndView.addObject("isEditing", false);
 			modelAndView.setViewName("add_address");

@@ -12,6 +12,13 @@
 			<h1 th:text="${isEditing} ? 'Edit existing Address' : 'Add new Address'"></h1>
 			
 			<form id="add_address_form" action="#" th:action="${isEditing} ? @{/user/editAddress} : @{/user/saveAddress}" th:object="${address}" method="post">
+				
+				<div class="form-errors" th:if="${#fields.hasErrors('*')}"> 
+					<ul class="mb-0">
+					  <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+					</ul>
+				</div>
+				
 				<div class="row">
 					<input type="hidden" class="form-control" id="id" th:field="*{id}">
 					

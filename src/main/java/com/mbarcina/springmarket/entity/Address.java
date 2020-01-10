@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -19,26 +20,32 @@ public class Address{
 	private int id;
 	
 	@NotNull
+	@NotBlank
 	@Column(name="name")
 	private String name;
 	
 	@NotNull
+	@NotBlank
 	@Column(name="phone")
 	private String phone;
 	
 	@NotNull
+	@NotBlank
 	@Column(name="country")
 	private String country;
 	
 	@NotNull
+	@NotBlank
 	@Column(name="city")
 	private String city;
 	
 	@NotNull
+	@NotBlank
 	@Column(name="province")
 	private String province;
 	
 	@NotNull
+	@NotBlank
 	@Column(name="address")
 	private String address;
 	

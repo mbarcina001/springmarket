@@ -17,3 +17,9 @@
 main{
 	min-height: calc(100vh - 17em);
 }
+
+.form-errors{
+	background-color: #FF9494;
+    padding: 2em 0.5em;
+    margin-bottom: 1em;
+}

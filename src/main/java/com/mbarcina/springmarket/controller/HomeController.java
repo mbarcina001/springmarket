@@ -38,6 +38,7 @@ public class HomeController {
             bindingResult.rejectValue("email", "error.user", "There is already a user registered with the email provided");
         }
         if (bindingResult.hasErrors()) {
+            bindingResult.rejectValue(bindingResult.getFieldError().getField(), bindingResult.getFieldError().getCode());
             modelAndView.setViewName("home");
         } else {
             userService.createUser(user);
