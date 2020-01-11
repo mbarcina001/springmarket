@@ -79,42 +79,53 @@ public class UserController {
 	public ModelAndView getChangePassword() {
 		ModelAndView modelAndView = new ModelAndView();
 		
+		User user = Utils.getUtils().getLoggedUser(userService);
+		
+		modelAndView.addObject("user", user);
 		modelAndView.setViewName("change_password");
 		
 		return modelAndView;
 	}
 	
 	@RequestMapping(value= {"/changePassword"}, method=RequestMethod.POST)
-	public ModelAndView postChangePassword(
-			@RequestParam(value = "oldPassword", required = false) String oldPassword,
-			@RequestParam(value = "newPassword", required = false) String newPassword,
-			@RequestParam(value = "repeatNewPassword", required = false) String repeatNewPassword
-	) {
-		System.out.println("oldPassword: " + oldPassword);
-		System.out.println("newPassword: " + newPassword);
-		System.out.println("repeatNewPassword: " + repeatNewPassword);
-		
+	public ModelAndView postChangePassword(@Valid User pUser, BindingResult bindingResult) {
+		System.out.println("oldPassword: " + pUser.getOldPassword());
+		System.out.println("newPassword: " + pUser.getPassword());
+		System.out.println("repeatNewPassword: " + pUser.getRetypePassword());
+
+		ModelAndView modelAndView = new ModelAndView();
 		User user = Utils.getUtils().getLoggedUser(userService);
+		boolean error = false;
 		
-		System.out.println(user.getPassword());
-		
-		if(userService.isPasswordEquals(user, oldPassword)) {
-			System.out.println("Old password OK");
+		if(pUser.getOldPassword()==null || pUser.getOldPassword().equals("")) {
+			bindingResult.rejectValue("password", "error.user", "Old password can't be empty");
+			error = true;
+		} else if(pUser.getPassword()==null || pUser.getPassword().equals("")) {
+			bindingResult.rejectValue("password", "error.user", "New password can't be empty");
+			error = true;
+		} else if(pUser.getRetypePassword()==null || pUser.getRetypePassword().equals("")) {
+			bindingResult.rejectValue("password", "error.user", "Retype new password can't be empty");
+			error = true;
+		} else if(!userService.isPasswordEquals(user, pUser.getOldPassword())){
+			bindingResult.rejectValue("password", "error.user", "Old password is not correct");
+			error = true;
+		}else if(!pUser.getPassword().equals(pUser.getRetypePassword())) {
+			bindingResult.rejectValue("password", "error.user", "Passwords are not the same");
+			error = true;
 		}
 		
-		if(newPassword.equals(repeatNewPassword)) {
-			System.out.println("New password OK");
-		}
-		
-		if(!(userService.isPasswordEquals(user, oldPassword) && newPassword.equals(repeatNewPassword))){
-			System.out.println("MEEEC!!");
-			// TODO: Show error
+		if(error) {
+			modelAndView.addObject("user", pUser);
+			System.out.println("USER");
+			System.out.println(pUser);
+			modelAndView.setViewName("change_password");
 		}else {
-			user.setPassword(userService.getPasswordEncoded(newPassword));
+			user.setPassword(userService.getPasswordEncoded(pUser.getPassword()));
 			userService.updateUser(user);
+			modelAndView = getProfileModelAndView(user);
 		}
 		
-		return getProfileModelAndView(user);
+		return modelAndView;
 	}
 	
 	@RequestMapping(value= {"/saveAddress"}, method=RequestMethod.GET)
@@ -167,8 +178,7 @@ public class UserController {
 		User user = Utils.getUtils().getLoggedUser(userService);
 		
 		if(!user.getAddressList().contains(address)) {
-			// Requested address doesn't belong to user
-			// TODO: Show error message
+			modelAndView = new ModelAndView("redirect:/error/");
 		}else {
 			modelAndView.addObject("address", address);
 			modelAndView.addObject("isEditing", true);
@@ -206,8 +216,7 @@ public class UserController {
 		int index = user.getAddressList().indexOf(address);
 		
 		if(index == -1) {
-			// Requested address doesn't belong to user
-			// TODO: Show error message
+			modelAndView = new ModelAndView("redirect:/error/");
 		}else {
 			user.getAddressList().remove(index);
 			userService.updateUser(user);
@@ -274,8 +283,7 @@ public class UserController {
 		User user = Utils.getUtils().getLoggedUser(userService);
 		
 		if(!user.getCardList().contains(creditCard)) {
-			// Requested address doesn't belong to user
-			// TODO: Show error message
+			modelAndView = new ModelAndView("redirect:/error/");
 		}else {
 			modelAndView.addObject("creditCard", this.ofuscateCreditCard(creditCard));
 			modelAndView.addObject("isEditing", true);
@@ -319,8 +327,7 @@ public class UserController {
 		int index = user.getCardList().indexOf(creditCard);
 		
 		if(index == -1) {
-			// Requested address doesn't belong to user
-			// TODO: Show error message
+			modelAndView = new ModelAndView("redirect:/error/");
 		}else {
 			user.getCardList().remove(index);
 			user.deleteCreditCard(creditCard);
