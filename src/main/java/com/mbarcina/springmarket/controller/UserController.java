@@ -52,19 +52,27 @@ public class UserController {
 	
 	@RequestMapping(value= {"/updateProfile"}, method=RequestMethod.POST)
 	public ModelAndView updateProfile(@Valid User pUser, BindingResult bindingResult) {
+		ModelAndView modelAndView = new ModelAndView();
 		
 		User user = Utils.getUtils().getLoggedUser(userService);
 		
 		if (bindingResult.hasErrors()) {
-			// TODO: Reject
+			for(int i=0; i<bindingResult.getFieldErrorCount(); i++) {
+				System.out.println(bindingResult.getFieldErrors().get(i));
+			}
+			pUser.setAddressList(user.getAddressList());
+			pUser.setCardList(user.getCardList());
+			modelAndView = getProfileModelAndView(pUser);
 		}else {
 			user.setName(pUser.getName());
 			user.setEmail(pUser.getEmail());
 			userService.updateUser(user);
 			Utils.getUtils().setLoggedUser(user);
+			
+			modelAndView = getProfileModelAndView(user);
 		}
 		
-		return getProfileModelAndView(user);
+		return modelAndView;
 	}
 	
 	@RequestMapping(value= {"/changePassword"}, method=RequestMethod.GET)
@@ -141,6 +149,9 @@ public class UserController {
     	    
         	modelAndView = new ModelAndView("redirect:/user/");
         }
+		
+		System.out.println("pAddress");
+		System.out.println(pAddress);
 		
 		return modelAndView;
 	}
@@ -360,6 +371,9 @@ public class UserController {
 		modelAndView.addObject("user", pUser);
 		modelAndView.addObject("canEditUserDetails", true);
 		modelAndView.setViewName("profile");
+		
+		System.out.println("User");
+		System.out.println(pUser);
 		
 		return modelAndView;
 	}

@@ -14,7 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name="User")
@@ -23,7 +25,9 @@ public class User{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="user_id")
 	private int id;
-	
+
+	@NotNull
+	@NotBlank
 	@Column(name="name")
 	private String name;
 	
@@ -38,6 +42,8 @@ public class User{
     private String retypePassword;
 	
 	@NotNull
+	@NotBlank
+	@Pattern(regexp = "\\w+@\\w+\\.\\w+(,\\s*\\w+@\\w+\\.\\w+)*")
 	@Column(name="email")
 	private String email;
 	

@@ -6,6 +6,12 @@
 	<h1>Edit Profile</h1>
 	
 	<form id="updateProfileForm" action="#" th:action="@{updateProfile}" th:object="${user}" method="post">
+		<div class="form-errors" th:if="${#fields.hasErrors('*')}"> 
+			<ul class="mb-0">
+			  <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+			</ul>
+		</div>
+		
 		<input type="hidden" class="form-control" id="password" placeholder="Enter password" th:field="*{password}">
 		
 		<div class="form-group">
