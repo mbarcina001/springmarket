@@ -48,8 +48,8 @@ CREATE TABLE Credit_Card(
 credit_card_id INT AUTO_INCREMENT,
 holder VARCHAR(50),
 number VARCHAR(50),
-expiration_date_month VARCHAR(2),
-expiration_date_year VARCHAR(4),
+expiration_date_month INT,
+expiration_date_year INT,
 cvc VARCHAR(3),
 user_id INT,
 PRIMARY KEY (credit_card_id),
@@ -152,17 +152,17 @@ INSERT INTO Product(name, price, availability, image_name) VALUES('Kellogg\'s Mu
 INSERT INTO Product(name, price, availability, image_name) VALUES('Garfield Fruity Bites, 12 oz', 3.62, 'available', 'garfield-fruity-bites.png');
 INSERT INTO Product(name, price, availability, image_name) VALUES('Kellogg\'s Super Mario Breakfast Cereal, 12 oz', 3.64, 'available', 'super-mario.jpeg');
 
-INSERT INTO Credit_Card(holder, number, expiration_date_month, expiration_date_year, cvc, user_id) VALUES('John Mulaney', '4140225196568634', '02', '2021', '988', 1);
-INSERT INTO Credit_Card(holder, number, expiration_date_month, expiration_date_year, cvc, user_id) VALUES('Aniya Moore', '4528232123355178', '04', '2022', '449', 1);
-INSERT INTO Credit_Card(holder, number, expiration_date_month, expiration_date_year, cvc, user_id) VALUES('Jim Jefferies', '4805446733871630', '04', '2028', '378', 2);
-INSERT INTO Credit_Card(holder, number, expiration_date_month, expiration_date_year, cvc, user_id) VALUES('Kate McKinnon', '4258508015902425', '12', '2024', '297', 3);
-INSERT INTO Credit_Card(holder, number, expiration_date_month, expiration_date_year, cvc, user_id) VALUES('Anthony Jeselnik', '4775772946088639', '09', '2025', '400', 4);
-INSERT INTO Credit_Card(holder, number, expiration_date_month, expiration_date_year, cvc, user_id) VALUES('Paityn Evans', '4932816651243762', '10', '2020', '915', 4);
-INSERT INTO Credit_Card(holder, number, expiration_date_month, expiration_date_year, cvc, user_id) VALUES('Clifford Smith', '4936659093698433', '08', '2028', '398', 5);
-INSERT INTO Credit_Card(holder, number, expiration_date_month, expiration_date_year, cvc, user_id) VALUES('Robert Fitzgerald', '4921026998246477', '12', '2027', '928', 5);
-INSERT INTO Credit_Card(holder, number, expiration_date_month, expiration_date_year, cvc, user_id) VALUES('Gary Grice', '4586906215496482', '04', '2020', '964', 5);
-INSERT INTO Credit_Card(holder, number, expiration_date_month, expiration_date_year, cvc, user_id) VALUES('Sarah Silverman', '4881925178890145', '06', '2023', '116', 6);
-INSERT INTO Credit_Card(holder, number, expiration_date_month, expiration_date_year, cvc, user_id) VALUES('Phoebe Waller-Bridge', '4343768323145888', '01', '2025', '746', 7);
+INSERT INTO Credit_Card(holder, number, expiration_date_month, expiration_date_year, cvc, user_id) VALUES('John Mulaney', '4140225196568634', 2, 2021, '988', 1);
+INSERT INTO Credit_Card(holder, number, expiration_date_month, expiration_date_year, cvc, user_id) VALUES('Aniya Moore', '4528232123355178', 4, 2022, '449', 1);
+INSERT INTO Credit_Card(holder, number, expiration_date_month, expiration_date_year, cvc, user_id) VALUES('Jim Jefferies', '4805446733871630', 4, 2028, '378', 2);
+INSERT INTO Credit_Card(holder, number, expiration_date_month, expiration_date_year, cvc, user_id) VALUES('Kate McKinnon', '4258508015902425', 12, 2024, '297', 3);
+INSERT INTO Credit_Card(holder, number, expiration_date_month, expiration_date_year, cvc, user_id) VALUES('Anthony Jeselnik', '4775772946088639', 9, 2025, '400', 4);
+INSERT INTO Credit_Card(holder, number, expiration_date_month, expiration_date_year, cvc, user_id) VALUES('Paityn Evans', '4932816651243762', 10, 2020, '915', 4);
+INSERT INTO Credit_Card(holder, number, expiration_date_month, expiration_date_year, cvc, user_id) VALUES('Clifford Smith', '4936659093698433', 8, 2028, '398', 5);
+INSERT INTO Credit_Card(holder, number, expiration_date_month, expiration_date_year, cvc, user_id) VALUES('Robert Fitzgerald', '4921026998246477', 12, 2027, '928', 5);
+INSERT INTO Credit_Card(holder, number, expiration_date_month, expiration_date_year, cvc, user_id) VALUES('Gary Grice', '4586906215496482', 4, 2020, '964', 5);
+INSERT INTO Credit_Card(holder, number, expiration_date_month, expiration_date_year, cvc, user_id) VALUES('Sarah Silverman', '4881925178890145', 6, 2023, '116', 6);
+INSERT INTO Credit_Card(holder, number, expiration_date_month, expiration_date_year, cvc, user_id) VALUES('Phoebe Waller-Bridge', '4343768323145888', 1, 2025, '746', 7);
 
 INSERT INTO Address(name, phone, country, city, province, address, zipcode, user_id) VALUES('John Mulaney', '+1-555-7552-538', 'Spain', 'Bilbao', 'Bizkaia', 'Elcano 23', '48008', 1);
 INSERT INTO Address(name, phone, country, city, province, address, zipcode, user_id) VALUES('Aniya Moore', '+1-555-3140-595', 'Spain', 'Toledo', 'Toledo', 'Calle de Orgaz 7', '45004', 1);
