@@ -127,7 +127,10 @@ public class UserController {
 	public ModelAndView saveAddress(@Valid Address pAddress, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		if (bindingResult.hasErrors()) {			
+		if (bindingResult.hasErrors()) {	
+			for(int i=0; i<bindingResult.getFieldErrorCount(); i++) {
+				System.out.println(bindingResult.getFieldErrors().get(i));
+			}		
 			modelAndView.addObject("address", pAddress);
 			modelAndView.addObject("isEditing", false);
 			modelAndView.setViewName("add_address");
@@ -232,7 +235,11 @@ public class UserController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		if (bindingResult.hasErrors()) {
+			for(int i=0; i<bindingResult.getFieldErrorCount(); i++) {
+				System.out.println(bindingResult.getFieldErrors().get(i));
+			}
 			modelAndView.addObject("creditCard", pCreditCard);
+			modelAndView.addObject("isEditing", false);
 			modelAndView.setViewName("add_credit_card");
         } else {
         	User user = Utils.getUtils().getLoggedUser(userService);

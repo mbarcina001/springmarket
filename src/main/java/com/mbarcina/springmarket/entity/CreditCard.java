@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -20,10 +21,12 @@ public class CreditCard {
 	private int id;
 	
 	@NotNull
+	@NotBlank
 	@Column(name="holder")
 	private String holder;
 	
 	@NotNull
+	@NotBlank
 	@Column(name="number")
 	private String number;
 	
@@ -34,14 +37,14 @@ public class CreditCard {
 	private Integer expirationDateMonth;
 	
 	@NotNull
-	@Max(value=2030)
-	@Min(value=2019)
+	@Max(value=2070)
+	@Min(value=2020)
 	@Column(name="expiration_date_year")
 	private Integer expirationDateYear;
 	
 	@NotNull
-	@Column(name="cvc")
 	@Size(max=3, min=1)
+	@Column(name="cvc")
 	private String cvc;
 	
 	public CreditCard(){  }
