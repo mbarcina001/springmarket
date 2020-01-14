@@ -2,10 +2,12 @@ package com.mbarcina.springmarket.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mbarcina.springmarket.entity.Product;
@@ -22,7 +24,7 @@ public class ProductController {
 	public ModelAndView getProductList() {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		// get customers from the service
+		// get products from the service
 		List<Product> theProducts = productService.getProductList();
 		modelAndView.addObject("products", theProducts);
 		
@@ -33,11 +35,13 @@ public class ProductController {
 	
 	
 	@RequestMapping("/search")
-	public ModelAndView searchProduct(Model theModel) {
+	public ModelAndView searchProduct(
+			HttpSession session, 
+			@RequestParam(value = "searchTerm", required = false) String searchTerm
+	) {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		// get customers from the service
-		List<Product> theProducts = productService.getProductList();
+		List<Product> theProducts = productService.searchProduct(searchTerm);
 		modelAndView.addObject("products", theProducts);
 		
 		modelAndView.setViewName("products");

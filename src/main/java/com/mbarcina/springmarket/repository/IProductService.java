@@ -8,5 +8,6 @@ public interface IProductService {
 	
 	public List<Product> getProductList();
 	public Product getProduct(int pIdProduct);
-
+	public List<Product> searchProduct(String pSearchTerm);
+	
 }

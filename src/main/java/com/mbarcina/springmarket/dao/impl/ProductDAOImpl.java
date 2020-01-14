@@ -40,4 +40,15 @@ public class ProductDAOImpl implements IProductDAO {
 		return product;
 	}
 	
+	@Override
+	public List<Product> searchProductList(String pSearchTerm){
+		// Create a query
+		TypedQuery<Product> theQuery = entityManager.createQuery("from Product WHERE name LIKE '%"+pSearchTerm+"%'", Product.class);
+		
+		// Get the result list
+		List<Product> products = theQuery.getResultList();
+		
+		return products;
+	}
+	
 }

@@ -27,4 +27,9 @@ public class ProductServiceImpl implements IProductService{
 		return productDAO.getProductList(pIdProduct);
 	}
 
+	@Override
+	public List<Product> searchProduct(String pSearchTerm) {
+		return productDAO.searchProductList(pSearchTerm);
+	}
+
 }

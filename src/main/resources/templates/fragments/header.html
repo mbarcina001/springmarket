@@ -97,8 +97,8 @@
 				<input type="text" class="form-control" aria-label="Search" placeholder="Search"/>
 				<div class="input-group-append" onclick="search(this)">
 					<span class="input-group-text">
-					<i class="fas fa-search"></i>
-				</span>
+						<i class="fas fa-search"></i>
+					</span>
 				</div>
 			</div>
 		</div>
@@ -116,6 +116,10 @@
 				</div>
 			</div>
 		</div>
+		
+		<form id="searchForm" action="#" th:action="@{/products/search}" method="GET">
+			<input type="hidden" name="searchTerm" id="searchTerm" />
+		</form>
 		
 		<div id="icons">
 			<div id="search-icon" class="icon" onclick="openMobileSearchBar()">

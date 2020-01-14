@@ -8,5 +8,6 @@ public interface IProductDAO {
 	
 	public List<Product> getProductList();
 	public Product getProductList(int pIdProduct);
+	public List<Product> searchProductList(String pSearchTerm);
 
 }
