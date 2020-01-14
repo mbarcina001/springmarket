@@ -23,7 +23,7 @@
 			    margin: auto;
 			    width: 20em;
 			    background-color: white;
-			    height: 25em;
+			    min-height: 25em;
 			    padding: 2em;
 			    border-radius: 10px;
 			    min-width: 30%;
@@ -63,10 +63,7 @@
 			
 			main #access-form-content #register-link{
 			    display: block;
-			    position: absolute;
-			    bottom: 1em;
-			    left: 0;
-			    right: 0;
+			    margin-top: 1em;
 			}
 			
 			main #access-form-content .btn{
@@ -77,6 +74,21 @@
 			main #access-form-content .alert{
 				max-width: 19em;
 			}
+			
+			main .error-list{
+			    list-style-type: none;
+   				max-width: 20em;
+			    margin-left: auto;
+			    margin-right: auto;
+			    padding-left: 0.5em;
+			    padding-right: 0.5em;
+			}
+			
+			main .error-list li{
+				background-color: #FF9494;
+				padding: 0.5em;
+			}
+			
 		</style>
 		
 	</head>
@@ -89,8 +101,13 @@
 
 					<h4 class="mt-3 mb-4">Welcome to SpringMarket</h4>
 					
-					<th:block th:include="fragments/login_form :: login_form"></th:block>
-					<th:block th:include="fragments/register_form :: register_form"></th:block>
+					<div id="login-form" th:class="${showRegister}? 'hidden'">
+						<th:block th:include="fragments/login_form :: login_form"></th:block>
+					</div>
+					
+					<div id="register-form" th:class="${!showRegister}? 'hidden'">
+						<th:block th:include="fragments/register_form :: register_form"></th:block>
+					</div>
 				</div>
 			</div>
 		</main>

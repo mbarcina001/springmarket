@@ -20,10 +20,20 @@ public class HomeController {
 	@Autowired
 	private IUserService userService;
 
-	@RequestMapping(value= {"/", "/login", "/register"}, method=RequestMethod.GET)
-	public ModelAndView hello() {
+	@RequestMapping(value= {"/", "/login"}, method=RequestMethod.GET)
+	public ModelAndView login() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("showRegister", false);
+		modelAndView.addObject("user", new User());
+        modelAndView.setViewName("home");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value= {"/register"}, method=RequestMethod.GET)
+	public ModelAndView register() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("user", new User());
+		modelAndView.addObject("showRegister", true);
         modelAndView.setViewName("home");
 		return modelAndView;
 	}
@@ -38,7 +48,8 @@ public class HomeController {
             bindingResult.rejectValue("email", "error.user", "There is already a user registered with the email provided");
         }
         if (bindingResult.hasErrors()) {
-            bindingResult.rejectValue(bindingResult.getFieldError().getField(), bindingResult.getFieldError().getCode());
+        	System.out.println(bindingResult.getFieldErrors());
+    		modelAndView.addObject("showRegister", true);
             modelAndView.setViewName("home");
         } else {
             userService.createUser(user);
