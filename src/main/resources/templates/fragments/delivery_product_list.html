@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="checkout_product_rows_styles">
+<head th:fragment="delivery_product_list_styles">
 	<style>
 		main #product-list-rows .product-list .product{
 			margin: 0;
@@ -59,7 +59,7 @@
 		}
 	</style>
 </head>
-<body th:fragment="checkout_product_rows">
+<body th:fragment="delivery_product_list">
 	<div id="product-list-rows">
 		<div class="product-list">
 			<div th:id="'product' + ${tempProduct.product.id}" class="product row" th:each="tempProduct: ${products}">

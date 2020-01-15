@@ -4,7 +4,7 @@
 		<th:block th:include="fragments/head :: head"></th:block>
 		<th:block th:include="fragments/header :: header_styles"></th:block>
 		<th:block th:include="fragments/footer :: footer_styles"></th:block>
-		<th:block th:include="fragments/checkout_product_rows :: checkout_product_rows_styles"></th:block>
+		<th:block th:include="fragments/delivery_product_list :: delivery_product_list_styles"></th:block>
 		<th:block th:include="fragments/address_list :: address_list_styles"></th:block>
 		<th:block th:include="fragments/credit_card_list :: credit_card_list_styles"></th:block>
 	</head>
@@ -14,7 +14,7 @@
 	
 		<main class="wrap">
 		
-			<th:block th:include="fragments/checkout_product_rows :: checkout_product_rows"></th:block>
+			<th:block th:include="fragments/delivery_product_list :: delivery_product_list"></th:block>
 			<th:block th:include="fragments/address_list :: address_list"></th:block>
 			<th:block th:include="fragments/credit_card_list :: credit_card_list"></th:block>
 			<th:block th:include="fragments/delivery_method_list :: delivery_method_list"></th:block>	
