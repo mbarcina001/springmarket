@@ -51,6 +51,48 @@ public class DeliveryController {
 	@Autowired
 	private IProductService productService; 
 	
+	@RequestMapping(value= {"/createDelivery"}, method=RequestMethod.POST)
+	public @ResponseBody void createDelivery(HttpSession session, @RequestBody CartProduct[] productsShort) {
+		Delivery newDelivery = new Delivery();
+		
+		BigDecimal totalCost = new BigDecimal(0);
+		
+		for(CartProduct product:productsShort) {
+			ProductDelivery auxProduct = new ProductDelivery(productService.getProduct(product.getId()), newDelivery ,product.getPrice(), product.getQuantity());
+			newDelivery.addProduct(auxProduct);
+			BigDecimal auxQuantity = new BigDecimal(product.getQuantity());
+			totalCost = totalCost.add(
+				product.getPrice().multiply(auxQuantity)
+			);
+		}
+		
+		newDelivery.setProductTotalCost(totalCost);
+		
+		session.setAttribute("delivery", newDelivery);
+	}
+	
+	@RequestMapping(value= {"/checkout"}, method=RequestMethod.GET)
+	public ModelAndView checkout(HttpSession session) {		
+		ModelAndView modelAndView = new ModelAndView();
+		
+		User loggedUser = Utils.getUtils().getLoggedUser(userService);
+		Delivery myDelivery = (Delivery) session.getAttribute("delivery");
+		
+		modelAndView.addObject("products", myDelivery.getProductList());
+		modelAndView.addObject("user", loggedUser);
+		
+		List<DeliveryMethod> deliveryMethodList = deliveryMethodService.getDeliveryMethodList();
+		modelAndView.addObject("deliveryMethodList", deliveryMethodList);
+
+		modelAndView.addObject("canEditUserDetails", false);
+		modelAndView.addObject("canEditCart", false);
+		modelAndView.addObject("totalPrice", myDelivery.getProductTotalCost());
+		
+		modelAndView.setViewName("checkout");
+		
+		return modelAndView;
+	}
+	
 	@RequestMapping(value= {"/confirmDelivery"}, method=RequestMethod.POST)
 	public ModelAndView confirmDelivery(
 			HttpSession session, 
@@ -83,47 +125,6 @@ public class DeliveryController {
 		modelAndView.setViewName("confirm_delivery");
 		
 		return modelAndView;
-	}
-	
-	@RequestMapping(value= {"/checkout"}, method=RequestMethod.GET)
-	public ModelAndView checkout(HttpSession session) {		
-		ModelAndView modelAndView = new ModelAndView();
-		
-		User loggedUser = Utils.getUtils().getLoggedUser(userService);
-		Delivery myDelivery = (Delivery) session.getAttribute("delivery");
-		
-		modelAndView.addObject("products", myDelivery.getProductList());
-		modelAndView.addObject("user", loggedUser);
-		
-		List<DeliveryMethod> deliveryMethodList = deliveryMethodService.getDeliveryMethodList();
-		modelAndView.addObject("deliveryMethodList", deliveryMethodList);
-
-		modelAndView.addObject("canEditUserDetails", false);
-		modelAndView.addObject("canEditCart", false);
-		
-		modelAndView.setViewName("checkout");
-		
-		return modelAndView;
-	}
-	
-	@RequestMapping(value= {"/createDelivery"}, method=RequestMethod.POST)
-	public @ResponseBody void createDelivery(HttpSession session, @RequestBody CartProduct[] productsShort) {
-		Delivery newDelivery = new Delivery();
-		
-		BigDecimal totalCost = new BigDecimal(0);
-		
-		for(CartProduct product:productsShort) {
-			ProductDelivery auxProduct = new ProductDelivery(productService.getProduct(product.getId()), newDelivery ,product.getPrice(), product.getQuantity());
-			newDelivery.addProduct(auxProduct);
-			BigDecimal auxQuantity = new BigDecimal(product.getQuantity());
-			totalCost = totalCost.add(
-				product.getPrice().multiply(auxQuantity)
-			);
-		}
-		
-		newDelivery.setProductTotalCost(totalCost);
-		
-		session.setAttribute("delivery", newDelivery);
 	}
 
 }

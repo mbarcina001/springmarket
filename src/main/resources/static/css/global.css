@@ -23,3 +23,27 @@ main{
     padding: 2em 0.5em;
     margin-bottom: 1em;
 }
+
+.total-price{
+	margin-top: 1em;
+	text-align: right; 
+	font-weight: 700;
+}
+
+.no-results{
+    border-top: 2.5px solid black;
+    border-bottom: 2.5px solid black;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    text-align: center;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.no-results p{
+	margin-bottom: 0 !important;
+}
+
+.see-full-list{
+	text-align:right;
+}

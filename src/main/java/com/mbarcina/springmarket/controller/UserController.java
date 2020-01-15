@@ -44,6 +44,7 @@ public class UserController {
 		
 		Delivery newDelivery = (Delivery) session.getAttribute("delivery");
 		modelAndView.addObject("products", newDelivery.getProductList());
+		modelAndView.addObject("totalPrice", newDelivery.getProductTotalCost());
 		modelAndView.addObject("canEditCart", true);
 		modelAndView.setViewName("cart");
 		
