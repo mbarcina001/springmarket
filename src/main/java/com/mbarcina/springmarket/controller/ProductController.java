@@ -27,6 +27,7 @@ public class ProductController {
 		// get products from the service
 		List<Product> theProducts = productService.getProductList();
 		modelAndView.addObject("products", theProducts);
+		modelAndView.addObject("showingSearchResult", false);
 		
 		modelAndView.setViewName("products");
 		
@@ -43,6 +44,7 @@ public class ProductController {
 		
 		List<Product> theProducts = productService.searchProduct(searchTerm);
 		modelAndView.addObject("products", theProducts);
+		modelAndView.addObject("showingSearchResult", true);
 		
 		modelAndView.setViewName("products");
 		

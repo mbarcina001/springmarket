@@ -29,6 +29,20 @@
 		main .choose-address .address.selected .selected-address span i{
 			opacity: 0.85;
 		}
+		
+		.no-results{
+		    border-top: 2.5px solid black;
+		    border-bottom: 2.5px solid black;
+		    padding-top: 2em;
+		    padding-bottom: 2em;
+		    text-align: center;
+		    margin-top: 2em;
+		    margin-bottom: 2em;
+		}
+		
+		.no-results p{
+			margin-bottom: 0 !important;
+		}
 	</style>
 </head>
 <body th:fragment="address_list">
@@ -54,6 +68,10 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		
+		<div class="no-results" th:if="${user.addressList.size() == 0}">
+			<p>No addresses found</p>
 		</div>
 	
 		<div class="text-right mt-4">
