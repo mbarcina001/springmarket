@@ -64,7 +64,7 @@
 		<div class="product-list">
 			<div th:id="'product' + ${tempProduct.product.id}" class="product row" th:each="tempProduct: ${products}">
 				<div class="product-image">
-				 	<img th:src="@{${'../images/products/' + tempProduct.product.imageName}}" />
+				 	<img th:src="@{${'../img/products/' + tempProduct.product.imageName}}" />
 				</div>
 				
 				<div class="product-details">
