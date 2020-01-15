@@ -61,7 +61,7 @@ public class UserServiceImpl implements IUserService {
 		boolean rdo = false;
 		
 		for(int i=0; i<pUser.getRoles().size(); i++) {
-			if(pUser.getRoles().get(i).getRole().getRole().equals(Constants.ADMIN_ROLE)) {
+			if(pUser.getRoles().get(i).getRole().getName().equals(Constants.ADMIN_ROLE)) {
 				rdo = true;
 			}
 		}

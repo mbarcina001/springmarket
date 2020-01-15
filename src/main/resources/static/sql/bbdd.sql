@@ -5,60 +5,60 @@ USE spring_market;
 
 #Tables Creation
 CREATE TABLE User(
-user_id INT AUTO_INCREMENT NOT NULL,
+id INT AUTO_INCREMENT NOT NULL,
 email VARCHAR(50) NOT NULL,
 password VARCHAR(60) NOT NULL,
 name VARCHAR(50),
 enabled int,
-PRIMARY KEY (user_id)
+PRIMARY KEY (id)
 );
 
 CREATE TABLE Role(
-role_id INT AUTO_INCREMENT,
-role VARCHAR(50),
-PRIMARY KEY (role_id)
+id INT AUTO_INCREMENT,
+name VARCHAR(50),
+PRIMARY KEY (id)
 );
 
 CREATE TABLE User_Role(
-user_user_id INT NOT NULL,
-role_role_id INT NOT NULL,
-FOREIGN KEY (user_user_id) REFERENCES User (user_id) ON DELETE CASCADE ON UPDATE CASCADE,
-FOREIGN KEY (role_role_id) REFERENCES Role (role_id) ON DELETE CASCADE ON UPDATE CASCADE
+user_id INT NOT NULL,
+role_id INT NOT NULL,
+FOREIGN KEY (user_id) REFERENCES User (id) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (role_id) REFERENCES Role (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Product(
-product_id INT AUTO_INCREMENT,
+id INT AUTO_INCREMENT,
 name VARCHAR(100),
 price DOUBLE,
 availability ENUM('available', 'not_available'),
 image_name VARCHAR(50),
-PRIMARY KEY (product_id)
+PRIMARY KEY (id)
 );
 
 CREATE TABLE Delivery_Method(
-delivery_method_id int AUTO_INCREMENT,
+id int AUTO_INCREMENT,
 name varchar(50),
 price DOUBLE,
 estimated_days int,
-PRIMARY KEY(delivery_method_id)
+PRIMARY KEY(id)
 );
 
 
 CREATE TABLE Credit_Card(
-credit_card_id INT AUTO_INCREMENT,
+id INT AUTO_INCREMENT,
 holder VARCHAR(50),
 number VARCHAR(50),
 expiration_date_month INT,
 expiration_date_year INT,
 cvc VARCHAR(3),
 user_id INT,
-PRIMARY KEY (credit_card_id),
-FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE CASCADE ON UPDATE NO ACTION
+PRIMARY KEY (id),
+FOREIGN KEY (user_id) REFERENCES User (id) ON DELETE CASCADE ON UPDATE NO ACTION
 );
 
 
 CREATE TABLE Address(
-address_id INT AUTO_INCREMENT,
+id INT AUTO_INCREMENT,
 name varchar(50),
 phone varchar(20),
 country VARCHAR(50),
@@ -67,12 +67,12 @@ province VARCHAR(50),
 address VARCHAR(50),
 zipcode VARCHAR(5),
 user_id INT,
-PRIMARY KEY (address_id),
-FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE CASCADE ON UPDATE NO ACTION
+PRIMARY KEY (id),
+FOREIGN KEY (user_id) REFERENCES User (id) ON DELETE CASCADE ON UPDATE NO ACTION
 );
 
 CREATE TABLE Delivery(
-delivery_id INT AUTO_INCREMENT,
+id INT AUTO_INCREMENT,
 delivery_order_date DATETIME,
 estimated_delivery_date DATE,
 user_id INT,
@@ -81,21 +81,21 @@ product_total_cost DOUBLE,
 delivery_total_cost DOUBLE,
 address_id INT,
 credit_card_id INT,
-PRIMARY KEY (delivery_id),
-FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-FOREIGN KEY (delivery_method_id) REFERENCES Delivery_Method (delivery_method_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-FOREIGN KEY (address_id) REFERENCES Address (address_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-FOREIGN KEY (credit_card_id) REFERENCES Credit_Card (credit_card_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+PRIMARY KEY (id),
+FOREIGN KEY (user_id) REFERENCES User (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+FOREIGN KEY (delivery_method_id) REFERENCES Delivery_Method (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+FOREIGN KEY (address_id) REFERENCES Address (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+FOREIGN KEY (credit_card_id) REFERENCES Credit_Card (id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
 CREATE TABLE Product_Delivery(
-product_product_id INT NOT NULL,
-delivery_delivery_id INT NOT NULL,
+product_id INT NOT NULL,
+delivery_id INT NOT NULL,
 price DOUBLE NOT NULL,
 quantity INT NOT NULL,
-FOREIGN KEY (product_product_id) REFERENCES Product (product_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-FOREIGN KEY (delivery_delivery_id) REFERENCES Delivery (delivery_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-PRIMARY KEY (product_product_id, delivery_delivery_id)
+FOREIGN KEY (product_id) REFERENCES Product (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+FOREIGN KEY (delivery_id) REFERENCES Delivery (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+PRIMARY KEY (product_id, delivery_id)
 );
 
 
@@ -109,17 +109,17 @@ INSERT INTO User(email, password, name, enabled) VALUES('ss001@gmail.com', '$2y$
 INSERT INTO User(email, password, name, enabled) VALUES('waller-bridge@gmail.com', '$2y$12$KTTgkFIbMflrXrUHzvee2.w1nWWsuFIPoDmab34mTBxrYRSHVMAGK', 'Phoebe Waller-Bridge', 1);
 INSERT INTO User(email, password, name, enabled) VALUES('admin@springmarket.com', '$2y$12$QZKRFpGNOSAD3FzNQefKt.S2FMgO8d3h/GKvivl8R/JERwyf1YxpO', 'Admin', 1);
 
-INSERT INTO Role(role) VALUES('CUSTOMER');
-INSERT INTO Role(role) VALUES('ADMIN');
+INSERT INTO Role(name) VALUES('CUSTOMER');
+INSERT INTO Role(name) VALUES('ADMIN');
 
-INSERT INTO User_Role(user_user_id, role_role_id) VALUES(1,1);
-INSERT INTO User_Role(user_user_id, role_role_id) VALUES(2,1);
-INSERT INTO User_Role(user_user_id, role_role_id) VALUES(3,1);
-INSERT INTO User_Role(user_user_id, role_role_id) VALUES(4,1);
-INSERT INTO User_Role(user_user_id, role_role_id) VALUES(5,1);
-INSERT INTO User_Role(user_user_id, role_role_id) VALUES(6,1);
-INSERT INTO User_Role(user_user_id, role_role_id) VALUES(7,1);
-INSERT INTO User_Role(user_user_id, role_role_id) VALUES(8,2);
+INSERT INTO User_Role(user_id, role_id) VALUES(1,1);
+INSERT INTO User_Role(user_id, role_id) VALUES(2,1);
+INSERT INTO User_Role(user_id, role_id) VALUES(3,1);
+INSERT INTO User_Role(user_id, role_id) VALUES(4,1);
+INSERT INTO User_Role(user_id, role_id) VALUES(5,1);
+INSERT INTO User_Role(user_id, role_id) VALUES(6,1);
+INSERT INTO User_Role(user_id, role_id) VALUES(7,1);
+INSERT INTO User_Role(user_id, role_id) VALUES(8,2);
 
 INSERT INTO Product(name, price, availability, image_name) VALUES('Kellogg\'s Breakfast Cereal Variety Fun Packs 8.56 oz', 2.98, 'available', 'fun-pak.jpeg');
 INSERT INTO Product(name, price, availability, image_name) VALUES('Honey Nut Cheerios Gluten Free Breakfast Cereal, 19.5 oz', 3.64, 'available', 'cheerios.jpeg');
@@ -190,47 +190,47 @@ INSERT INTO Delivery(delivery_order_date, estimated_delivery_date, user_id, deli
 INSERT INTO Delivery(delivery_order_date, estimated_delivery_date, user_id, delivery_method_id, address_id, credit_card_id, product_total_cost, delivery_total_cost) VALUES('2019-10-16 19:11:47', '2019-10-20', 7, 1, 8, 11, 14.29, 17.29);
 INSERT INTO Delivery(delivery_order_date, estimated_delivery_date, user_id, delivery_method_id, address_id, credit_card_id, product_total_cost, delivery_total_cost) VALUES('2019-09-30 18:05:41', '2019-10-05', 7, 3, 8, 11, 115.11, 122.61);
 
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(4, 1, 3.64, 1);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(11, 1, 3.64, 1);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(8, 1, 3.64, 2);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(16, 1, 3.12, 1);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(12, 1, 3.90, 3);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(22, 2, 3.64, 1);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(20, 2, 4.00, 2);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(15, 3, 2.98, 2);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(7, 3, 3.85, 3);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(1, 3, 2.98, 5);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(26, 4, 3.55, 1);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(10, 5, 2.98, 2);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(18, 5, 3.64, 2);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(21, 5, 3.64, 1);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(3, 5, 3.64, 1);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(22, 5, 3.64, 2);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(5, 5, 3.64, 3);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(12, 5, 3.90, 5);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(29, 5, 3.62, 2);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(6, 6, 3.64, 1);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(10, 6, 2.98, 2);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(20, 6, 4.00, 5);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(23, 6, 3.55, 1);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(28, 7, 3.64, 2);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(9, 7, 3.64, 3);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(14, 7, 3.64, 1);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(5, 7, 3.64, 1);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(10, 8, 2.98, 1);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(15, 8, 2.98, 1);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(10, 9, 2.98, 2);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(4, 9, 3.64, 2);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(1, 9, 2.98, 3);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(9, 10, 3.64, 6);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(22, 11, 3.64, 1);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(27, 11, 3.55, 3);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(1, 12, 2.98, 2);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(5, 12, 3.64, 3);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(8, 12, 3.64, 3);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(11, 12, 3.64, 5);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(12, 12, 3.90, 4);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(20, 12, 4.00, 5);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(23, 12, 3.55, 3);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(24, 12, 3.98, 3);
-INSERT INTO Product_Delivery(product_product_id, delivery_delivery_id, price, quantity) VALUES(28, 12, 3.64, 3);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(4, 1, 3.64, 1);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(11, 1, 3.64, 1);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(8, 1, 3.64, 2);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(16, 1, 3.12, 1);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(12, 1, 3.90, 3);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(22, 2, 3.64, 1);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(20, 2, 4.00, 2);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(15, 3, 2.98, 2);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(7, 3, 3.85, 3);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(1, 3, 2.98, 5);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(26, 4, 3.55, 1);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(10, 5, 2.98, 2);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(18, 5, 3.64, 2);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(21, 5, 3.64, 1);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(3, 5, 3.64, 1);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(22, 5, 3.64, 2);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(5, 5, 3.64, 3);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(12, 5, 3.90, 5);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(29, 5, 3.62, 2);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(6, 6, 3.64, 1);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(10, 6, 2.98, 2);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(20, 6, 4.00, 5);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(23, 6, 3.55, 1);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(28, 7, 3.64, 2);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(9, 7, 3.64, 3);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(14, 7, 3.64, 1);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(5, 7, 3.64, 1);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(10, 8, 2.98, 1);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(15, 8, 2.98, 1);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(10, 9, 2.98, 2);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(4, 9, 3.64, 2);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(1, 9, 2.98, 3);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(9, 10, 3.64, 6);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(22, 11, 3.64, 1);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(27, 11, 3.55, 3);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(1, 12, 2.98, 2);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(5, 12, 3.64, 3);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(8, 12, 3.64, 3);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(11, 12, 3.64, 5);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(12, 12, 3.90, 4);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(20, 12, 4.00, 5);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(23, 12, 3.55, 3);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(24, 12, 3.98, 3);
+INSERT INTO Product_Delivery(product_id, delivery_id, price, quantity) VALUES(28, 12, 3.64, 3);

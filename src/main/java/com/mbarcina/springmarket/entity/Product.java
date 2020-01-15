@@ -26,7 +26,7 @@ import com.mbarcina.springmarket.classes.Availability;
 public class Product{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="product_id")
+	@Column(name="id")
 	private int id;
 	
 	@Column(name="name")

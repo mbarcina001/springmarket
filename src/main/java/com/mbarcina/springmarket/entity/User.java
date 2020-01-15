@@ -23,7 +23,7 @@ import javax.validation.constraints.Pattern;
 public class User{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="user_id")
+	@Column(name="id")
 	private int id;
 
 	@NotNull

@@ -15,7 +15,7 @@ public class DeliveryMethod {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="delivery_method_id")
+	@Column(name="id")
 	private int id;
 
 	@Column(name="name")

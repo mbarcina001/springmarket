@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
 public class CreditCard {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="credit_card_id")
+	@Column(name="id")
 	private int id;
 	
 	@NotNull

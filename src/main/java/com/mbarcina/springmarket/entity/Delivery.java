@@ -23,7 +23,7 @@ import javax.persistence.Table;
 public class Delivery{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="delivery_id")
+	@Column(name="id")
 	private int id;
 	
 	@Column(name="delivery_order_date")
