@@ -43,10 +43,26 @@ public class UserController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		Delivery newDelivery = (Delivery) session.getAttribute("delivery");
-		modelAndView.addObject("products", newDelivery.getProductList());
-		modelAndView.addObject("totalPrice", newDelivery.getProductTotalCost());
+		modelAndView.addObject("delivery", newDelivery);
 		modelAndView.addObject("canEditCart", true);
+		modelAndView.addObject("showAllProducts", true);
 		modelAndView.setViewName("cart");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value= {"/deliveryHistory"}, method=RequestMethod.GET)
+	public ModelAndView showDeliveryHistory() {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		User user = Utils.getUtils().getLoggedUser(userService);
+		modelAndView.addObject("deliveries", user.getDeliveryList());
+		modelAndView.addObject("canEditCart", false);
+		modelAndView.addObject("showAllProducts", false);
+		
+		System.out.println(user.getDeliveryList());
+		
+		modelAndView.setViewName("delivery_history");
 		
 		return modelAndView;
 	}

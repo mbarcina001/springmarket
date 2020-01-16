@@ -123,7 +123,7 @@
 			<div th:id="'product' + ${tempProduct.id}" class="product-col" th:each="tempProduct: ${products}">
 				<div class="product">
 					<div class="product-image">
-					 	<img th:src="@{${'../img/products/' + tempProduct.imageName}}" />
+					 	<img th:src="@{${'/img/products/' + tempProduct.imageName}}" />
 					</div>
 					
 					<div class="product-details">

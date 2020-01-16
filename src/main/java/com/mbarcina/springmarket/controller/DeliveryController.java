@@ -78,7 +78,7 @@ public class DeliveryController {
 		User loggedUser = Utils.getUtils().getLoggedUser(userService);
 		Delivery myDelivery = (Delivery) session.getAttribute("delivery");
 		
-		modelAndView.addObject("products", myDelivery.getProductList());
+		modelAndView.addObject("delivery", myDelivery);
 		modelAndView.addObject("user", loggedUser);
 		
 		List<DeliveryMethod> deliveryMethodList = deliveryMethodService.getDeliveryMethodList();
@@ -86,7 +86,7 @@ public class DeliveryController {
 
 		modelAndView.addObject("canEditUserDetails", false);
 		modelAndView.addObject("canEditCart", false);
-		modelAndView.addObject("totalPrice", myDelivery.getProductTotalCost());
+		modelAndView.addObject("showAllProducts", false);
 		
 		modelAndView.setViewName("checkout");
 		

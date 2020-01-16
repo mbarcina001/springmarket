@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<th:block th:include="fragments/head :: head"></th:block>
+		<th:block th:include="fragments/header :: header_styles"></th:block>
+		<th:block th:include="fragments/footer :: footer_styles"></th:block>
+		<th:block th:include="fragments/delivery_product_list :: delivery_product_list_styles"></th:block>
+		
+		<style>
+			.delivery-name{
+				
+			}
+			
+			main .delivery-name{
+				border: 1px solid #DCDCDC;
+			    border-bottom: 0;
+			    line-height: 4em;
+			}
+			
+			main .delivery-name p{
+		        font-size: 2em;
+			    margin-top: auto;
+			    margin-left: 1em;
+			}
+		</style>
+		
+	</head>
+	
+	<body>
+		<th:block th:include="fragments/header :: header"></th:block>
+	
+		<main class="wrap">
+		
+			<div th:id="'delivery' + ${delivery.id}" th:each="delivery: ${deliveries}">
+				<div class="delivery-name">
+					<p class="mb-0" th:text="'Order #' + ${delivery.id}"></p>
+				</div>
+				
+				<th:block th:include="fragments/delivery_product_list :: delivery_product_list"></th:block>
+			</div>
+			
+			<div class="text-right mt-4">
+				<button id="backBtn" class="btn btn-secondary" onclick="window.location.href = '/user/'">Go back</button>
+			</div>
+		</main>
+	
+		<th:block th:include="fragments/footer :: footer"></th:block>
+		<th:block th:include="fragments/scripts :: scripts"></th:block>
+	</body>
+</html>
