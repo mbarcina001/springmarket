@@ -14,13 +14,11 @@
 			main .delivery-name{
 				border: 1px solid #DCDCDC;
 			    border-bottom: 0;
-			    line-height: 4em;
+			    padding: 0.5em 2em;
 			}
 			
-			main .delivery-name p{
-		        font-size: 2em;
-			    margin-top: auto;
-			    margin-left: 1em;
+			main .delivery-name p.delivery-id{
+				font-size: 2em;
 			}
 		</style>
 		
@@ -30,10 +28,10 @@
 		<th:block th:include="fragments/header :: header"></th:block>
 	
 		<main class="wrap">
-		
-			<div th:id="'delivery' + ${delivery.id}" th:each="delivery: ${deliveries}">
-				<div class="delivery-name">
-					<p class="mb-0" th:text="'Order #' + ${delivery.id}"></p>
+			<div th:id="'delivery' + ${delivery.id}" th:each="delivery: ${deliveries}" class="mb-5">
+				<div class="delivery-name d-flex flex-column">				
+					<p class="delivery-id mb-0" th:text="'Order #' + ${delivery.id} + '   -   Total price: ' + ${#numbers.formatDecimal(delivery.productTotalCost, 0, 'COMMA', 2, 'POINT') + '€'}"></p>
+					<p class="mb-0" th:text="'Order date: ' + ${#dates.format(delivery.deliveryOrderDate, 'dd/MM/yyyy')}"></p>
 				</div>
 				
 				<th:block th:include="fragments/delivery_product_list :: delivery_product_list"></th:block>
