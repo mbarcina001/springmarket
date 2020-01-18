@@ -82,7 +82,8 @@ function modifyProductList(quantity, id, price){
 				productsInCart[i].quantity = quantity; 
 				productsInCart[i].price = price;
 			}else{
-				productsInCart.splice(i, 1)
+				productsInCart.splice(i, 1);
+				$("#product" + id).addClass("hidden");
 				break;
 			}
 		}
