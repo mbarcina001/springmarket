@@ -1,9 +1,12 @@
 package com.mbarcina.springmarket.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +35,9 @@ public class UserController {
 	
 	@Autowired
 	private ICreditCardService creditCardService; 
+	
+	@Value("#{'${province.list}'.split(',')}") 
+	private List<String> provinceList;
 	
 	@RequestMapping(value= {"/"}, method=RequestMethod.GET)
 	public ModelAndView getUserProfile() {
@@ -153,6 +159,8 @@ public class UserController {
 		address.setCountry("ES");
 		modelAndView.addObject("address", address);
 		modelAndView.addObject("isEditing", false);
+		modelAndView.addObject("provinceList", provinceList);
+		
 		modelAndView.setViewName("add_address");
 		
 		return modelAndView;
@@ -163,12 +171,25 @@ public class UserController {
 	public ModelAndView saveAddress(@Valid Address pAddress, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
 		
+		if(pAddress.getProvince()!=null && pAddress.getProvince()!="") {
+			String[] aux = pAddress.getProvince().split(",");
+			System.out.println(aux);
+			pAddress.setProvince(aux[aux.length-1]);
+		}
+		
+		if(pAddress.getProvince().equals("")) {
+			bindingResult.rejectValue("province", "error.address", "Address Province can't be empty");
+		}else if(!provinceList.contains(pAddress.getProvince())) {
+			bindingResult.rejectValue("province", "error.address", "Address Province is not valid");
+		}
+		
 		if (bindingResult.hasErrors()) {	
 			for(int i=0; i<bindingResult.getFieldErrorCount(); i++) {
 				System.out.println(bindingResult.getFieldErrors().get(i));
 			}		
 			modelAndView.addObject("address", pAddress);
 			modelAndView.addObject("isEditing", false);
+			modelAndView.addObject("provinceList", provinceList);
 			modelAndView.setViewName("add_address");
         } else {
         	User user = Utils.getUtils().getLoggedUser(userService);
@@ -199,6 +220,7 @@ public class UserController {
 		}else {
 			modelAndView.addObject("address", address);
 			modelAndView.addObject("isEditing", true);
+			modelAndView.addObject("provinceList", provinceList);
 			modelAndView.setViewName("add_address");
 		}
 				
@@ -209,9 +231,14 @@ public class UserController {
 	public ModelAndView editAddress(@Valid Address pAddress, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
 		
+		if(pAddress.getProvince()!=null && pAddress.getProvince()!="") {
+			pAddress.setProvince(pAddress.getProvince().replaceAll(",", ""));
+		}
+		
 		if (bindingResult.hasErrors()) {
 			modelAndView.addObject("address", pAddress);
 			modelAndView.addObject("isEditing", true);
+			modelAndView.addObject("provinceList", provinceList);
 			modelAndView.setViewName("add_address");
         } else {
         	addressService.updateAddress(pAddress);
@@ -241,7 +268,7 @@ public class UserController {
     	    try {
     	    	addressService.deleteAddress(selectedAddressId);
     	    }catch(Exception e) {
-    	    	// Might get an exception if a delivery has been sent to this address
+    	    	// Might get an exception if a delivery has been sent to this address, so we don't delete from DB
     	    	e.printStackTrace();
     	    }
     	    
@@ -352,7 +379,7 @@ public class UserController {
     	    try {
     	    	creditCardService.deleteCreditCard(selectedCreditCardId);	
     	    }catch(Exception e) {
-    	    	// Might get an exception if a delivery has been paid using this credit card
+    	    	// Might get an exception if a delivery has been paid using this credit card, so we don't delete from DB
     	    	e.printStackTrace();
     	    }
     	    
