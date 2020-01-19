@@ -114,3 +114,92 @@ function createDelivery(urlSuccess){
 		});
 	}
 }
+
+var actualPage = 1;
+var itemsPerPage = 2;
+var totalPages = 0;
+
+function paginationFirst(){
+	if(actualPage != 1){
+		$("#nextPage").val(1);
+		$("#paginationForm").submit();
+	}
+}
+
+function paginationPrevious(){
+	if(actualPage != 1){
+		$("#nextPage").val(actualPage - 1);
+		$("#paginationForm").submit();
+	}
+}
+
+function paginationPage(index){
+	var auxNextPage = $(".pagination .page-item.page a")[index].innerHTML
+	
+	if(parseInt(auxNextPage) != actualPage){
+		$("#nextPage").val(parseInt(auxNextPage));
+		$("#paginationForm").submit();
+	}
+}
+
+function paginationNext(){
+	console.log("paginationNext");	
+	if(actualPage < totalPages){
+		$("#nextPage").val(actualPage + 1);
+		$("#paginationForm").submit();
+	}
+}
+
+function paginationLast(){	
+	if(actualPage < totalPages){
+		$("#nextPage").val(totalPages);
+		$("#paginationForm").submit();
+	}
+	
+}
+
+function renderPagination(){
+	$(".pagination .page-item.page.active").removeClass("active");
+	$(".pagination .page-item.disabled").removeClass("disabled");
+	
+	if(actualPage==1){
+		$(".pagination .page-item.page a")[0].innerHTML = 1,
+		$(".pagination .page-item.page a")[1].innerHTML = 2;
+		$(".pagination .page-item.page a")[2].innerHTML = 3;
+		$($(".pagination .page-item.page").get(0)).addClass("active");
+		$(".pagination .page-item.previous").addClass("disabled");
+		$(".pagination .page-item.first").addClass("disabled");
+	}else if(actualPage == totalPages){
+		$(".pagination .page-item.page a")[0].innerHTML = totalPages - 2,
+		$(".pagination .page-item.page a")[1].innerHTML = totalPages - 1;
+		$(".pagination .page-item.page a")[2].innerHTML = totalPages;
+		$($(".pagination .page-item.page").get(2)).addClass("active");
+		$(".pagination .page-item.next").addClass("disabled");
+		$(".pagination .page-item.last").addClass("disabled");
+	}else{
+		$(".pagination .page-item.page a")[0].innerHTML = actualPage - 1,
+		$(".pagination .page-item.page a")[1].innerHTML = actualPage;
+		$(".pagination .page-item.page a")[2].innerHTML = actualPage + 1;
+		$($(".pagination .page-item.page").get(1)).addClass("active");
+	}	
+	
+	if(itemsPerPage > $("#totalProducts").val()){
+		if(!$(".pagination").hasClass("hidden")){
+			$(".pagination").addClass("hidden");
+		}
+	}else{
+		if($(".pagination").hasClass("hidden")){
+			$(".pagination").removeClass("hidden");
+		}
+	}
+	
+	if(itemsPerPage*2 >= parseInt($("#totalProducts").val())){
+		if(!$($(".pagination .page-item.page a").get(2)).hasClass("hidden")){
+			$($(".pagination .page-item.page a").get(2)).addClass("hidden");
+		}
+	}else{
+		if($($(".pagination .page-item.page a").get(2)).hasClass("hidden")){
+			$($(".pagination .page-item.page a").get(2)).removeClass("hidden");
+		}
+	}
+}

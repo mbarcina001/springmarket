@@ -2,8 +2,6 @@ package com.mbarcina.springmarket.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,34 +19,45 @@ public class ProductController {
 	private IProductService productService;
 	
 	@RequestMapping("/")
-	public ModelAndView getProductList() {
+	public ModelAndView getProductList(
+		@RequestParam(value = "nextPage", required = false) Integer nextPage,
+		@RequestParam(value = "itemsPerPage", required = false) Integer itemsPerPage,
+		@RequestParam(value = "searchTerm", required = false) String searchTerm
+	) {
+		System.out.println("Next Page: " + nextPage);
+		System.out.println("Search Term: " + searchTerm);
+		
 		ModelAndView modelAndView = new ModelAndView();
+		List<Product> theProducts;
+		
+		if(searchTerm != null) {
+			theProducts = productService.searchProduct(searchTerm);
+			modelAndView.addObject("showingSearchResult", true);
+			modelAndView.addObject("searchTerm", searchTerm);
+		}else {
+			theProducts = productService.getProductList();
+		}
 		
 		// get products from the service
-		List<Product> theProducts = productService.getProductList();
+		//theProducts.addAll(theProducts);
 		modelAndView.addObject("products", theProducts);
 		modelAndView.addObject("showingSearchResult", false);
+		modelAndView.addObject("totalProducts", theProducts.size());
+		if(nextPage==null) {
+			modelAndView.addObject("actualPage", 1);
+		}else {
+			modelAndView.addObject("actualPage", nextPage);
+		}
+		
+		if(itemsPerPage==null) {
+			modelAndView.addObject("itemsPerPage", 12);
+		}else {
+			modelAndView.addObject("itemsPerPage", itemsPerPage);
+		}
 		
 		modelAndView.setViewName("products");
 		
 		return modelAndView;
+		
 	}
-	
-	
-	@RequestMapping("/search")
-	public ModelAndView searchProduct(
-			HttpSession session, 
-			@RequestParam(value = "searchTerm", required = false) String searchTerm
-	) {
-		ModelAndView modelAndView = new ModelAndView();
-		
-		List<Product> theProducts = productService.searchProduct(searchTerm);
-		modelAndView.addObject("products", theProducts);
-		modelAndView.addObject("showingSearchResult", true);
-		
-		modelAndView.setViewName("products");
-		
-		return modelAndView;
-	}
-
 }

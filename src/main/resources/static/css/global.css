@@ -47,3 +47,12 @@ main{
 .see-full-list{
 	text-align:right;
 }
+
+/* PAGINATION */
+.pagination i{
+	color: #007bff;
+}
+
+.pagination .disabled i{
+	color: #6c757d;
+}

@@ -72,7 +72,7 @@
 <body th:fragment="product_rows">
 	<div id="product-list-rows" class="mb-4">
 		<div class="product-list">
-			<div th:id="'product' + ${tempProduct.id}" class="product row" th:each="tempProduct: ${products}">
+			<div th:id="'product' + ${tempProduct.id}" class="product row" th:each="tempProduct, iterStat: ${products}" th:if="${iterStat.index}>=(${actualPage}-1)*${itemsPerPage} and ${iterStat.index}<(${actualPage})*${itemsPerPage}">
 				<div class="product-image">
 				 	<img th:src="@{${'/img/products/' + tempProduct.imageName}}" />
 				</div>

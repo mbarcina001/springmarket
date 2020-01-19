@@ -4,7 +4,7 @@ function openMobileSearchBar(){
 	}
 	
 	if(!$("#logo").hasClass("hidden")){
-		$("#logo").addClass("hidden")
+		$("#logo").addClass("hidden");
 	}
 }
 
@@ -14,7 +14,7 @@ function closeMobileSearchBar(){
 	}
 	
 	if($("#logo").hasClass("hidden")){
-		$("#logo").removeClass("hidden")
+		$("#logo").removeClass("hidden");
 	}
 }
 
@@ -24,3 +24,12 @@ function search(element){
 	
 	console.log($(element).parent().children("input").val());
 }
+
+$( window ).resize(function() {
+	if($( window ).width()>=654){
+		if($("#logo").hasClass("hidden")){
+			$("#logo").removeClass("hidden")
+		}
+		closeMobileSearchBar();
+	}
+});

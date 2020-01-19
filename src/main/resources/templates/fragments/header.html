@@ -30,6 +30,10 @@
 			max-width:100%;	
 		}
 		
+		header #search-bar .input-group-append{
+			cursor: pointer;
+		}
+		
 		header #icons{
 			display:flex;
 			margin-bottom: 1em;
@@ -117,8 +121,8 @@
 			</div>
 		</div>
 		
-		<form id="searchForm" action="#" th:action="@{/products/search}" method="GET">
-			<input type="hidden" name="searchTerm" id="searchTerm" />
+		<form id="searchForm" action="#" th:action="@{/products/}" method="GET">
+			<input type="hidden" id="searchTerm" th:name="searchTerm" />
 		</form>
 		
 		<div id="icons">

@@ -112,10 +112,6 @@ public class UserController {
 	
 	@RequestMapping(value= {"/changePassword"}, method=RequestMethod.POST)
 	public ModelAndView postChangePassword(@Valid User pUser, BindingResult bindingResult) {
-		System.out.println("oldPassword: " + pUser.getOldPassword());
-		System.out.println("newPassword: " + pUser.getPassword());
-		System.out.println("repeatNewPassword: " + pUser.getRetypePassword());
-
 		ModelAndView modelAndView = new ModelAndView();
 		User user = Utils.getUtils().getLoggedUser(userService);
 		boolean error = false;
