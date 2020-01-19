@@ -1,5 +1,7 @@
 package com.mbarcina.springmarket.controller;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -62,7 +64,13 @@ public class UserController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		User user = Utils.getUtils().getLoggedUser(userService);
-		modelAndView.addObject("deliveries", user.getDeliveryList());
+		user.getDeliveryList().sort((o1,o2) -> o1.getDeliveryOrderDate().compareTo(o2.getDeliveryOrderDate()));
+		
+		List<Delivery> auxDeliveryList = user.getDeliveryList();
+		auxDeliveryList.sort(Comparator.comparing(o -> o.getDeliveryOrderDate()));
+		Collections.reverse(auxDeliveryList);
+		
+		modelAndView.addObject("deliveries", auxDeliveryList);
 		modelAndView.addObject("canEditCart", false);
 		modelAndView.addObject("showAllProducts", false);
 		
