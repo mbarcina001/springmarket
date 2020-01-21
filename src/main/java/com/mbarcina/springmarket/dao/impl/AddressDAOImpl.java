@@ -23,7 +23,7 @@ public class AddressDAOImpl implements IAddressDAO {
 
 	@Transactional
 	public void updateAddress(Address pAddress) {
-		entityManager.createQuery("UPDATE Address SET name=?1, phone=?2, country=?3, city=?4, province=?5, address=?6, zipcode=?7 WHERE address_id = ?8")
+		entityManager.createQuery("UPDATE Address SET name=?1, phone=?2, country=?3, city=?4, province=?5, address=?6, zipcode=?7 WHERE id = ?8")
 	      .setParameter(1, pAddress.getName())
 	      .setParameter(2, pAddress.getPhone())
 	      .setParameter(3, pAddress.getCountry())

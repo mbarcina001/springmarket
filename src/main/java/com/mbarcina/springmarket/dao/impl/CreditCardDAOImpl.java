@@ -23,7 +23,7 @@ public class CreditCardDAOImpl implements ICreditCardDAO {
 	
 	@Transactional
 	public void updateCreditCard(CreditCard pCreditCard){
-		entityManager.createQuery("UPDATE CreditCard SET holder=?1, number=?2, expiration_date_month=?3, expiration_date_year=?4, cvc=?5 WHERE credit_card_id=?6")
+		entityManager.createQuery("UPDATE CreditCard SET holder=?1, number=?2, expiration_date_month=?3, expiration_date_year=?4, cvc=?5 WHERE id=?6")
 	      .setParameter(1, pCreditCard.getHolder())
 	      .setParameter(2, pCreditCard.getNumber())
 	      .setParameter(3, pCreditCard.getExpirationDateMonth())
