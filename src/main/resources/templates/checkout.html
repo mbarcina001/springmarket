@@ -20,14 +20,14 @@
 			<th:block th:include="fragments/delivery_method_list :: delivery_method_list"></th:block>	
 			
 			<form id="confirmDeliveryForm" action="#" th:action="@{confirmDelivery}" method="POST">
-				<input id="selectedAddressId" th:name="selectedAddressId" type="hidden" />
-				<input id="selectedCreditCardId" th:name="selectedCreditCardId" type="hidden" />
-				<input id="selectedDeliveryMethodId" th:name="selectedDeliveryMethodId" type="hidden" />
+				<input id="selected-address-id-input" th:name="selectedAddressId" type="hidden"/>
+				<input id="selected-creditCard-id-input" th:name="selectedCreditCardId" type="hidden"/>
+				<input id="selected-deliveryMethod-id-input" th:name="selectedDeliveryMethodId" type="hidden"/>
 			</form>		
 		
 			<div class="text-right mt-4">
-				<button id="backBtn" class="btn btn-secondary" onclick="window.location.href = '/products/'">Go back</button>
-				<button id="confirmBtn" class="btn btn-success" >Confirm</button>
+				<button class="btn btn-secondary" onclick="window.location.href = '/products/'">Go back</button>
+				<button class="btn btn-success">Confirm</button>
 			</div>
 		</main>
 	

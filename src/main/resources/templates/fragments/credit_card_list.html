@@ -37,8 +37,8 @@
 	<div class="choose-billing-account mb-5 mt-5">
 		<h4>Choose your billing account</h4>
 		
-		<form id="creditCardForm" action="#" method="GET">
-			<input type="hidden" id="selectedCreditCardId" th:name="selectedCreditCardId"/>
+		<form id="credit-card-form" action="#" method="GET">
+			<input type="hidden" id="selected-credit-card-id" th:name="selectedCreditCardId"/>
 		</form>
 		
 		<div class="account-list">
@@ -69,26 +69,26 @@
 	<script>
 	
 		function selectCreditCard(pId){
-			$("#selectedCreditCardId").val(pId);
+			$("#selected-credit-card-id").val(pId);
 		}
 		
 		function editCreditCard(){
-			if($("#selectedCreditCardId").val() === ""){
+			if($("#selected-credit-card-id").val() === ""){
 				toastr.error('No credit card selected!', 'Can\'t edit credit card');
 			}else{
 				var action = /*[[@{/user/editCreditCard}]]*/ '/user/editCreditCard';
-				$("#creditCardForm").attr("action", action);
-				$("#creditCardForm").submit();
+				$("#credit-card-form").attr("action", action);
+				$("#credit-card-form").submit();
 			}
 		}
 		
 		function deleteCreditCard(){
-			if($("#selectedCreditCardId").val() === ""){
+			if($("#selected-credit-card-id").val() === ""){
 				toastr.error('No credit card selected!', 'Can\'t delete credit card');
 			}else{
 				var action = /*[[@{/user/deleteCreditCard}]]*/ '/user/deleteCreditCard';
-				$("#creditCardForm").attr("action", action);
-				$("#creditCardForm").submit();
+				$("#credit-card-form").attr("action", action);
+				$("#credit-card-form").submit();
 			}
 		}
 	</script>

@@ -84,7 +84,7 @@
 				
 					<div th:if="${tempProduct.availability == T(com.mbarcina.springmarket.classes.Availability).available}" class="product-buy">
 						<div class="add-to-cart" th:onclick="'javascript:addToCart(this, \'' + ${tempProduct.id} +'\', \'' + ${tempProduct.price} +'\');'">
-							<button id="addToCartBtn" class="btn btn-link">Add to cart</button>
+							<button class="btn btn-link">Add to cart</button>
 						</div>
 						<div class="quantity hidden">
 							<span><i class="fas fa-minus-circle" th:onclick="'javascript:removeElement(this, \'' + ${tempProduct.id} +'\', \'' + ${tempProduct.price} +'\');'"></i></span>

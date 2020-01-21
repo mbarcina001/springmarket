@@ -11,15 +11,18 @@
 			</div>
 			<input type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="name" th:field="*{name}">
 		</div>
+		
 		<ul class="error-list" th:if="${#fields.hasErrors('name')}">
 		  <li th:each="err : ${#fields.errors('name')}" th:text="${err}" />
 		</ul>
+		
 		<div class="input-group">
 			<div class="input-group-prepend">
 				<span class="input-group-text"><i class="far fa-envelope"></i></span>
 			</div>
 			<input type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="email" th:field="*{email}">
 		</div>
+		
 		<ul class="error-list" th:if="${#fields.hasErrors('email')}">
 		  <li th:each="err : ${#fields.errors('email')}" th:text="${err}" />
 		</ul>
@@ -30,15 +33,10 @@
 			</div>
 			<input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password" th:field="*{password}">
 		</div>
+		
 		<ul class="error-list" th:if="${#fields.hasErrors('password')}">
 		  <li th:each="err : ${#fields.errors('password')}" th:text="${err}" />
 		</ul>
-		<!-- <div class="input-group">
-			<div class="input-group-prepend">
-				<span class="input-group-text"><i class="fas fa-key"></i></span>
-			</div>
-			<input type="text" class="form-control" placeholder="Confirm Password" aria-label="Password" aria-describedby="password">
-		</div> -->
 		
 		<button type="submit" class="btn btn-primary">Register</button>
 	</form>

@@ -4,12 +4,12 @@
 		<th:block th:include="fragments/head :: head"></th:block>
 		
 		<style>
-			.main{
+			#confirm-delivery-main{
 				position: relative;
 				height:100vh;
 			}
 			
-			.content{
+			#confirm-delivery-content{
 				margin:auto;
 				width:900px;
 				text-align:center;
@@ -23,7 +23,7 @@
 				transform: translate(-50%, -50%);
 			}
 	
-			.content h2{
+			#confirm-delivery-content h2{
 				margin-bottom:2em;
 			}
 		</style>
@@ -31,8 +31,8 @@
 	
 	<body>
 	
-		<div class="main">
-			<div class="content">
+		<div id="confirm-delivery-main">
+			<div id="confirm-delivery-content">
 				<h2>Delivery confirmed</h2>
 				
 				<a href="/">Click here to return home</a>

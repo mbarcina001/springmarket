@@ -25,18 +25,18 @@
 				<p>No results found</p>
 			</div>
 			
-			<form id="paginationForm" action="#" th:action="@{/products/}" method="POST">
-				<input type="hidden" id="totalProducts" th:value="${totalProducts}"/>
-				<input type="hidden" id="actualPage" th:value="${actualPage}"/>
-				<input type="hidden" id="nextPage" th:name="nextPage"/>
-				<input type="hidden" id="searchTerm" th:name="searchTerm" th:value="${searchTerm}"/>
-				<input type="hidden" id="itemsPerPage" th:name="itemsPerPage" th:value="${itemsPerPage}"/>
+			<form id="pagination-form" action="#" th:action="@{/products/}" method="POST">
+				<input type="hidden" id="total-products-input" th:value="${totalProducts}"/>
+				<input type="hidden" id="actual-page-input" th:value="${actualPage}"/>
+				<input type="hidden" id="next-page-input" th:name="nextPage"/>
+				<input type="hidden" id="search-term-input" th:name="searchTerm" th:value="${searchTerm}"/>
+				<input type="hidden" id="items-per-page-input" th:name="itemsPerPage" th:value="${itemsPerPage}"/>
 			</form>
 			
 			<th:block th:include="fragments/product_cols :: product_cols"></th:block>
 			<th:block th:include="fragments/product_rows :: product_rows"></th:block>
 			
-			<nav aria-label="Page navigation example">
+			<nav aria-label="Page navigation">
 				<ul class="pagination justify-content-end">
 					<li class="page-item first disabled">
 						<a class="page-link" href="javascript:paginationFirst();" tabindex="-1">First</a>
@@ -81,9 +81,9 @@
 			$(document).ready(function () {
 				displayProductsSizeAccordingly();
 				loadProductsFromCart();
-				actualPage = parseInt($("#actualPage").val()) || 1;
-				itemsPerPage = parseInt($("#itemsPerPage").val()) || 12;
-				totalPages = parseInt(Math.ceil($("#totalProducts").val() / itemsPerPage));
+				actualPage = parseInt($("#actual-page").val()) || 1;
+				itemsPerPage = parseInt($("#items-per-page").val()) || 12;
+				totalPages = parseInt(Math.ceil($("#total-products").val() / itemsPerPage));
 				renderPagination();
 			});
 

@@ -4,12 +4,12 @@
 		<th:block th:include="fragments/head :: head"></th:block>
 		
 		<style>
-			.main{
+			#registration-ok-main{
 				position: relative;
 				height:100vh;
 			}
 			
-			.content{
+			#registration-ok-content{
 				margin:auto;
 				width:900px;
 				text-align:center;
@@ -23,15 +23,15 @@
 				transform: translate(-50%, -50%);
 			}
 	
-			.content h2{
+			#registration-ok-content h2{
 				margin-bottom:2em;
 			}
 		</style>
 	</head>	
 	
 	<body>		
-		<div class="main">
-			<div class="content">
+		<div id="registration-ok-main">
+			<div id="registration-ok-content">
 				<h2>Registration completed</h2>
 		
 				<a href="/">Click here to login</a>

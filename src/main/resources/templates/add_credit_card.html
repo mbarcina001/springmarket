@@ -24,32 +24,32 @@
 					
 					<div class="form-group col-12" th:if="${isEditing}">
 						<label for="number">Card Number</label>
-						<input type="text" class="form-control" id="number" placeholder="Enter number" th:field="*{number}" readonly>
-						<input type="hidden" class="form-control" id="cvc" placeholder="Enter cvc" th:field="*{cvc}">
+						<input type="text" class="form-control" id="credit-card-number-input" placeholder="Enter number" th:field="*{number}" readonly>
+						<input type="hidden" class="form-control" id="credit-card-cvc-input" placeholder="Enter cvc" th:field="*{cvc}">
 					</div>
 				
 					<div class="form-group col-12 col-sm-6">
 						<label for="holder">Cardholder's Name</label>
-						<input type="text" class="form-control" id="holder" placeholder="Enter holder name" th:field="*{holder}">
+						<input type="text" class="form-control" id="credit-card-holder-input" placeholder="Enter holder name" th:field="*{holder}">
 					</div>
 					
 					<div class="form-group col-12 col-sm-6" th:if="${!isEditing}">
 						<label for="number">Card Number</label>
-						<input type="text" class="form-control" id="number" placeholder="Enter number" th:field="*{number}">
+						<input type="text" class="form-control" id="credit-card-number-input" placeholder="Enter number" th:field="*{number}">
 					</div>
 					
 					<div class="form-group col-12 col-sm-6">
 						<label>Expiration Date</label>
 						<div class="d-flex">
-						<input type="text" class="form-control small-input" placeholder="mm" th:field="*{expirationDateMonth}" />
+						<input type="text" class="form-control small-input" id="credit-card-input" placeholder="mm" th:field="*{expirationDateMonth}" />
 						<span class="p-2"> / </span>
-						<input type="text" class="form-control small-input" placeholder="yyyy" th:field="*{expirationDateYear}" />
+						<input type="text" class="form-control small-input" id="credit-card-input" placeholder="yyyy" th:field="*{expirationDateYear}" />
 						</div>
 					</div>
 					
 					<div class="form-group col-12 col-sm-6" th:if="${!isEditing}">
 						<label for="name">CVC</label>
-						<input type="text" class="form-control" id="cvc" placeholder="Enter cvc" th:field="*{cvc}">
+						<input type="text" class="form-control" id="credit-card-cvc-input" placeholder="Enter cvc" th:field="*{cvc}">
 					</div>
 				</div>
 			</form>

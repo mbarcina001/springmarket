@@ -121,15 +121,15 @@ var totalPages = 0;
 
 function paginationFirst(){
 	if(actualPage != 1){
-		$("#nextPage").val(1);
-		$("#paginationForm").submit();
+		$("#next-page").val(1);
+		$("#pagination-form").submit();
 	}
 }
 
 function paginationPrevious(){
 	if(actualPage != 1){
-		$("#nextPage").val(actualPage - 1);
-		$("#paginationForm").submit();
+		$("#next-page").val(actualPage - 1);
+		$("#pagination-form").submit();
 	}
 }
 
@@ -137,23 +137,23 @@ function paginationPage(index){
 	var auxNextPage = $(".pagination .page-item.page a")[index].innerHTML
 	
 	if(parseInt(auxNextPage) != actualPage){
-		$("#nextPage").val(parseInt(auxNextPage));
-		$("#paginationForm").submit();
+		$("#next-page").val(parseInt(auxNextPage));
+		$("#pagination-form").submit();
 	}
 }
 
 function paginationNext(){
 	console.log("paginationNext");	
 	if(actualPage < totalPages){
-		$("#nextPage").val(actualPage + 1);
-		$("#paginationForm").submit();
+		$("#next-page").val(actualPage + 1);
+		$("#pagination-form").submit();
 	}
 }
 
 function paginationLast(){	
 	if(actualPage < totalPages){
-		$("#nextPage").val(totalPages);
-		$("#paginationForm").submit();
+		$("#next-page").val(totalPages);
+		$("#pagination-form").submit();
 	}
 	
 }
@@ -183,7 +183,7 @@ function renderPagination(){
 		$($(".pagination .page-item.page").get(1)).addClass("active");
 	}	
 	
-	if(itemsPerPage > $("#totalProducts").val()){
+	if(itemsPerPage > $("#total-products").val()){
 		if(!$(".pagination").hasClass("hidden")){
 			$(".pagination").addClass("hidden");
 		}

@@ -4,12 +4,12 @@
 		<th:block th:include="fragments/head :: head"></th:block>
 		
 		<style>
-			.main{
+			#main{
 				position: relative;
 				height:100vh;
 			}
 			
-			.content{
+			#content{
 				margin:auto;
 				width:900px;
 				text-align:center;
@@ -23,17 +23,17 @@
 				transform: translate(-50%, -50%);
 			}
 	
-			.content .no-content{
+			#content p{
 				margin-bottom:2em;
 			}
 		</style>
 	</head>	
 	
 	<body>		
-		<div class="main">
-			<div class="content">
+		<div id="admin-main">
+			<div id="admin-content">
 				<h2>Welcome to admin menu</h2>
-				<p class="no-content">No content here yet.</p>
+				<p>No content here yet.</p>
 				
 				<a href="/products/">Click here to go to products page</a>
 			</div>
