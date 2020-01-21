@@ -35,7 +35,7 @@
 	<div class="choose-address mb-5 mt-5">
 		<h4>Choose the destination address</h4>
 		
-		<form id="addressForm" action="#" method="GET">
+		<form id="address-form" action="#" method="GET">
 			<input type="hidden" id="selected-address-id" th:name="selectedAddressId"/>
 		</form>
 		
@@ -70,28 +70,27 @@
 	<script>
 	
 		function selectAddress(pId){
-			$("#selectedAddressId").val(pId);
+			$("#selected-address-id").val(pId);
 		}
 		
 		function editAddress(){
-			if($("#selectedAddressId").val() === ""){
+			if($("#selected-address-id").val() === ""){
 				toastr.error('No address selected!', 'Can\'t edit address');
 			}else{
 				var action = /*[[@{/user/editAddress}]]*/ '/user/editAddress';
-				$("#addressForm").attr("action", action);
-				$("#addressForm").submit();
+				$("#address-form").attr("action", action);
+				$("#address-form").submit();
 			}
 		}
 		
 		function deleteAddress(){
-			if($("#selectedAddressId").val() === ""){
-				toastr.error('No address selected!', 'Can\'t delete address');
+			if($("#selected-address-id").val() === ""){
 			}else{
 				// TODO: Show modal
 
 				var action = /*[[@{/user/deleteAddress}]]*/ '/user/deleteAddress';
-				$("#addressForm").attr("action", action);
-				$("#addressForm").submit();
+				$("#address-form").attr("action", action);
+				$("#address-form").submit();
 			}
 		}
 		
