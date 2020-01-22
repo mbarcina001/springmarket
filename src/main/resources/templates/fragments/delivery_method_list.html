@@ -7,7 +7,7 @@
 	<div class="choose-shipping-method">
 		<h4>Choose your shipping method</h4>
 		
-		<div th:id="${tempDeliveryMethod.id}" class="pure-radiobutton deliveryMethod" th:each="tempDeliveryMethod: ${deliveryMethodList}">
+		<div th:id="${tempDeliveryMethod.id}" class="pure-radiobutton delivery-method" th:each="tempDeliveryMethod: ${deliveryMethodList}">
 			<input th:id="'radio' + ${tempDeliveryMethodStat.index}" name="radio" type="radio" class="radio">
 			<label th:for="'radio' + ${tempDeliveryMethodStat.index}" th:text="${tempDeliveryMethod.name} + ' - ' + ${#numbers.formatDecimal(tempDeliveryMethod.price, 0, 'COMMA', 2, 'POINT') + '€'}"></label>
 		</div>

@@ -2,11 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="credit_card_list_styles">
 	<style>		
+		main .choose-billing-account .account-list .account{
+			border: 1px solid #DCDCDC;
+			padding:1em;
+			position: relative;
+			margin: 0px;
+			margin-bottom:1em;
+			width:100%;
+			cursor: pointer;
+		}
+		
 		main .choose-billing-account .account-list .account .selected-account{
 			position: absolute;
 			bottom:1em;
 			right:1.5em;
-			cursor: pointer;
 		}
 		
 		main .choose-billing-account .account-list .account .selected-account span i{
@@ -21,15 +30,6 @@
 		
 		main .choose-billing-account .account-list .account.selected .selected-account span i{
 			opacity: 0.85;
-		}
-		
-		main .choose-billing-account .account-list .account{
-			border: 1px solid #DCDCDC;
-			padding:1em;
-			position: relative;
-			margin: 0px;
-			margin-bottom:1em;
-			width:100%;
 		}
 	</style>
 </head>

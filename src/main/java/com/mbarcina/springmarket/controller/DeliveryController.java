@@ -105,7 +105,7 @@ public class DeliveryController {
 		Delivery newDelivery = (Delivery) session.getAttribute("delivery");
 		
 		newDelivery.setSendAddress(this.addressService.getAddressById(selectedAddressId));
-		newDelivery.setBillingAccount(this.creditCardService.getCreditCardById(selectedAddressId));
+		newDelivery.setBillingAccount(this.creditCardService.getCreditCardById(selectedCreditCardId));
 		newDelivery.setDeliveryMethod(this.deliveryMethodService.getDeliveryMethodById(selectedDeliveryMethodId));
 		BigDecimal totalCost = newDelivery.getProductTotalCost().add(newDelivery.getDeliveryMethod().getPrice());
 		newDelivery.setDeliveryTotalCost(totalCost);
