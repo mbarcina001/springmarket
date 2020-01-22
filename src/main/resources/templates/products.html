@@ -26,11 +26,11 @@
 			</div>
 			
 			<form id="pagination-form" action="#" th:action="@{/products/}" method="POST">
-				<input type="hidden" id="total-products-input" th:value="${totalProducts}"/>
-				<input type="hidden" id="actual-page-input" th:value="${actualPage}"/>
-				<input type="hidden" id="next-page-input" th:name="nextPage"/>
+				<input type="hidden" id="total-products" th:value="${totalProducts}"/>
+				<input type="hidden" id="actual-page" th:value="${actualPage}"/>
+				<input type="hidden" id="next-page" th:name="nextPage"/>
 				<input type="hidden" id="search-term-input" th:name="searchTerm" th:value="${searchTerm}"/>
-				<input type="hidden" id="items-per-page-input" th:name="itemsPerPage" th:value="${itemsPerPage}"/>
+				<input type="hidden" id="items-per-page" th:name="itemsPerPage" th:value="${itemsPerPage}"/>
 			</form>
 			
 			<th:block th:include="fragments/product_cols :: product_cols"></th:block>
