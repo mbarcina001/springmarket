@@ -23,10 +23,7 @@ public class ProductController {
 		@RequestParam(value = "nextPage", required = false) Integer nextPage,
 		@RequestParam(value = "itemsPerPage", required = false) Integer itemsPerPage,
 		@RequestParam(value = "searchTerm", required = false) String searchTerm
-	) {
-		System.out.println("Next Page: " + nextPage);
-		System.out.println("Search Term: " + searchTerm);
-		
+	) {		
 		ModelAndView modelAndView = new ModelAndView();
 		List<Product> theProducts;
 		
@@ -36,12 +33,11 @@ public class ProductController {
 			modelAndView.addObject("searchTerm", searchTerm);
 		}else {
 			theProducts = productService.getProductList();
+			modelAndView.addObject("showingSearchResult", false);
 		}
 		
 		// get products from the service
-		//theProducts.addAll(theProducts);
 		modelAndView.addObject("products", theProducts);
-		modelAndView.addObject("showingSearchResult", false);
 		modelAndView.addObject("totalProducts", theProducts.size());
 		if(nextPage==null) {
 			modelAndView.addObject("actualPage", 1);
@@ -50,7 +46,7 @@ public class ProductController {
 		}
 		
 		if(itemsPerPage==null) {
-			modelAndView.addObject("itemsPerPage", 12);
+			modelAndView.addObject("itemsPerPage", 2);
 		}else {
 			modelAndView.addObject("itemsPerPage", itemsPerPage);
 		}

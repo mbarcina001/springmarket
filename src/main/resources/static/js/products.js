@@ -116,7 +116,7 @@ function createDelivery(urlSuccess){
 }
 
 var actualPage = 1;
-var itemsPerPage = 2;
+var itemsPerPage = 10;
 var totalPages = 0;
 
 function paginationFirst(){
@@ -193,11 +193,26 @@ function renderPagination(){
 		}
 	}
 	
-	if(itemsPerPage*2 >= parseInt($("#totalProducts").val())){
-		if(!$($(".pagination .page-item.page a").get(2)).hasClass("hidden")){
-			$($(".pagination .page-item.page a").get(2)).addClass("hidden");
+	if(itemsPerPage*2 >= parseInt($("#total-products").val())){
+		if(actualPage == totalPages){
+			if(!$($(".pagination .page-item.page a").get(0)).hasClass("hidden")){
+				$($(".pagination .page-item.page a").get(0)).addClass("hidden");
+			}
+			if($($(".pagination .page-item.page a").get(2)).hasClass("hidden")){
+				$($(".pagination .page-item.page a").get(2)).removeClass("hidden");
+			}
+		}else{
+			if(!$($(".pagination .page-item.page a").get(2)).hasClass("hidden")){
+				$($(".pagination .page-item.page a").get(2)).addClass("hidden");
+			}
+			if($($(".pagination .page-item.page a").get(0)).hasClass("hidden")){
+				$($(".pagination .page-item.page a").get(0)).removeClass("hidden");
+			}
 		}
 	}else{
+		if($($(".pagination .page-item.page a").get(0)).hasClass("hidden")){
+			$($(".pagination .page-item.page a").get(0)).removeClass("hidden");
+		}
 		if($($(".pagination .page-item.page a").get(2)).hasClass("hidden")){
 			$($(".pagination .page-item.page a").get(2)).removeClass("hidden");
 		}
