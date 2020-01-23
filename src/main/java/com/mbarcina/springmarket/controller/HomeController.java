@@ -39,16 +39,13 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
-	public ModelAndView register(@Valid User user, BindingResult bindingResult) {
-		System.out.println("Received user: " + user.toString());
-		
+	public ModelAndView register(@Valid User user, BindingResult bindingResult) {		
 		ModelAndView modelAndView = new ModelAndView();
         User userExists = userService.findUserByEmail(user.getEmail());
         if (userExists != null) {
             bindingResult.rejectValue("email", "error.user", "There is already a user registered with the email provided");
         }
         if (bindingResult.hasErrors()) {
-        	System.out.println(bindingResult.getFieldErrors());
     		modelAndView.addObject("showRegister", true);
             modelAndView.setViewName("home");
         } else {
@@ -61,7 +58,5 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
-	public @ResponseBody void logout(HttpSession session) {
-		System.out.println("Logout");
-	}
+	public @ResponseBody void logout(HttpSession session) { }
 }

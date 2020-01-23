@@ -27,7 +27,7 @@ public class ProductController {
 		ModelAndView modelAndView = new ModelAndView();
 		List<Product> theProducts;
 		
-		if(searchTerm != null) {
+		if(searchTerm != null && searchTerm != "") {
 			theProducts = productService.searchProduct(searchTerm);
 			modelAndView.addObject("showingSearchResult", true);
 			modelAndView.addObject("searchTerm", searchTerm);
@@ -46,7 +46,7 @@ public class ProductController {
 		}
 		
 		if(itemsPerPage==null) {
-			modelAndView.addObject("itemsPerPage", 2);
+			modelAndView.addObject("itemsPerPage", 12);
 		}else {
 			modelAndView.addObject("itemsPerPage", itemsPerPage);
 		}

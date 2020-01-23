@@ -66,8 +66,6 @@ public class UserServiceImpl implements IUserService {
 			}
 		}
 		
-		System.out.println("isUserAdmin: " + rdo);
-		
 		return rdo;
 	}
 	

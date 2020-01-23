@@ -29,7 +29,6 @@ public class Utils {
 	public void setLoggedUser(User user){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();		
 		Authentication newAuth = new UsernamePasswordAuthenticationToken(user.getEmail(), auth.getCredentials(), auth.getAuthorities());
-		System.out.println(newAuth);
 		SecurityContextHolder.getContext().setAuthentication(newAuth);
 	}
 

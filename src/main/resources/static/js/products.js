@@ -143,7 +143,6 @@ function paginationPage(index){
 }
 
 function paginationNext(){
-	console.log("paginationNext");	
 	if(actualPage < totalPages){
 		$("#next-page").val(actualPage + 1);
 		$("#pagination-form").submit();

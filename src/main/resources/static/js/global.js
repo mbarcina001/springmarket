@@ -21,8 +21,6 @@ function closeMobileSearchBar(){
 function search(element){
 	$("#search-term-input").val($(element).parent().children("input").val());
 	$("#search-form").submit();
-	
-	console.log($(element).parent().children("input").val());
 }
 
 $( window ).resize(function() {
