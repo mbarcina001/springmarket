@@ -236,7 +236,8 @@ public class UserController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		if(pAddress.getProvince()!=null && pAddress.getProvince()!="") {
-			pAddress.setProvince(pAddress.getProvince().replaceAll(",", ""));
+			String[] provinceArray = pAddress.getProvince().split(",");			
+			pAddress.setProvince(provinceArray[provinceArray.length-1]);
 		}
 		
 		if (bindingResult.hasErrors()) {
