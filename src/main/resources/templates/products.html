@@ -6,12 +6,18 @@
 		<th:block th:include="fragments/footer :: footer_styles"></th:block>
 		<th:block th:include="fragments/product_cols :: product_cols_styles"></th:block>
 		<th:block th:include="fragments/product_rows :: product_rows_styles"></th:block>
+		
+		<style>
+			#items-per-page{
+				max-width: 5em;
+			}
+		</style>
 	</head>
 	
 	<body>	
 		<th:block th:include="fragments/header :: header"></th:block>
 		
-		<main class="wrap">
+		<main class="wrap mt-5">
 			<div class="see-full-list" th:if="${showingSearchResult}">
 				<a href="/products/" th:if="showingSearchResult">See full product list</a>
 			</div>
@@ -25,7 +31,13 @@
 				<input type="hidden" id="actual-page" th:value="${actualPage}"/>
 				<input type="hidden" id="next-page" th:name="nextPage"/>
 				<input type="hidden" id="search-term" th:name="searchTerm" th:value="${searchTerm}"/>
-				<input type="hidden" id="items-per-page" th:name="itemsPerPage" th:value="${itemsPerPage}"/>
+				
+				<div id="items-per-page-form-control" class="form-group d-flex align-items-center justify-content-end pr-3">
+					<label class="mb-0 pr-2" for="items-per-page">Items per page</label>					    
+				    <select id="items-per-page" class="form-control" th:value="${itemsPerPage}" name="itemsPerPage">
+						<option th:each="itemsPerPageNumber : ${itemsPerPageList}" th:value="${itemsPerPageNumber}" th:text="${itemsPerPageNumber}" th:selected="${itemsPerPageNumber}==${itemsPerPage}"></option>
+					</select>
+				</div>
 			</form>
 			
 			<th:block th:include="fragments/product_cols :: product_cols"></th:block>
@@ -81,31 +93,15 @@
 				totalPages = parseInt(Math.ceil($("#total-products").val() / itemsPerPage));
 				renderPagination();
 			});
+			
+			$("#items-per-page").on('change', function(val){
+				$("#pagination-form").submit();
+			});
 
 			
 			$( window ).resize(function() {
 				displayProductsSizeAccordingly();
 			});
-			
-			function displayProductsSizeAccordingly(){				
-				if($( window ).width()>600){
-					if($("#product-list-cols").hasClass("hidden")){
-						$("#product-list-cols").removeClass("hidden");
-					}
-					
-					if(!$("#product-list-rows").hasClass("hidden")){
-						$("#product-list-rows").addClass("hidden");
-					}
-				}else{
-					if(!$("#product-list-cols").hasClass("hidden")){
-						$("#product-list-cols").addClass("hidden");
-					}
-					
-					if($("#product-list-rows").hasClass("hidden")){
-						$("#product-list-rows").removeClass("hidden");
-					}
-				}
-			}
 		</script>
 	</body>
 </html>

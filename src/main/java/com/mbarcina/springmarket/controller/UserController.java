@@ -235,11 +235,6 @@ public class UserController {
 	public ModelAndView editAddress(@Valid Address pAddress, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		if(pAddress.getProvince()!=null && pAddress.getProvince()!="") {
-			String[] provinceArray = pAddress.getProvince().split(",");			
-			pAddress.setProvince(provinceArray[provinceArray.length-1]);
-		}
-		
 		if (bindingResult.hasErrors()) {
 			modelAndView.addObject("address", pAddress);
 			modelAndView.addObject("isEditing", true);

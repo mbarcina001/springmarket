@@ -48,8 +48,7 @@
 					</div>
 					
 					<div class="form-group col-12 col-sm-6">
-						<label for="province">Province</label>
-						<input type="hidden" class="form-control" id="address-province-input" placeholder="Enter province" th:field="*{province}">					    
+						<label for="province">Province</label>				    
 					    <select class="form-control" th:field="*{province}">
 							<option value="">Select Province</option>
 							<option th:each="province : ${provinceList}" th:value="${province}" th:text="${province}"></option>

@@ -217,3 +217,23 @@ function renderPagination(){
 		}
 	}
 }
+
+function displayProductsSizeAccordingly(){				
+	if($( window ).width()>600){
+		if($("#product-list-cols").hasClass("hidden")){
+			$("#product-list-cols").removeClass("hidden");
+		}
+		
+		if(!$("#product-list-rows").hasClass("hidden")){
+			$("#product-list-rows").addClass("hidden");
+		}
+	}else{
+		if(!$("#product-list-cols").hasClass("hidden")){
+			$("#product-list-cols").addClass("hidden");
+		}
+		
+		if($("#product-list-rows").hasClass("hidden")){
+			$("#product-list-rows").removeClass("hidden");
+		}
+	}
+}

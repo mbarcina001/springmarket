@@ -3,6 +3,7 @@ package com.mbarcina.springmarket.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +18,9 @@ public class ProductController {
 	
 	@Autowired
 	private IProductService productService;
+	
+	@Value("#{'${itemsPerPage.list}'.split(',')}") 
+	private List<String> itemsPerPageList;
 	
 	@RequestMapping("/")
 	public ModelAndView getProductList(
@@ -51,6 +55,7 @@ public class ProductController {
 			modelAndView.addObject("itemsPerPage", itemsPerPage);
 		}
 		
+		modelAndView.addObject("itemsPerPageList", itemsPerPageList);
 		modelAndView.setViewName("products");
 		
 		return modelAndView;
