@@ -38,8 +38,6 @@
 			<input type="hidden" id="selected-address-id" th:name="selectedAddressId"/>
 		</form>
 		
-		<th:block th:include="fragments/modal_delete :: modal_delete"></th:block>
-		
 		<div class="row">
 			<div class="col-12 col-sm-6" th:each="tempAddress: ${user.addressList}">
 				<div th:id="${tempAddress.id}" class="address hvr-grow" th:onclick="'javascript:selectAddress(\'' + ${tempAddress.id} +'\');'">
