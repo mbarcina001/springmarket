@@ -38,6 +38,8 @@
 			<input type="hidden" id="selected-address-id" th:name="selectedAddressId"/>
 		</form>
 		
+		<th:block th:include="fragments/modal_delete :: modal_delete"></th:block>
+		
 		<div class="row">
 			<div class="col-12 col-sm-6" th:each="tempAddress: ${user.addressList}">
 				<div th:id="${tempAddress.id}" class="address hvr-grow" th:onclick="'javascript:selectAddress(\'' + ${tempAddress.id} +'\');'">
@@ -84,13 +86,17 @@
 		
 		function deleteAddress(){
 			if($("#selected-address-id").val() === ""){
+				toastr.error('No address selected!', 'Can\'t delete address');
 			}else{
-				// TODO: Show modal
-
-				var action = /*[[@{/user/deleteAddress}]]*/ '/user/deleteAddress';
-				$("#address-form").attr("action", action);
-				$("#address-form").submit();
+				$("#delete-modal #delete-btn").attr("onclick","confirmDeleteAddress()");
+				$('#delete-modal').modal('show');
 			}
+		}
+		
+		function confirmDeleteAddress(){
+			var action = /*[[@{/user/deleteAddress}]]*/ '/user/deleteAddress';
+			$("#address-form").attr("action", action);
+			$("#address-form").submit();
 		}
 		
 	</script>

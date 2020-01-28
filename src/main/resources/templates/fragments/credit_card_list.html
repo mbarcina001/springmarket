@@ -86,10 +86,15 @@
 			if($("#selected-credit-card-id").val() === ""){
 				toastr.error('No credit card selected!', 'Can\'t delete credit card');
 			}else{
-				var action = /*[[@{/user/deleteCreditCard}]]*/ '/user/deleteCreditCard';
-				$("#credit-card-form").attr("action", action);
-				$("#credit-card-form").submit();
+				$("#delete-modal #delete-btn").attr("onclick","confirmDeleteCreditCard()");
+				$('#delete-modal').modal('show');
 			}
+		}
+		
+		function confirmDeleteCreditCard(){
+			var action = /*[[@{/user/deleteCreditCard}]]*/ '/user/deleteCreditCard';
+			$("#credit-card-form").attr("action", action);
+			$("#credit-card-form").submit();
 		}
 	</script>
 </body>
