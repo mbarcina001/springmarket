@@ -24,5 +24,5 @@ There's no demo online, but a preview can be seen at my [Portfolio](https://mbar
 2. Import spring_market database from src/main/resources/static/sql/bbdd.sql to MySQL.
 3. Open Java project as Maven project with your favorite IDE.
 4. Add your database configuration to src/main/resources/application.properties
-4.1. A servlet is provided for db testing purposes at src/main/java/com.mbarcina.testdb.testDbServlet.java
+    1. A servlet is provided for db testing purposes at src/main/java/com.mbarcina.testdb.testDbServlet.java
 5. Start the application at src/main/java/com.mbarcina.springmarket.SpringmarketApplication
