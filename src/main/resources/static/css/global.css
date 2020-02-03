@@ -46,6 +46,8 @@ main{
 
 .see-full-list{
 	text-align:right;
+	margin-right: 1em;
+    margin-bottom: 0.5em;
 }
 
 /* PAGINATION */
